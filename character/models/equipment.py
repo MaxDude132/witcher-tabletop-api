@@ -2,58 +2,9 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import gettext_lazy as _
 
-from .utils import DiceRoll
+from .utils import DiceRollInformation
 
-
-class ConcealmentChoices(models.TextChoices):
-    TINY = 'T', _('Tiny')
-    SMALL = 'S', _('Small')
-    LARGE = 'L', _('Large')
-    CANNOT_HIDE = 'N', _('Cannot hide')
-
-
-class AvailabilityChoices(models.TextChoices):
-    EVERYWHERE = 'E', _('Everywhere')
-    COMMON = 'C', _('Common')
-    POOR = 'P', _('Poor')
-    RARE = 'R', _('Rare')
-
-
-class DamageTypeChoices(models.TextChoices):
-    SLASHING = 'S', _('Slashing')
-    PIERCING = 'P', _('Piercing')
-    BLUDGEONING = 'B', _('Bludgeoning')
-    ELEMENTAL = 'E', _('Elemental')
-
-
-class HandsRequiredChoices(models.IntegerChoices):
-    ONE_HANDED = 1, _('One-handed')
-    TWO_HANDED = 2, _('Two-handed')
-
-
-class WeaponCategoryChoices(models.TextChoices):
-    SWORDS = 'swords', _('Swords')
-    SMALL_BLADES = 'small_blades', _('Small Blades')
-    AXES = 'axes', _('Axes')
-    BLUDGEONS = 'bludgeons', _('Bludgeons')
-    POLE_ARMS = 'pole_arms', _('Pole Arms')
-    STAVES = 'staves', _('Staves')
-    THROWN_WEAPONSE = 'thrown_weapons', _('Thrown Weapons')
-    BOWS = 'bows', _('Bows')
-    CROSSBOWS = 'crossbows', _('Crossbows')
-
-
-class ArmorCategoryChoices(models.TextChoices):
-    HEAD_ARMOR = 'head_armor', _('Head Armor')
-    TORSO_ARMOR = 'torso_armor', _('Torso Armor')
-    LEG_ARMOR = 'leg_armor', _('Leg Armor')
-    SHIELDS = 'shields', _('Shields')
-
-
-class ArmorTypeChoices(models.TextChoices):
-    LIGHT = 'light', _('Light')
-    MEDIUM = 'medium', _('Medium')
-    HEAVY = 'heavy', _('Heavy')
+from ..choices import ConcealmentChoice, AvailabilityChoice, WeaponCategoryChoice, DamageTypeChoice, HandsRequiredChoice, ArmorTypeChoice, ArmorCategoryChoice
 
 
 class BaseEquipmentMixin(models.Model):
@@ -79,35 +30,46 @@ class Gear(BaseEquipmentMixin):
 
 
 class ToolKit(BaseEquipmentMixin):
-    concealment = models.CharField(max_length=1, choices=ConcealmentChoices.choices)
-    availablility = models.CharField(max_length=1, choices=AvailabilityChoices.choices)
+    concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
+    availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     impacts = models.ManyToManyField('Impact')
 
 
 class Weapon(BaseEquipmentMixin):
-    category = models.CharField(max_length=50, choices=WeaponCategoryChoices.choices)
-    damage = models.ForeignKey(DiceRoll, on_delete=models.DO_NOTHING)
-    damage_type = models.CharField(max_length=1, choices=DamageTypeChoices.choices)
+    category = models.CharField(max_length=50, choices=WeaponCategoryChoice.choices)
+    damage = models.ForeignKey(DiceRollInformation, on_delete=models.DO_NOTHING)
+    damage_type = models.CharField(max_length=1, choices=DamageTypeChoice.choices)
     accuracy = models.IntegerField()
 
-    availablility = models.CharField(max_length=1, choices=AvailabilityChoices.choices)
+    availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     reliability = models.IntegerField()
-    hands_required = models.IntegerField(choices=HandsRequiredChoices.choices)
+    hands_required = models.IntegerField(choices=HandsRequiredChoice.choices)
     enhancement_spots = models.IntegerField(default=0)
 
     range = models.CharField(max_length=25)
     effects = models.ManyToManyField(Effect)
-    concealment = models.CharField(max_length=1, choices=ConcealmentChoices.choices)
+    concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
+
+    is_elder = models.BooleanField(default=False)
+
+
+class Ammunition(BaseEquipmentMixin):
+    base_quantity = models.IntegerField()
+    damage_type = models.CharField(max_length=1, choices=DamageTypeChoice.choices)
+    availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
+    reliability = models.IntegerField()
+    effects = models.ManyToManyField(Effect)
+    concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
     is_elder = models.BooleanField(default=False)
 
 
 class Armor(BaseEquipmentMixin):
-    category = models.CharField(max_length=50, choices=ArmorCategoryChoices.choices)
+    category = models.CharField(max_length=50, choices=ArmorCategoryChoice.choices)
     stopping_power = models.IntegerField()
     effects = models.ManyToManyField(Effect)
 
-    availablility = models.CharField(max_length=1, choices=AvailabilityChoices.choices)
+    availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     reliability = models.IntegerField(null=True)
     enhancement_spots = models.IntegerField(default=0)
     encombrance_value = models.IntegerField(default=0)
@@ -119,5 +81,5 @@ class ArmorEnhancement(BaseEquipmentMixin):
     effects = models.ManyToManyField(Effect)
     stopping_power_modifier = models.IntegerField()
     resistances = ArrayField(
-        models.CharField(max_length=50, choices=DamageTypeChoices.choices)
+        models.CharField(max_length=50, choices=DamageTypeChoice.choices)
     )

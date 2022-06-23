@@ -1,26 +1,11 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 from core.models import Player
 
-from .skills import Statistic, Skill, SkillOwnership, StatisticOwnership
-from .equipment import ArmorOwnership, Gear, GearOwnership, ToolKit, ToolKitOwnership, Weapon, Armor, WeaponOwnership
-from .backstory import Ally, Enemy, FamilyStatus, FateEvent, LifeEvent, MostInfluencialFriend, Romance, Sibling
-
-
-class RegionChoice(models.TextChoices):
-    NORTH = ('north', _('The North'))
-    NILFGAARD = ('nilfgaard', _('Nilfgaard'))
-    SKELLIGE = ('skellige', _('Skellige'))
-    DOL_BLATHANNA = ('dol_blathanna', _('Dol Blathanna'))
-    MAHAKAM = ('mahakam', _('Mahakam'))
-
-
-class SocialStandingChoices(models.TextChoices):
-    EQUAL = ('equal', _('Equal'))
-    TOLERATED = ('tolerated', _('Tolerated'))
-    FEARED = ('feared', _('Feared'))
-    HATED = ('hated', _('Hated'))
+from .skills import SkillTreeItem, SkillTreeItemOwnership, Statistic, Skill, SkillOwnership, StatisticOwnership
+from .equipment import Ammunition, Gear, ToolKit, Weapon, Armor
+from .backstory import FamilyStatus, FateEvent, LifeEvent
+from ..choices import RegionChoice, SocialStandingChoice
 
 
 class Country(models.Model):
@@ -29,7 +14,8 @@ class Country(models.Model):
 
 
 class Impact(models.Model):
-    pass
+    statistics = models.ManyToManyField(StatisticOwnership)
+    skills = models.ManyToManyField(SkillOwnership)
 
 
 class RacePerk(models.Model):
@@ -46,7 +32,7 @@ class Race(models.Model):
 
 
 class SocialStanding(models.Model):
-    label = models.CharField(max_length=50, choices=SocialStandingChoices.choices)
+    label = models.CharField(max_length=50, choices=SocialStandingChoice.choices)
     region = models.CharField(max_length=50, choices=RegionChoice.choices)
     impacts = models.ManyToManyField(Impact)
 
@@ -98,23 +84,38 @@ class Character(models.Model):
     race = models.ForeignKey(Race, on_delete=models.CASCADE)
     profession = models.ForeignKey(Profession, on_delete=models.CASCADE)
 
+    # Stats and Skills
     statistics = models.ManyToManyField(Statistic, through=StatisticOwnership, related_name='characters')
     skills = models.ManyToManyField(Skill, through=SkillOwnership, related_name='characters')
+    skill_tree_items = models.ManyToManyField(SkillTreeItem, through=SkillTreeItemOwnership, related_name='characters')
     languages = models.ManyToManyField(Language, through='LanguageOwnership', related_name='characters')
 
+    # Equipement
     gear = models.ManyToManyField(Gear, related_name='characters')
     tool_kits = models.ManyToManyField(ToolKit, related_name='characters')
     weapons = models.ManyToManyField(Weapon, related_name='characters')
+    ammunition = models.ManyToManyField(Ammunition, related_name='characters')
     armor = models.ManyToManyField(Armor, related_name='characters')
 
+    # Backstory
     fate_event = models.ForeignKey(FateEvent, on_delete=models.CASCADE)
     family_status = models.ForeignKey(FamilyStatus, on_delete=models.CASCADE)
-    most_influencial_friend = models.ForeignKey(MostInfluencialFriend, on_delete=models.CASCADE)
     life_events = models.ManyToManyField(LifeEvent)
 
+    # Personal Style
+    clothing = models.CharField(max_length=50, blank=True)
+    personality = models.CharField(max_length=50, blank=True)
+    hair_style = models.CharField(max_length=50, blank=True)
+    affectations = models.CharField(max_length=50, blank=True)
+    
+    # Personal Values
+    values_person = models.CharField(max_length=50, blank=True)
+    value = models.CharField(max_length=50, blank=True)
+    feelings_on_people = models.CharField(max_length=100, blank=True)   
 
-class LanguageOwnership(models):
-    character = models.ForeignKey(Character)
-    language = models.ForeignKey(Language)
+
+class LanguageOwnership(models.Model):
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
 
     value = models.IntegerField()

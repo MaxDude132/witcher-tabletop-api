@@ -1,107 +1,74 @@
-from unicodedata import category
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .character import Character, Impact
+from ..choices import SexChoice, FateEventTypeChoice, FateEventRegionTypeChoice, LifeEventCategoryChoice, AllyRegionChoice, WhoWasWrongedChoice
 
 
-class FateEventTypeChoices(models.TextChoices):
-    FAMILY_FATE = 'family_fate', _(' Family Fate')
-    PARENTAL_FATE = 'parental_fate', _('Parental Fate')
-
-
-class FateEventRegionTypeChoices(models.TextChoices):
-    NORTHERN_KINGDOMS = 'northern_kingdoms', _('Northern Kingdoms')
-    NIFLGAARD = 'nilfgaard', _('Nilfgaard')
-    ERLDERLANDS = 'elderlands', _('Elderlands')
-
-
-class SexChoices(models.TextChoices):
-    MALE = 'male', _('Male')
-    FEMALE = 'female', _('Female')
-
-
-class LifeEventCategoryChoices(models.TextChoices):
-    FORTUNE = 'fortune', _('Fortune')
-    MISFORTUNE = 'misfortune', _('Misfortune')
-
-
-class AllyRegion(FateEventRegionTypeChoices):
-    BEYOND_BOUNDARIES = 'beyond_boundaries', _('Beyond the Boundaries')
-
-
-class WhoWasWrongedChoices(models.TextChoices):
-    YOU = 'you', _('You')
-    THEM = 'them', _('Them')
+class OtherCharacterMixin(models.Model):
+    name = models.CharField(max_length=100)
+    sex = models.CharField(max_length=10, choices=SexChoice.choices)
+    age = models.IntegerField()
 
 
 class FateEvent(models.Model):
-    category = models.CharField(max_length=50, choices=FateEventTypeChoices.choices)
-    region_type = models.CharField(max_length=50, choicfes= FateEventRegionTypeChoices.choices)
+    category = models.CharField(max_length=50, choices=FateEventTypeChoice.choices)
+    region_type = models.CharField(max_length=50, choices= FateEventRegionTypeChoice.choices)
     description = models.TextField()
 
 
 class FamilyStatus(models.Model):
-    region_type = models.CharField(max_length=50, choicfes= FateEventRegionTypeChoices.choices)
+    region_type = models.CharField(max_length=50, choices= FateEventRegionTypeChoice.choices)
     status_title = models.CharField(max_length=50)
     description = models.TextField()
-    impacts = models.ManyToManyField(Impact, on_delete=models.CASCADE)
-
-
-class MostInfluencialFriend(models.Model):
-    region_type = models.CharField(max_length=50, choicfes= FateEventRegionTypeChoices.choices)
-    status_title = models.CharField(max_length=50)
-    description = models.TextField()
-    impacts = models.ManyToManyField(Impact, on_delete=models.CASCADE)
-
-
-class Sibling(models.Model):
-    name = models.CharField(max_length=100)
-    sex = models.CharField(max_length=10, choices=SexChoices.choices)
-    age = models.IntegerField()
-    relationship_status = models.CharField(max_length=50)
-    personality = models.CharField(max_length=50)
-    life_status = models.CharField(max_length=50)
-    linked_character = models.OneToOneField(Character, on_delete=models.CASCADE, null=True)
-    player_character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    impacts = models.ManyToManyField('Impact')
 
 
 class LifeEvent(models.Model):
-    category = models.CharField(max_length=50, choices=LifeEventCategoryChoices.choices)
+    category = models.CharField(max_length=50, choices=LifeEventCategoryChoice.choices)
     label = models.CharField(max_length=50)
     description = models.TextField()
-    impacts = models.ManyToManyField(Impact)
+    impacts = models.ManyToManyField('Impact')
 
 
-class Ally(models.Model):
-    name = models.CharField(max_length=100)
-    sex = models.CharField(max_length=10, choices=SexChoices.choices)
-    age = models.IntegerField()
+class MostInfluencialFriend(OtherCharacterMixin):
+    region_type = models.CharField(max_length=50, choices=FateEventRegionTypeChoice.choices)
+    status_title = models.CharField(max_length=50)
+    description = models.TextField()
+    impacts = models.ManyToManyField('Impact')
+    linked_character = models.OneToOneField('Character', on_delete=models.CASCADE, null=True, related_name='is_most_influencial_friend')
+    player_character = models.OneToOneField('Character', on_delete=models.CASCADE, related_name='most_influencial_friend')
+
+
+class Sibling(OtherCharacterMixin):
+    relationship_status = models.CharField(max_length=50)
+    personality = models.CharField(max_length=50)
+    life_status = models.CharField(max_length=50)
+    linked_character = models.OneToOneField('Character', on_delete=models.CASCADE, null=True, related_name='is_sibling')
+    player_character = models.ForeignKey('Character', on_delete=models.CASCADE, related_name='siblings')
+
+
+class Ally(OtherCharacterMixin):
     position = models.CharField(max_length=50)
     how_you_met = models.CharField(max_length=100)
     closeness = models.CharField(max_length=50)
-    region = models.CharField(max_length=50, choices=AllyRegion.choices)
+    region = models.CharField(max_length=50, choices=AllyRegionChoice.choices)
+    linked_character = models.OneToOneField('Character', on_delete=models.CASCADE, null=True, related_name='is_ally')
+    player_character = models.ForeignKey('Character', on_delete=models.CASCADE, related_name='allies')
 
 
-class Enemy(models.Model):
-    name = models.CharField(max_length=100)
-    sex = models.CharField(max_length=10, choices=SexChoices.choices)
-    age = models.IntegerField()
+class Enemy(OtherCharacterMixin):
     position = models.CharField(max_length=50)
     cause = models.CharField(max_length=100)
-    who_was_wronged = models.CharField(max_length=5, choices=WhoWasWrongedChoices.choices)
+    who_was_wronged = models.CharField(max_length=5, choices=WhoWasWrongedChoice.choices)
     escalation = models.CharField(max_length=100)
     power_name = models.CharField(max_length=50)
     power_value = models.IntegerField()
-    linked_character = models.OneToOneField(Character, on_delete=models.CASCADE, null=True)
-    player_character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    linked_character = models.OneToOneField('Character', on_delete=models.CASCADE, null=True, related_name='is_enemy')
+    player_character = models.ForeignKey('Character', on_delete=models.CASCADE, related_name='enemies')
 
 
-class Romance(models.Model):
-    name = models.CharField(max_length=100)
-    sex = models.CharField(max_length=10, choices=SexChoices.choices)
-    age = models.IntegerField()
+class Romance(OtherCharacterMixin):
     romance_type = models.CharField(max_length=50)
     description = models.TextField()
-    linked_character = models.OneToOneField(Character, on_delete=models.CASCADE, null=True)
-    player_character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    linked_character = models.OneToOneField('Character', on_delete=models.CASCADE, null=True, related_name='is_romance')
+    player_character = models.ForeignKey('Character', on_delete=models.CASCADE, related_name='romances')
