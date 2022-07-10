@@ -80,13 +80,23 @@ WSGI_APPLICATION = 'witcher_tabletop_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'witcher-tabletop',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'NAME': 'd25g6n99kj5aum',
+        'USER': 'imdllmkwqoogya',
+        'PASSWORD': '8c9cad7efd34c2bd9d6e30817ea03def7a80d555ad81f8fd0d6f63aa075e28f2',
+        'HOST': 'ec2-52-20-166-21.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
+
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'witcher-tabletop',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'admin',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '5432',
+    # }
 
 
 # Password validation
