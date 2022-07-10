@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure--3+$9rqj_*md%bc0ki(xb%n=gs)vkj)#^0_i31%fojn1nsuavm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['witcher-tabletop-api.herokuapp.com']
 
 
 # Application definition
