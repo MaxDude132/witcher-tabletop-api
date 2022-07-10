@@ -1,3 +1,4 @@
+from pydoc import ModuleScanner
 from django.db import models
 
 from core.models import Player
@@ -20,9 +21,13 @@ class Country(models.Model):
 
 
 class Impact(models.Model):
+    label = models.CharField(max_length=50)
     statistics = models.ManyToManyField(StatisticOwnership, related_name='impacts', blank=True)
     skills = models.ManyToManyField(SkillOwnership, related_name='impacts', blank=True)
+    stopping_power = models.IntegerField(blank=True, null=True)
     
+    def __str__(self) -> str:
+        return self.label
 
 
 class RacePerk(models.Model):
@@ -34,29 +39,36 @@ class RacePerk(models.Model):
         return self.label
 
 
-class Race(models.Model):
-    label = models.CharField(max_length=100)
-    description = models.TextField()
-
-    perks = models.ManyToManyField(RacePerk)
-
-    def __str__(self) -> str:
-        return self.label
-
-
 class SocialStanding(models.Model):
     label = models.CharField(max_length=50, choices=SocialStandingChoice.choices)
-    region = models.CharField(max_length=50, choices=RegionChoice.choices)
     impacts = models.ManyToManyField(Impact, blank=True)
 
+    description = models.TextField()
+
     def __str__(self) -> str:
-        return self.label
+        return self.label.title()
 
 
 class RegionStanding(models.Model):
     region = models.CharField(max_length=50, choices=RegionChoice.choices)
-    races = models.ManyToManyField(Race, related_name='social_standings')
-    social_standings = models.ManyToManyField(SocialStanding, blank=True)
+    social_standing = models.ForeignKey(SocialStanding, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        unique_together = ('region', 'social_standing')
+
+    def __str__(self) -> str:
+        return f'{self.region.title()} - {self.social_standing.label.title()}'
+
+
+class Race(models.Model):
+    label = models.CharField(max_length=100)
+    description = models.TextField()
+
+    region_standings = models.ManyToManyField(RegionStanding, blank=True)
+    perks = models.ManyToManyField(RacePerk)
+
+    def __str__(self) -> str:
+        return self.label
 
 
 class DefiningSkill(models.Model):
@@ -87,6 +99,8 @@ class Profession(models.Model):
     starting_novice_rituals = models.IntegerField()
     starting_low_danger_hexes = models.IntegerField()
 
+    region_standings = models.ManyToManyField(RegionStanding, blank=True)
+
     def __str__(self) -> str:
         return self.label
 
@@ -108,6 +122,7 @@ class Character(models.Model):
 
     race = models.ForeignKey(Race, on_delete=models.CASCADE)
     profession = models.ForeignKey(Profession, on_delete=models.CASCADE)
+    region_standings = models.ManyToManyField(RegionStanding, blank=True)
 
     # Stats and Skills
     statistics = models.ManyToManyField(StatisticOwnership, related_name='characters')
@@ -143,9 +158,7 @@ class Character(models.Model):
 
 
 class LanguageOwnership(models.Model):
-    character = models.ForeignKey(Character, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-
     value = models.IntegerField()
 
     def __str__(self) -> str:

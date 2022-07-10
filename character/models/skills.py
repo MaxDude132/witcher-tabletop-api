@@ -13,11 +13,10 @@ class Statistic(models.Model):
 
 class StatisticOwnership(models.Model):
     statistic = models.ForeignKey(Statistic, on_delete=models.CASCADE)
-
     value = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'<{self.character}> - <{self.statistic}>'
+        return f'<{self.statistic}> - {self.value}'
 
 
 class Skill(models.Model):
@@ -28,16 +27,15 @@ class Skill(models.Model):
     costs_double = models.BooleanField()
 
     def __str__(self) -> str:
-        return f'{self.label} ({self.statistic.abbreviated_label})'
+        return f'{self.label} ({self.statistic.abbreviated_label}){" (2)" if self.costs_double else ""}'
 
 
 class SkillOwnership(models.Model):
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
-
     value = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'<{self.character}> - <{self.skill}>'
+        return f'<{self.skill}> - {self.value}'
 
 
 class SkillTreeItem(models.Model):
@@ -56,8 +54,7 @@ class SkillTreeItem(models.Model):
 
 class SkillTreeItemOwnership(models.Model):
     skill_tree_item = models.ForeignKey(SkillTreeItem, on_delete=models.CASCADE)
-
     value = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'<{self.character}> - <{self.skill_tree_item}>'
+        return f'<{self.character}> - <{self.skill_tree_item}> - {self.value}'
