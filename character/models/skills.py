@@ -9,7 +9,6 @@ class Statistic(models.Model):
 
 
 class StatisticOwnership(models.Model):
-    character = models.ForeignKey('Character', on_delete=models.CASCADE)
     statistic = models.ForeignKey(Statistic, on_delete=models.CASCADE)
 
     value = models.IntegerField()
@@ -24,7 +23,6 @@ class Skill(models.Model):
 
 
 class SkillOwnership(models.Model):
-    character = models.ForeignKey('Character', on_delete=models.CASCADE)
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
 
     value = models.IntegerField()
@@ -42,7 +40,6 @@ class SkillTreeItem(models.Model):
 
 
 class SkillTreeItemOwnership(models.Model):
-    character = models.ForeignKey('Character', on_delete=models.CASCADE)
     skill_tree_item = models.ForeignKey(SkillTreeItem, on_delete=models.CASCADE)
 
     value = models.IntegerField()

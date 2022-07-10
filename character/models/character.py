@@ -14,8 +14,9 @@ class Country(models.Model):
 
 
 class Impact(models.Model):
-    statistics = models.ManyToManyField(StatisticOwnership)
-    skills = models.ManyToManyField(SkillOwnership)
+    statistics = models.ManyToManyField(StatisticOwnership, related_name='impacts')
+    skills = models.ManyToManyField(SkillOwnership, related_name='impacts')
+    
 
 
 class RacePerk(models.Model):
@@ -85,10 +86,10 @@ class Character(models.Model):
     profession = models.ForeignKey(Profession, on_delete=models.CASCADE)
 
     # Stats and Skills
-    statistics = models.ManyToManyField(Statistic, through=StatisticOwnership, related_name='characters')
-    skills = models.ManyToManyField(Skill, through=SkillOwnership, related_name='characters')
-    skill_tree_items = models.ManyToManyField(SkillTreeItem, through=SkillTreeItemOwnership, related_name='characters')
-    languages = models.ManyToManyField(Language, through='LanguageOwnership', related_name='characters')
+    statistics = models.ManyToManyField(StatisticOwnership, related_name='characters')
+    skills = models.ManyToManyField(SkillOwnership, related_name='characters')
+    skill_tree_items = models.ManyToManyField(SkillTreeItemOwnership, related_name='characters')
+    languages = models.ManyToManyField('LanguageOwnership', related_name='characters')
 
     # Equipement
     gear = models.ManyToManyField(Gear, related_name='characters')
