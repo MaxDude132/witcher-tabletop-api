@@ -9,32 +9,44 @@ class OtherCharacterMixin(models.Model):
     sex = models.CharField(max_length=10, choices=SexChoice.choices)
     age = models.IntegerField()
 
+    def __str__(self) -> str:
+        return f'{self.name} - {self.sex} - {self.age} years old'
+
 
 class FateEvent(models.Model):
     category = models.CharField(max_length=50, choices=FateEventTypeChoice.choices)
     region_type = models.CharField(max_length=50, choices= FateEventRegionTypeChoice.choices)
     description = models.TextField()
 
+    def __str__(self) -> str:
+        return self.description[:50]
+
 
 class FamilyStatus(models.Model):
     region_type = models.CharField(max_length=50, choices= FateEventRegionTypeChoice.choices)
     status_title = models.CharField(max_length=50)
     description = models.TextField()
-    impacts = models.ManyToManyField('Impact')
+    impacts = models.ManyToManyField('Impact', blank=True)
+
+    def __str__(self) -> str:
+        return self.description[:50]
 
 
 class LifeEvent(models.Model):
     category = models.CharField(max_length=50, choices=LifeEventCategoryChoice.choices)
     label = models.CharField(max_length=50)
     description = models.TextField()
-    impacts = models.ManyToManyField('Impact')
+    impacts = models.ManyToManyField('Impact', blank=True)
+
+    def __str__(self) -> str:
+        return self.label
 
 
 class MostInfluencialFriend(OtherCharacterMixin):
     region_type = models.CharField(max_length=50, choices=FateEventRegionTypeChoice.choices)
     status_title = models.CharField(max_length=50)
     description = models.TextField()
-    impacts = models.ManyToManyField('Impact')
+    impacts = models.ManyToManyField('Impact', blank=True)
     linked_character = models.OneToOneField('Character', on_delete=models.CASCADE, null=True, related_name='is_most_influencial_friend')
     player_character = models.OneToOneField('Character', on_delete=models.CASCADE, related_name='most_influencial_friend')
 

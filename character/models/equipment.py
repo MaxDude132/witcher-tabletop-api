@@ -16,11 +16,17 @@ class BaseEquipmentMixin(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self) -> str:
+        return self.label
+
 
 class Effect(models.Model):
     label = models.CharField(max_length=50)
     description = models.TextField()
     impacts = models.ManyToManyField('Impact')
+
+    def __str__(self) -> str:
+        return self.label
 
 
 class Gear(BaseEquipmentMixin):
@@ -47,7 +53,7 @@ class Weapon(BaseEquipmentMixin):
     enhancement_spots = models.IntegerField(default=0)
 
     range = models.CharField(max_length=25)
-    effects = models.ManyToManyField(Effect)
+    effects = models.ManyToManyField(Effect, blank=True)
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
     is_elder = models.BooleanField(default=False)
@@ -58,7 +64,7 @@ class Ammunition(BaseEquipmentMixin):
     damage_type = models.CharField(max_length=1, choices=DamageTypeChoice.choices)
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     reliability = models.IntegerField()
-    effects = models.ManyToManyField(Effect)
+    effects = models.ManyToManyField(Effect, blank=True)
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
     is_elder = models.BooleanField(default=False)
@@ -67,7 +73,7 @@ class Ammunition(BaseEquipmentMixin):
 class Armor(BaseEquipmentMixin):
     category = models.CharField(max_length=50, choices=ArmorCategoryChoice.choices)
     stopping_power = models.IntegerField()
-    effects = models.ManyToManyField(Effect)
+    effects = models.ManyToManyField(Effect, blank=True)
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     reliability = models.IntegerField(null=True)
@@ -78,7 +84,7 @@ class Armor(BaseEquipmentMixin):
 
 
 class ArmorEnhancement(BaseEquipmentMixin):
-    effects = models.ManyToManyField(Effect)
+    effects = models.ManyToManyField(Effect, blank=True)
     stopping_power_modifier = models.IntegerField()
     resistances = ArrayField(
         models.CharField(max_length=50, choices=DamageTypeChoice.choices)
