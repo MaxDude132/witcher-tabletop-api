@@ -139,9 +139,9 @@ class Character(models.Model):
     armor = models.ManyToManyField(Armor, related_name='characters', blank=True)
 
     # Backstory
-    fate_event = models.ForeignKey(FateEvent, on_delete=models.CASCADE)
-    family_status = models.ForeignKey(FamilyStatus, on_delete=models.CASCADE)
-    life_events = models.ManyToManyField(LifeEvent)
+    fate_event = models.ForeignKey(FateEvent, on_delete=models.CASCADE, null=True)
+    family_status = models.ForeignKey(FamilyStatus, on_delete=models.CASCADE, null=True)
+    life_events = models.ManyToManyField(LifeEvent, blank=True)
 
     # Personal Style
     clothing = models.CharField(max_length=50, blank=True)
