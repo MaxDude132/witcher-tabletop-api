@@ -3,7 +3,14 @@ from django.db import models
 
 from core.models import Player
 
-from .skills import SkillTreeItem, SkillTreeItemOwnership, Statistic, Skill, SkillOwnership, StatisticOwnership
+from .skills import (
+    SkillTreeItem,
+    SkillTreeItemOwnership,
+    Statistic,
+    Skill,
+    SkillOwnership,
+    StatisticOwnership,
+)
 from .equipment import Ammunition, Gear, ToolKit, Weapon, Armor
 from .backstory import FamilyStatus, FateEvent, LifeEvent
 from ..choices import RegionChoice, SocialStandingChoice
@@ -15,7 +22,7 @@ class Country(models.Model):
 
     class Meta:
         verbose_name_plural = "countries"
-        unique_together = ('label', 'region')
+        unique_together = ("label", "region")
 
     def __str__(self) -> str:
         return self.label
@@ -23,10 +30,12 @@ class Country(models.Model):
 
 class Impact(models.Model):
     label = models.CharField(max_length=50)
-    statistics = models.ManyToManyField(StatisticOwnership, related_name='impacts', blank=True)
-    skills = models.ManyToManyField(SkillOwnership, related_name='impacts', blank=True)
+    statistics = models.ManyToManyField(
+        StatisticOwnership, related_name="impacts", blank=True
+    )
+    skills = models.ManyToManyField(SkillOwnership, related_name="impacts", blank=True)
     stopping_power = models.IntegerField(blank=True, null=True)
-    
+
     def __str__(self) -> str:
         return self.label
 
@@ -52,13 +61,15 @@ class SocialStanding(models.Model):
 
 class RegionStanding(models.Model):
     region = models.CharField(max_length=50, choices=RegionChoice.choices)
-    social_standing = models.ForeignKey(SocialStanding, on_delete=models.CASCADE, null=True)
+    social_standing = models.ForeignKey(
+        SocialStanding, on_delete=models.CASCADE, null=True
+    )
 
     class Meta:
-        unique_together = ('region', 'social_standing')
+        unique_together = ("region", "social_standing")
 
     def __str__(self) -> str:
-        return f'{self.region.title()} - {self.social_standing.label.title()}'
+        return f"{self.region.title()} - {self.social_standing.label.title()}"
 
 
 class Race(models.Model):
@@ -126,17 +137,21 @@ class Character(models.Model):
     region_standings = models.ManyToManyField(RegionStanding, blank=True)
 
     # Stats and Skills
-    statistics = models.ManyToManyField(StatisticOwnership, related_name='characters')
-    skills = models.ManyToManyField(SkillOwnership, related_name='characters')
-    skill_tree_items = models.ManyToManyField(SkillTreeItemOwnership, related_name='characters', blank=True)
-    languages = models.ManyToManyField('LanguageOwnership', related_name='characters')
+    statistics = models.ManyToManyField(StatisticOwnership, related_name="characters")
+    skills = models.ManyToManyField(SkillOwnership, related_name="characters")
+    skill_tree_items = models.ManyToManyField(
+        SkillTreeItemOwnership, related_name="characters", blank=True
+    )
+    languages = models.ManyToManyField("LanguageOwnership", related_name="characters")
 
     # Equipement
-    gear = models.ManyToManyField(Gear, related_name='characters', blank=True)
-    tool_kits = models.ManyToManyField(ToolKit, related_name='characters', blank=True)
-    weapons = models.ManyToManyField(Weapon, related_name='characters', blank=True)
-    ammunition = models.ManyToManyField(Ammunition, related_name='characters', blank=True)
-    armor = models.ManyToManyField(Armor, related_name='characters', blank=True)
+    gear = models.ManyToManyField(Gear, related_name="characters", blank=True)
+    tool_kits = models.ManyToManyField(ToolKit, related_name="characters", blank=True)
+    weapons = models.ManyToManyField(Weapon, related_name="characters", blank=True)
+    ammunition = models.ManyToManyField(
+        Ammunition, related_name="characters", blank=True
+    )
+    armor = models.ManyToManyField(Armor, related_name="characters", blank=True)
 
     # Backstory
     fate_event = models.ForeignKey(FateEvent, on_delete=models.CASCADE, null=True)
@@ -148,14 +163,14 @@ class Character(models.Model):
     personality = models.CharField(max_length=50, blank=True)
     hair_style = models.CharField(max_length=50, blank=True)
     affectations = models.CharField(max_length=50, blank=True)
-    
+
     # Personal Values
     values_person = models.CharField(max_length=50, blank=True)
     value = models.CharField(max_length=50, blank=True)
     feelings_on_people = models.CharField(max_length=100, blank=True)
 
     def __str__(self) -> str:
-        return f'{self.name} - {self.player}' 
+        return f"{self.name} - {self.player}"
 
 
 class LanguageOwnership(models.Model):
@@ -163,4 +178,4 @@ class LanguageOwnership(models.Model):
     value = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'<{self.character}> - <{self.language}>'
+        return f"<{self.character}> - <{self.language}>"

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0002_remove_languageownership_character'),
+        ("character", "0002_remove_languageownership_character"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='impact',
-            name='label',
+            model_name="impact",
+            name="label",
             field=models.CharField(blank=True, max_length=50),
         ),
     ]

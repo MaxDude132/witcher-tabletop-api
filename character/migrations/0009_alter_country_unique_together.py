@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0008_alter_regionstanding_unique_together'),
+        ("character", "0008_alter_regionstanding_unique_together"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='country',
-            unique_together={('label', 'region')},
+            name="country",
+            unique_together={("label", "region")},
         ),
     ]

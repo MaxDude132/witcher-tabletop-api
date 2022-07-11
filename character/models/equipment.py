@@ -4,14 +4,22 @@ from django.utils.translation import gettext_lazy as _
 
 from .utils import DiceRollInformation
 
-from ..choices import ConcealmentChoice, AvailabilityChoice, WeaponCategoryChoice, DamageTypeChoice, HandsRequiredChoice, ArmorTypeChoice, ArmorCategoryChoice
+from ..choices import (
+    ConcealmentChoice,
+    AvailabilityChoice,
+    WeaponCategoryChoice,
+    DamageTypeChoice,
+    HandsRequiredChoice,
+    ArmorTypeChoice,
+    ArmorCategoryChoice,
+)
 
 
 class BaseEquipmentMixin(models.Model):
     label = models.CharField(max_length=100)
     description = models.TextField(null=True)
     weight = models.FloatField()
-    price = models.IntegerField(help_text=_('Price in Redanian crowns'))
+    price = models.IntegerField(help_text=_("Price in Redanian crowns"))
 
     class Meta:
         abstract = True
@@ -23,7 +31,7 @@ class BaseEquipmentMixin(models.Model):
 class Effect(models.Model):
     label = models.CharField(max_length=50)
     description = models.TextField()
-    impacts = models.ManyToManyField('Impact')
+    impacts = models.ManyToManyField("Impact")
 
     def __str__(self) -> str:
         return self.label
@@ -38,7 +46,7 @@ class Gear(BaseEquipmentMixin):
 class ToolKit(BaseEquipmentMixin):
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
-    impacts = models.ManyToManyField('Impact')
+    impacts = models.ManyToManyField("Impact")
 
 
 class Weapon(BaseEquipmentMixin):

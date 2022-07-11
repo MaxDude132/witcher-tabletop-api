@@ -17,531 +17,1288 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Ammunition',
+            name="Ammunition",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField(null=True)),
-                ('weight', models.FloatField()),
-                ('price', models.IntegerField(help_text='Price in Redanian crowns')),
-                ('base_quantity', models.IntegerField()),
-                ('damage_type', models.CharField(choices=[('S', 'Slashing'), ('P', 'Piercing'), ('B', 'Bludgeoning'), ('E', 'Elemental')], max_length=1)),
-                ('availablility', models.CharField(choices=[('E', 'Everywhere'), ('C', 'Common'), ('P', 'Poor'), ('R', 'Rare')], max_length=1)),
-                ('reliability', models.IntegerField()),
-                ('concealment', models.CharField(choices=[('T', 'Tiny'), ('S', 'Small'), ('L', 'Large'), ('N', 'Cannot hide')], max_length=1)),
-                ('is_elder', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField(null=True)),
+                ("weight", models.FloatField()),
+                ("price", models.IntegerField(help_text="Price in Redanian crowns")),
+                ("base_quantity", models.IntegerField()),
+                (
+                    "damage_type",
+                    models.CharField(
+                        choices=[
+                            ("S", "Slashing"),
+                            ("P", "Piercing"),
+                            ("B", "Bludgeoning"),
+                            ("E", "Elemental"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                (
+                    "availablility",
+                    models.CharField(
+                        choices=[
+                            ("E", "Everywhere"),
+                            ("C", "Common"),
+                            ("P", "Poor"),
+                            ("R", "Rare"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                ("reliability", models.IntegerField()),
+                (
+                    "concealment",
+                    models.CharField(
+                        choices=[
+                            ("T", "Tiny"),
+                            ("S", "Small"),
+                            ("L", "Large"),
+                            ("N", "Cannot hide"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                ("is_elder", models.BooleanField(default=False)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Armor',
+            name="Armor",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField(null=True)),
-                ('weight', models.FloatField()),
-                ('price', models.IntegerField(help_text='Price in Redanian crowns')),
-                ('category', models.CharField(choices=[('head_armor', 'Head Armor'), ('torso_armor', 'Torso Armor'), ('leg_armor', 'Leg Armor'), ('shields', 'Shields')], max_length=50)),
-                ('stopping_power', models.IntegerField()),
-                ('availablility', models.CharField(choices=[('E', 'Everywhere'), ('C', 'Common'), ('P', 'Poor'), ('R', 'Rare')], max_length=1)),
-                ('reliability', models.IntegerField(null=True)),
-                ('enhancement_spots', models.IntegerField(default=0)),
-                ('encombrance_value', models.IntegerField(default=0)),
-                ('is_elder', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField(null=True)),
+                ("weight", models.FloatField()),
+                ("price", models.IntegerField(help_text="Price in Redanian crowns")),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("head_armor", "Head Armor"),
+                            ("torso_armor", "Torso Armor"),
+                            ("leg_armor", "Leg Armor"),
+                            ("shields", "Shields"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("stopping_power", models.IntegerField()),
+                (
+                    "availablility",
+                    models.CharField(
+                        choices=[
+                            ("E", "Everywhere"),
+                            ("C", "Common"),
+                            ("P", "Poor"),
+                            ("R", "Rare"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                ("reliability", models.IntegerField(null=True)),
+                ("enhancement_spots", models.IntegerField(default=0)),
+                ("encombrance_value", models.IntegerField(default=0)),
+                ("is_elder", models.BooleanField(default=False)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Character',
+            name="Character",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('city', models.CharField(max_length=150)),
-                ('clothing', models.CharField(blank=True, max_length=50)),
-                ('personality', models.CharField(blank=True, max_length=50)),
-                ('hair_style', models.CharField(blank=True, max_length=50)),
-                ('affectations', models.CharField(blank=True, max_length=50)),
-                ('values_person', models.CharField(blank=True, max_length=50)),
-                ('value', models.CharField(blank=True, max_length=50)),
-                ('feelings_on_people', models.CharField(blank=True, max_length=100)),
-                ('ammunition', models.ManyToManyField(blank=True, related_name='characters', to='character.ammunition')),
-                ('armor', models.ManyToManyField(blank=True, related_name='characters', to='character.armor')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("city", models.CharField(max_length=150)),
+                ("clothing", models.CharField(blank=True, max_length=50)),
+                ("personality", models.CharField(blank=True, max_length=50)),
+                ("hair_style", models.CharField(blank=True, max_length=50)),
+                ("affectations", models.CharField(blank=True, max_length=50)),
+                ("values_person", models.CharField(blank=True, max_length=50)),
+                ("value", models.CharField(blank=True, max_length=50)),
+                ("feelings_on_people", models.CharField(blank=True, max_length=100)),
+                (
+                    "ammunition",
+                    models.ManyToManyField(
+                        blank=True, related_name="characters", to="character.ammunition"
+                    ),
+                ),
+                (
+                    "armor",
+                    models.ManyToManyField(
+                        blank=True, related_name="characters", to="character.armor"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Country',
+            name="Country",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('region', models.CharField(choices=[('north', 'The North'), ('nilfgaard', 'Nilfgaard'), ('skellige', 'Skellige'), ('dol_blathanna', 'Dol Blathanna'), ('mahakam', 'Mahakam'), ('zerrikania', 'Zerrikania'), ('beyond_boundaries', 'Beyond the Boundaries')], max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                (
+                    "region",
+                    models.CharField(
+                        choices=[
+                            ("north", "The North"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("skellige", "Skellige"),
+                            ("dol_blathanna", "Dol Blathanna"),
+                            ("mahakam", "Mahakam"),
+                            ("zerrikania", "Zerrikania"),
+                            ("beyond_boundaries", "Beyond the Boundaries"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'countries',
+                "verbose_name_plural": "countries",
             },
         ),
         migrations.CreateModel(
-            name='DefiningSkill',
+            name="DefiningSkill",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='DiceRollInformation',
+            name="DiceRollInformation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('number_of_dice', models.IntegerField()),
-                ('number_of_sides', models.IntegerField()),
-                ('modifier', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("number_of_dice", models.IntegerField()),
+                ("number_of_sides", models.IntegerField()),
+                ("modifier", models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='Effect',
+            name="Effect",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=50)),
-                ('description', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=50)),
+                ("description", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='FateEvent',
+            name="FateEvent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.CharField(choices=[('family_fate', ' Family Fate'), ('parental_fate', 'Parental Fate')], max_length=50)),
-                ('region_type', models.CharField(choices=[('northern_kingdoms', 'The Northern Kingdoms'), ('nilfgaard', 'Nilfgaard'), ('elderlands', 'Elderlands')], max_length=50)),
-                ('description', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("family_fate", " Family Fate"),
+                            ("parental_fate", "Parental Fate"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "region_type",
+                    models.CharField(
+                        choices=[
+                            ("northern_kingdoms", "The Northern Kingdoms"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("elderlands", "Elderlands"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("description", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='Gear',
+            name="Gear",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField(null=True)),
-                ('weight', models.FloatField()),
-                ('price', models.IntegerField(help_text='Price in Redanian crowns')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField(null=True)),
+                ("weight", models.FloatField()),
+                ("price", models.IntegerField(help_text="Price in Redanian crowns")),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Impact',
+            name="Impact",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Language',
+            name="Language",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=50)),
-                ('description', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=50)),
+                ("description", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='OtherCharacterMixin',
+            name="OtherCharacterMixin",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('sex', models.CharField(choices=[('male', 'Male'), ('female', 'Female')], max_length=10)),
-                ('age', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                (
+                    "sex",
+                    models.CharField(
+                        choices=[("male", "Male"), ("female", "Female")], max_length=10
+                    ),
+                ),
+                ("age", models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='Race',
+            name="Race",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='Skill',
+            name="Skill",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('costs_double', models.BooleanField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                ("costs_double", models.BooleanField()),
             ],
         ),
         migrations.CreateModel(
-            name='SkillTreeItem',
+            name="SkillTreeItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('branch', models.IntegerField(validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(3)])),
-                ('depth', models.IntegerField(validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(3)])),
-                ('label', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('impacts', models.ManyToManyField(blank=True, to='character.impact')),
-                ('profession', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.race')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "branch",
+                    models.IntegerField(
+                        validators=[
+                            django.core.validators.MinValueValidator(1),
+                            django.core.validators.MaxValueValidator(3),
+                        ]
+                    ),
+                ),
+                (
+                    "depth",
+                    models.IntegerField(
+                        validators=[
+                            django.core.validators.MinValueValidator(1),
+                            django.core.validators.MaxValueValidator(3),
+                        ]
+                    ),
+                ),
+                ("label", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                ("impacts", models.ManyToManyField(blank=True, to="character.impact")),
+                (
+                    "profession",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="character.race"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Statistic',
+            name="Statistic",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=50)),
-                ('abbreviated_label', models.CharField(max_length=5)),
-                ('description', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=50)),
+                ("abbreviated_label", models.CharField(max_length=5)),
+                ("description", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='Weapon',
+            name="Weapon",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField(null=True)),
-                ('weight', models.FloatField()),
-                ('price', models.IntegerField(help_text='Price in Redanian crowns')),
-                ('category', models.CharField(choices=[('swords', 'Swords'), ('small_blades', 'Small Blades'), ('axes', 'Axes'), ('bludgeons', 'Bludgeons'), ('pole_arms', 'Pole Arms'), ('staves', 'Staves'), ('thrown_weapons', 'Thrown Weapons'), ('bows', 'Bows'), ('crossbows', 'Crossbows')], max_length=50)),
-                ('damage_type', models.CharField(choices=[('S', 'Slashing'), ('P', 'Piercing'), ('B', 'Bludgeoning'), ('E', 'Elemental')], max_length=1)),
-                ('accuracy', models.IntegerField()),
-                ('availablility', models.CharField(choices=[('E', 'Everywhere'), ('C', 'Common'), ('P', 'Poor'), ('R', 'Rare')], max_length=1)),
-                ('reliability', models.IntegerField()),
-                ('hands_required', models.IntegerField(choices=[(1, 'One-handed'), (2, 'Two-handed')])),
-                ('enhancement_spots', models.IntegerField(default=0)),
-                ('range', models.CharField(max_length=25)),
-                ('concealment', models.CharField(choices=[('T', 'Tiny'), ('S', 'Small'), ('L', 'Large'), ('N', 'Cannot hide')], max_length=1)),
-                ('is_elder', models.BooleanField(default=False)),
-                ('damage', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='character.dicerollinformation')),
-                ('effects', models.ManyToManyField(blank=True, to='character.effect')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField(null=True)),
+                ("weight", models.FloatField()),
+                ("price", models.IntegerField(help_text="Price in Redanian crowns")),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("swords", "Swords"),
+                            ("small_blades", "Small Blades"),
+                            ("axes", "Axes"),
+                            ("bludgeons", "Bludgeons"),
+                            ("pole_arms", "Pole Arms"),
+                            ("staves", "Staves"),
+                            ("thrown_weapons", "Thrown Weapons"),
+                            ("bows", "Bows"),
+                            ("crossbows", "Crossbows"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "damage_type",
+                    models.CharField(
+                        choices=[
+                            ("S", "Slashing"),
+                            ("P", "Piercing"),
+                            ("B", "Bludgeoning"),
+                            ("E", "Elemental"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                ("accuracy", models.IntegerField()),
+                (
+                    "availablility",
+                    models.CharField(
+                        choices=[
+                            ("E", "Everywhere"),
+                            ("C", "Common"),
+                            ("P", "Poor"),
+                            ("R", "Rare"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                ("reliability", models.IntegerField()),
+                (
+                    "hands_required",
+                    models.IntegerField(choices=[(1, "One-handed"), (2, "Two-handed")]),
+                ),
+                ("enhancement_spots", models.IntegerField(default=0)),
+                ("range", models.CharField(max_length=25)),
+                (
+                    "concealment",
+                    models.CharField(
+                        choices=[
+                            ("T", "Tiny"),
+                            ("S", "Small"),
+                            ("L", "Large"),
+                            ("N", "Cannot hide"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                ("is_elder", models.BooleanField(default=False)),
+                (
+                    "damage",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="character.dicerollinformation",
+                    ),
+                ),
+                ("effects", models.ManyToManyField(blank=True, to="character.effect")),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='ToolKit',
+            name="ToolKit",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField(null=True)),
-                ('weight', models.FloatField()),
-                ('price', models.IntegerField(help_text='Price in Redanian crowns')),
-                ('concealment', models.CharField(choices=[('T', 'Tiny'), ('S', 'Small'), ('L', 'Large'), ('N', 'Cannot hide')], max_length=1)),
-                ('availablility', models.CharField(choices=[('E', 'Everywhere'), ('C', 'Common'), ('P', 'Poor'), ('R', 'Rare')], max_length=1)),
-                ('impacts', models.ManyToManyField(to='character.impact')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField(null=True)),
+                ("weight", models.FloatField()),
+                ("price", models.IntegerField(help_text="Price in Redanian crowns")),
+                (
+                    "concealment",
+                    models.CharField(
+                        choices=[
+                            ("T", "Tiny"),
+                            ("S", "Small"),
+                            ("L", "Large"),
+                            ("N", "Cannot hide"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                (
+                    "availablility",
+                    models.CharField(
+                        choices=[
+                            ("E", "Everywhere"),
+                            ("C", "Common"),
+                            ("P", "Poor"),
+                            ("R", "Rare"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                ("impacts", models.ManyToManyField(to="character.impact")),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='StatisticOwnership',
+            name="StatisticOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.IntegerField()),
-                ('statistic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.statistic')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("value", models.IntegerField()),
+                (
+                    "statistic",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.statistic",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='SocialStanding',
+            name="SocialStanding",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(choices=[('equal', 'Equal'), ('tolerated', 'Tolerated'), ('feared', 'Feared'), ('hated', 'Hated')], max_length=50)),
-                ('impacts', models.ManyToManyField(blank=True, to='character.impact')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "label",
+                    models.CharField(
+                        choices=[
+                            ("equal", "Equal"),
+                            ("tolerated", "Tolerated"),
+                            ("feared", "Feared"),
+                            ("hated", "Hated"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("impacts", models.ManyToManyField(blank=True, to="character.impact")),
             ],
         ),
         migrations.CreateModel(
-            name='SkillTreeItemOwnership',
+            name="SkillTreeItemOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.IntegerField()),
-                ('skill_tree_item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.skilltreeitem')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("value", models.IntegerField()),
+                (
+                    "skill_tree_item",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.skilltreeitem",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='skilltreeitem',
-            name='statistic',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.statistic'),
+            model_name="skilltreeitem",
+            name="statistic",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="character.statistic"
+            ),
         ),
         migrations.CreateModel(
-            name='SkillOwnership',
+            name="SkillOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.IntegerField()),
-                ('skill', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.skill')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("value", models.IntegerField()),
+                (
+                    "skill",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.skill",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='skill',
-            name='statistic',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.statistic'),
+            model_name="skill",
+            name="statistic",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="character.statistic"
+            ),
         ),
         migrations.CreateModel(
-            name='RegionStanding',
+            name="RegionStanding",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('region', models.CharField(choices=[('north', 'The North'), ('nilfgaard', 'Nilfgaard'), ('skellige', 'Skellige'), ('dol_blathanna', 'Dol Blathanna'), ('mahakam', 'Mahakam'), ('zerrikania', 'Zerrikania'), ('beyond_boundaries', 'Beyond the Boundaries')], max_length=50)),
-                ('social_standing', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='character.socialstanding')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "region",
+                    models.CharField(
+                        choices=[
+                            ("north", "The North"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("skellige", "Skellige"),
+                            ("dol_blathanna", "Dol Blathanna"),
+                            ("mahakam", "Mahakam"),
+                            ("zerrikania", "Zerrikania"),
+                            ("beyond_boundaries", "Beyond the Boundaries"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "social_standing",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.socialstanding",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='RacePerk',
+            name="RacePerk",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField()),
-                ('impacts', models.ManyToManyField(blank=True, to='character.impact')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField()),
+                ("impacts", models.ManyToManyField(blank=True, to="character.impact")),
             ],
         ),
         migrations.AddField(
-            model_name='race',
-            name='perks',
-            field=models.ManyToManyField(to='character.raceperk'),
+            model_name="race",
+            name="perks",
+            field=models.ManyToManyField(to="character.raceperk"),
         ),
         migrations.CreateModel(
-            name='Profession',
+            name="Profession",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField()),
-                ('starting_vigor', models.IntegerField()),
-                ('starting_novice_spells', models.IntegerField()),
-                ('starting_novice_invocations', models.IntegerField()),
-                ('starting_novice_rituals', models.IntegerField()),
-                ('starting_low_danger_hexes', models.IntegerField()),
-                ('defining_skill', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='character.definingskill')),
-                ('region_standings', models.ManyToManyField(blank=True, to='character.regionstanding')),
-                ('starting_armor', models.ManyToManyField(blank=True, to='character.armor')),
-                ('starting_gear', models.ManyToManyField(blank=True, to='character.gear')),
-                ('starting_skills', models.ManyToManyField(blank=True, to='character.skill')),
-                ('starting_weapons', models.ManyToManyField(blank=True, to='character.weapon')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField()),
+                ("starting_vigor", models.IntegerField()),
+                ("starting_novice_spells", models.IntegerField()),
+                ("starting_novice_invocations", models.IntegerField()),
+                ("starting_novice_rituals", models.IntegerField()),
+                ("starting_low_danger_hexes", models.IntegerField()),
+                (
+                    "defining_skill",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.definingskill",
+                    ),
+                ),
+                (
+                    "region_standings",
+                    models.ManyToManyField(blank=True, to="character.regionstanding"),
+                ),
+                (
+                    "starting_armor",
+                    models.ManyToManyField(blank=True, to="character.armor"),
+                ),
+                (
+                    "starting_gear",
+                    models.ManyToManyField(blank=True, to="character.gear"),
+                ),
+                (
+                    "starting_skills",
+                    models.ManyToManyField(blank=True, to="character.skill"),
+                ),
+                (
+                    "starting_weapons",
+                    models.ManyToManyField(blank=True, to="character.weapon"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='LifeEvent',
+            name="LifeEvent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.CharField(choices=[('fortune', 'Fortune'), ('misfortune', 'Misfortune')], max_length=50)),
-                ('label', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('impacts', models.ManyToManyField(blank=True, to='character.impact')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[("fortune", "Fortune"), ("misfortune", "Misfortune")],
+                        max_length=50,
+                    ),
+                ),
+                ("label", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                ("impacts", models.ManyToManyField(blank=True, to="character.impact")),
             ],
         ),
         migrations.CreateModel(
-            name='LanguageOwnership',
+            name="LanguageOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.IntegerField()),
-                ('character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.character')),
-                ('language', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.language')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("value", models.IntegerField()),
+                (
+                    "character",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "language",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.language",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='impact',
-            name='skills',
-            field=models.ManyToManyField(blank=True, related_name='impacts', to='character.skillownership'),
+            model_name="impact",
+            name="skills",
+            field=models.ManyToManyField(
+                blank=True, related_name="impacts", to="character.skillownership"
+            ),
         ),
         migrations.AddField(
-            model_name='impact',
-            name='statistics',
-            field=models.ManyToManyField(blank=True, related_name='impacts', to='character.statisticownership'),
+            model_name="impact",
+            name="statistics",
+            field=models.ManyToManyField(
+                blank=True, related_name="impacts", to="character.statisticownership"
+            ),
         ),
         migrations.CreateModel(
-            name='FamilyStatus',
+            name="FamilyStatus",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('region_type', models.CharField(choices=[('northern_kingdoms', 'The Northern Kingdoms'), ('nilfgaard', 'Nilfgaard'), ('elderlands', 'Elderlands')], max_length=50)),
-                ('status_title', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('impacts', models.ManyToManyField(blank=True, to='character.impact')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "region_type",
+                    models.CharField(
+                        choices=[
+                            ("northern_kingdoms", "The Northern Kingdoms"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("elderlands", "Elderlands"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("status_title", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                ("impacts", models.ManyToManyField(blank=True, to="character.impact")),
             ],
         ),
         migrations.AddField(
-            model_name='effect',
-            name='impacts',
-            field=models.ManyToManyField(to='character.impact'),
+            model_name="effect",
+            name="impacts",
+            field=models.ManyToManyField(to="character.impact"),
         ),
         migrations.AddField(
-            model_name='definingskill',
-            name='statistic',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.statistic'),
+            model_name="definingskill",
+            name="statistic",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="character.statistic"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='country',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.country'),
+            model_name="character",
+            name="country",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="character.country"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='family_status',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.familystatus'),
+            model_name="character",
+            name="family_status",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="character.familystatus"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='fate_event',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.fateevent'),
+            model_name="character",
+            name="fate_event",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="character.fateevent"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='gear',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.gear'),
+            model_name="character",
+            name="gear",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.gear"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='languages',
-            field=models.ManyToManyField(related_name='characters', to='character.languageownership'),
+            model_name="character",
+            name="languages",
+            field=models.ManyToManyField(
+                related_name="characters", to="character.languageownership"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='life_events',
-            field=models.ManyToManyField(to='character.lifeevent'),
+            model_name="character",
+            name="life_events",
+            field=models.ManyToManyField(to="character.lifeevent"),
         ),
         migrations.AddField(
-            model_name='character',
-            name='player',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="character",
+            name="player",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='profession',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.profession'),
+            model_name="character",
+            name="profession",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="character.profession"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='race',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.race'),
+            model_name="character",
+            name="race",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="character.race"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='region_standings',
-            field=models.ManyToManyField(blank=True, to='character.regionstanding'),
+            model_name="character",
+            name="region_standings",
+            field=models.ManyToManyField(blank=True, to="character.regionstanding"),
         ),
         migrations.AddField(
-            model_name='character',
-            name='skill_tree_items',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.skilltreeitemownership'),
+            model_name="character",
+            name="skill_tree_items",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="characters",
+                to="character.skilltreeitemownership",
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='skills',
-            field=models.ManyToManyField(related_name='characters', to='character.skillownership'),
+            model_name="character",
+            name="skills",
+            field=models.ManyToManyField(
+                related_name="characters", to="character.skillownership"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='statistics',
-            field=models.ManyToManyField(related_name='characters', to='character.statisticownership'),
+            model_name="character",
+            name="statistics",
+            field=models.ManyToManyField(
+                related_name="characters", to="character.statisticownership"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='tool_kits',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.toolkit'),
+            model_name="character",
+            name="tool_kits",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.toolkit"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='weapons',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.weapon'),
+            model_name="character",
+            name="weapons",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.weapon"
+            ),
         ),
         migrations.CreateModel(
-            name='ArmorEnhancement',
+            name="ArmorEnhancement",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField(null=True)),
-                ('weight', models.FloatField()),
-                ('price', models.IntegerField(help_text='Price in Redanian crowns')),
-                ('stopping_power_modifier', models.IntegerField()),
-                ('resistances', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('S', 'Slashing'), ('P', 'Piercing'), ('B', 'Bludgeoning'), ('E', 'Elemental')], max_length=50), size=None)),
-                ('effects', models.ManyToManyField(blank=True, to='character.effect')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField(null=True)),
+                ("weight", models.FloatField()),
+                ("price", models.IntegerField(help_text="Price in Redanian crowns")),
+                ("stopping_power_modifier", models.IntegerField()),
+                (
+                    "resistances",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.CharField(
+                            choices=[
+                                ("S", "Slashing"),
+                                ("P", "Piercing"),
+                                ("B", "Bludgeoning"),
+                                ("E", "Elemental"),
+                            ],
+                            max_length=50,
+                        ),
+                        size=None,
+                    ),
+                ),
+                ("effects", models.ManyToManyField(blank=True, to="character.effect")),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.AddField(
-            model_name='armor',
-            name='effects',
-            field=models.ManyToManyField(blank=True, to='character.effect'),
+            model_name="armor",
+            name="effects",
+            field=models.ManyToManyField(blank=True, to="character.effect"),
         ),
         migrations.AddField(
-            model_name='ammunition',
-            name='effects',
-            field=models.ManyToManyField(blank=True, to='character.effect'),
+            model_name="ammunition",
+            name="effects",
+            field=models.ManyToManyField(blank=True, to="character.effect"),
         ),
         migrations.CreateModel(
-            name='AlchemicalItem',
+            name="AlchemicalItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=100)),
-                ('description', models.TextField(null=True)),
-                ('weight', models.FloatField()),
-                ('price', models.IntegerField(help_text='Price in Redanian crowns')),
-                ('availability', models.CharField(choices=[('E', 'Everywhere'), ('C', 'Common'), ('P', 'Poor'), ('R', 'Rare')], max_length=1)),
-                ('effects', models.ManyToManyField(blank=True, to='character.effect')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100)),
+                ("description", models.TextField(null=True)),
+                ("weight", models.FloatField()),
+                ("price", models.IntegerField(help_text="Price in Redanian crowns")),
+                (
+                    "availability",
+                    models.CharField(
+                        choices=[
+                            ("E", "Everywhere"),
+                            ("C", "Common"),
+                            ("P", "Poor"),
+                            ("R", "Rare"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                ("effects", models.ManyToManyField(blank=True, to="character.effect")),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Sibling',
+            name="Sibling",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('relationship_status', models.CharField(max_length=50)),
-                ('personality', models.CharField(max_length=50)),
-                ('life_status', models.CharField(max_length=50)),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_sibling', to='character.character')),
-                ('player_character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='siblings', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                ("relationship_status", models.CharField(max_length=50)),
+                ("personality", models.CharField(max_length=50)),
+                ("life_status", models.CharField(max_length=50)),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_sibling",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="siblings",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
         migrations.CreateModel(
-            name='Romance',
+            name="Romance",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('romance_type', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_romance', to='character.character')),
-                ('player_character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='romances', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                ("romance_type", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_romance",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="romances",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
         migrations.CreateModel(
-            name='MostInfluencialFriend',
+            name="MostInfluencialFriend",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('region_type', models.CharField(choices=[('northern_kingdoms', 'The Northern Kingdoms'), ('nilfgaard', 'Nilfgaard'), ('elderlands', 'Elderlands')], max_length=50)),
-                ('status_title', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('impacts', models.ManyToManyField(blank=True, to='character.impact')),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_most_influencial_friend', to='character.character')),
-                ('player_character', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='most_influencial_friend', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                (
+                    "region_type",
+                    models.CharField(
+                        choices=[
+                            ("northern_kingdoms", "The Northern Kingdoms"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("elderlands", "Elderlands"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("status_title", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                ("impacts", models.ManyToManyField(blank=True, to="character.impact")),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_most_influencial_friend",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="most_influencial_friend",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
         migrations.CreateModel(
-            name='Enemy',
+            name="Enemy",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('position', models.CharField(max_length=50)),
-                ('cause', models.CharField(max_length=100)),
-                ('who_was_wronged', models.CharField(choices=[('you', 'You'), ('them', 'Them')], max_length=5)),
-                ('escalation', models.CharField(max_length=100)),
-                ('power_name', models.CharField(max_length=50)),
-                ('power_value', models.IntegerField()),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_enemy', to='character.character')),
-                ('player_character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='enemies', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                ("position", models.CharField(max_length=50)),
+                ("cause", models.CharField(max_length=100)),
+                (
+                    "who_was_wronged",
+                    models.CharField(
+                        choices=[("you", "You"), ("them", "Them")], max_length=5
+                    ),
+                ),
+                ("escalation", models.CharField(max_length=100)),
+                ("power_name", models.CharField(max_length=50)),
+                ("power_value", models.IntegerField()),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_enemy",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="enemies",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
         migrations.CreateModel(
-            name='Ally',
+            name="Ally",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('position', models.CharField(max_length=50)),
-                ('how_you_met', models.CharField(max_length=100)),
-                ('closeness', models.CharField(max_length=50)),
-                ('region', models.CharField(choices=[('northern_kingdoms', 'The Northern Kingdoms'), ('nilfgaard', 'Nilfgaard'), ('elderlands', 'Elderlands'), ('beyond_boundaries', 'Beyond the Boundaries')], max_length=50)),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_ally', to='character.character')),
-                ('player_character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='allies', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                ("position", models.CharField(max_length=50)),
+                ("how_you_met", models.CharField(max_length=100)),
+                ("closeness", models.CharField(max_length=50)),
+                (
+                    "region",
+                    models.CharField(
+                        choices=[
+                            ("northern_kingdoms", "The Northern Kingdoms"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("elderlands", "Elderlands"),
+                            ("beyond_boundaries", "Beyond the Boundaries"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_ally",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="allies",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
     ]

@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0003_impact_label'),
+        ("character", "0003_impact_label"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='socialstanding',
-            name='description',
-            field=models.TextField(default='TO FILL!'),
+            model_name="socialstanding",
+            name="description",
+            field=models.TextField(default="TO FILL!"),
             preserve_default=False,
         ),
     ]

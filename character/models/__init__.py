@@ -1,5 +1,12 @@
 from .utils import DiceRollInformation
-from .skills import Statistic, StatisticOwnership, Skill, SkillOwnership, SkillTreeItem, SkillTreeItemOwnership
+from .skills import (
+    Statistic,
+    StatisticOwnership,
+    Skill,
+    SkillOwnership,
+    SkillTreeItem,
+    SkillTreeItemOwnership,
+)
 from .character import (
     Country,
     Impact,

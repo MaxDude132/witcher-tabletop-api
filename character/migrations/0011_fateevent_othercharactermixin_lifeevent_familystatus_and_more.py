@@ -7,125 +7,356 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0010_remove_enemy_linked_character_and_more'),
+        ("character", "0010_remove_enemy_linked_character_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='FateEvent',
+            name="FateEvent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.CharField(choices=[('family_fate', ' Family Fate'), ('parental_fate', 'Parental Fate')], max_length=50)),
-                ('region_type', models.CharField(choices=[('northern_kingdoms', 'The Northern Kingdoms'), ('nilfgaard', 'Nilfgaard'), ('elderlands', 'Elderlands')], max_length=50)),
-                ('description', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("family_fate", " Family Fate"),
+                            ("parental_fate", "Parental Fate"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "region_type",
+                    models.CharField(
+                        choices=[
+                            ("northern_kingdoms", "The Northern Kingdoms"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("elderlands", "Elderlands"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("description", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='OtherCharacterMixin',
+            name="OtherCharacterMixin",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('sex', models.CharField(choices=[('male', 'Male'), ('female', 'Female')], max_length=10)),
-                ('age', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                (
+                    "sex",
+                    models.CharField(
+                        choices=[("male", "Male"), ("female", "Female")], max_length=10
+                    ),
+                ),
+                ("age", models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='LifeEvent',
+            name="LifeEvent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.CharField(choices=[('fortune', 'Fortune'), ('misfortune', 'Misfortune')], max_length=50)),
-                ('label', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('impacts', models.ManyToManyField(blank=True, to='character.impact')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[("fortune", "Fortune"), ("misfortune", "Misfortune")],
+                        max_length=50,
+                    ),
+                ),
+                ("label", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                ("impacts", models.ManyToManyField(blank=True, to="character.impact")),
             ],
         ),
         migrations.CreateModel(
-            name='FamilyStatus',
+            name="FamilyStatus",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('region_type', models.CharField(choices=[('northern_kingdoms', 'The Northern Kingdoms'), ('nilfgaard', 'Nilfgaard'), ('elderlands', 'Elderlands')], max_length=50)),
-                ('status_title', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('impacts', models.ManyToManyField(blank=True, to='character.impact')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "region_type",
+                    models.CharField(
+                        choices=[
+                            ("northern_kingdoms", "The Northern Kingdoms"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("elderlands", "Elderlands"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("status_title", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                ("impacts", models.ManyToManyField(blank=True, to="character.impact")),
             ],
         ),
         migrations.AddField(
-            model_name='character',
-            name='family_status',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='character.familystatus'),
+            model_name="character",
+            name="family_status",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="character.familystatus",
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='fate_event',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='character.fateevent'),
+            model_name="character",
+            name="fate_event",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="character.fateevent",
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='life_events',
-            field=models.ManyToManyField(blank=True, to='character.lifeevent'),
+            model_name="character",
+            name="life_events",
+            field=models.ManyToManyField(blank=True, to="character.lifeevent"),
         ),
         migrations.CreateModel(
-            name='Sibling',
+            name="Sibling",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('relationship_status', models.CharField(max_length=50)),
-                ('personality', models.CharField(max_length=50)),
-                ('life_status', models.CharField(max_length=50)),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_sibling', to='character.character')),
-                ('player_character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='siblings', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                ("relationship_status", models.CharField(max_length=50)),
+                ("personality", models.CharField(max_length=50)),
+                ("life_status", models.CharField(max_length=50)),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_sibling",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="siblings",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
         migrations.CreateModel(
-            name='Romance',
+            name="Romance",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('romance_type', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_romance', to='character.character')),
-                ('player_character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='romances', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                ("romance_type", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_romance",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="romances",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
         migrations.CreateModel(
-            name='MostInfluencialFriend',
+            name="MostInfluencialFriend",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('region_type', models.CharField(choices=[('northern_kingdoms', 'The Northern Kingdoms'), ('nilfgaard', 'Nilfgaard'), ('elderlands', 'Elderlands')], max_length=50)),
-                ('status_title', models.CharField(max_length=50)),
-                ('description', models.TextField()),
-                ('impacts', models.ManyToManyField(blank=True, to='character.impact')),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_most_influencial_friend', to='character.character')),
-                ('player_character', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='most_influencial_friend', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                (
+                    "region_type",
+                    models.CharField(
+                        choices=[
+                            ("northern_kingdoms", "The Northern Kingdoms"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("elderlands", "Elderlands"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("status_title", models.CharField(max_length=50)),
+                ("description", models.TextField()),
+                ("impacts", models.ManyToManyField(blank=True, to="character.impact")),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_most_influencial_friend",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="most_influencial_friend",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
         migrations.CreateModel(
-            name='Enemy',
+            name="Enemy",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('position', models.CharField(max_length=50)),
-                ('cause', models.CharField(max_length=100)),
-                ('who_was_wronged', models.CharField(choices=[('you', 'You'), ('them', 'Them')], max_length=5)),
-                ('escalation', models.CharField(max_length=100)),
-                ('power_name', models.CharField(max_length=50)),
-                ('power_value', models.IntegerField()),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_enemy', to='character.character')),
-                ('player_character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='enemies', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                ("position", models.CharField(max_length=50)),
+                ("cause", models.CharField(max_length=100)),
+                (
+                    "who_was_wronged",
+                    models.CharField(
+                        choices=[("you", "You"), ("them", "Them")], max_length=5
+                    ),
+                ),
+                ("escalation", models.CharField(max_length=100)),
+                ("power_name", models.CharField(max_length=50)),
+                ("power_value", models.IntegerField()),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_enemy",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="enemies",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
         migrations.CreateModel(
-            name='Ally',
+            name="Ally",
             fields=[
-                ('othercharactermixin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='character.othercharactermixin')),
-                ('position', models.CharField(max_length=50)),
-                ('how_you_met', models.CharField(max_length=100)),
-                ('closeness', models.CharField(max_length=50)),
-                ('region', models.CharField(choices=[('northern_kingdoms', 'The Northern Kingdoms'), ('nilfgaard', 'Nilfgaard'), ('elderlands', 'Elderlands'), ('beyond_boundaries', 'Beyond the Boundaries')], max_length=50)),
-                ('linked_character', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='is_ally', to='character.character')),
-                ('player_character', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='allies', to='character.character')),
+                (
+                    "othercharactermixin_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="character.othercharactermixin",
+                    ),
+                ),
+                ("position", models.CharField(max_length=50)),
+                ("how_you_met", models.CharField(max_length=100)),
+                ("closeness", models.CharField(max_length=50)),
+                (
+                    "region",
+                    models.CharField(
+                        choices=[
+                            ("northern_kingdoms", "The Northern Kingdoms"),
+                            ("nilfgaard", "Nilfgaard"),
+                            ("elderlands", "Elderlands"),
+                            ("beyond_boundaries", "Beyond the Boundaries"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "linked_character",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="is_ally",
+                        to="character.character",
+                    ),
+                ),
+                (
+                    "player_character",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="allies",
+                        to="character.character",
+                    ),
+                ),
             ],
-            bases=('character.othercharactermixin',),
+            bases=("character.othercharactermixin",),
         ),
     ]

@@ -8,7 +8,7 @@ class Statistic(models.Model):
     description = models.TextField()
 
     def __str__(self) -> str:
-        return f'{self.label} ({self.abbreviated_label})'
+        return f"{self.label} ({self.abbreviated_label})"
 
 
 class StatisticOwnership(models.Model):
@@ -16,7 +16,7 @@ class StatisticOwnership(models.Model):
     value = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'<{self.statistic}> - {self.value}'
+        return f"<{self.statistic}> - {self.value}"
 
 
 class Skill(models.Model):
@@ -35,21 +35,23 @@ class SkillOwnership(models.Model):
     value = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'<{self.skill}> - {self.value}'
+        return f"<{self.skill}> - {self.value}"
 
 
 class SkillTreeItem(models.Model):
-    profession = models.ForeignKey('Race', on_delete=models.CASCADE)
-    branch = models.IntegerField(validators=[MinValueValidator(1),  MaxValueValidator(3)])
-    depth = models.IntegerField(validators=[MinValueValidator(1),  MaxValueValidator(3)])
+    profession = models.ForeignKey("Race", on_delete=models.CASCADE)
+    branch = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(3)]
+    )
+    depth = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(3)])
     statistic = models.ForeignKey(Statistic, on_delete=models.CASCADE)
 
     label = models.CharField(max_length=50)
     description = models.TextField()
-    impacts = models.ManyToManyField('Impact', blank=True)
+    impacts = models.ManyToManyField("Impact", blank=True)
 
     def __str__(self) -> str:
-        return f'{self.label} - {self.profession}'
+        return f"{self.label} - {self.profession}"
 
 
 class SkillTreeItemOwnership(models.Model):
@@ -57,4 +59,4 @@ class SkillTreeItemOwnership(models.Model):
     value = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'<{self.character}> - <{self.skill_tree_item}> - {self.value}'
+        return f"<{self.character}> - <{self.skill_tree_item}> - {self.value}"

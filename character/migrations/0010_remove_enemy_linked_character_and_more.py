@@ -6,107 +6,107 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0009_alter_country_unique_together'),
+        ("character", "0009_alter_country_unique_together"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='enemy',
-            name='linked_character',
+            model_name="enemy",
+            name="linked_character",
         ),
         migrations.RemoveField(
-            model_name='enemy',
-            name='othercharactermixin_ptr',
+            model_name="enemy",
+            name="othercharactermixin_ptr",
         ),
         migrations.RemoveField(
-            model_name='enemy',
-            name='player_character',
+            model_name="enemy",
+            name="player_character",
         ),
         migrations.RemoveField(
-            model_name='familystatus',
-            name='impacts',
+            model_name="familystatus",
+            name="impacts",
         ),
         migrations.RemoveField(
-            model_name='lifeevent',
-            name='impacts',
+            model_name="lifeevent",
+            name="impacts",
         ),
         migrations.RemoveField(
-            model_name='mostinfluencialfriend',
-            name='impacts',
+            model_name="mostinfluencialfriend",
+            name="impacts",
         ),
         migrations.RemoveField(
-            model_name='mostinfluencialfriend',
-            name='linked_character',
+            model_name="mostinfluencialfriend",
+            name="linked_character",
         ),
         migrations.RemoveField(
-            model_name='mostinfluencialfriend',
-            name='othercharactermixin_ptr',
+            model_name="mostinfluencialfriend",
+            name="othercharactermixin_ptr",
         ),
         migrations.RemoveField(
-            model_name='mostinfluencialfriend',
-            name='player_character',
+            model_name="mostinfluencialfriend",
+            name="player_character",
         ),
         migrations.RemoveField(
-            model_name='romance',
-            name='linked_character',
+            model_name="romance",
+            name="linked_character",
         ),
         migrations.RemoveField(
-            model_name='romance',
-            name='othercharactermixin_ptr',
+            model_name="romance",
+            name="othercharactermixin_ptr",
         ),
         migrations.RemoveField(
-            model_name='romance',
-            name='player_character',
+            model_name="romance",
+            name="player_character",
         ),
         migrations.RemoveField(
-            model_name='sibling',
-            name='linked_character',
+            model_name="sibling",
+            name="linked_character",
         ),
         migrations.RemoveField(
-            model_name='sibling',
-            name='othercharactermixin_ptr',
+            model_name="sibling",
+            name="othercharactermixin_ptr",
         ),
         migrations.RemoveField(
-            model_name='sibling',
-            name='player_character',
+            model_name="sibling",
+            name="player_character",
         ),
         migrations.RemoveField(
-            model_name='character',
-            name='family_status',
+            model_name="character",
+            name="family_status",
         ),
         migrations.RemoveField(
-            model_name='character',
-            name='fate_event',
+            model_name="character",
+            name="fate_event",
         ),
         migrations.RemoveField(
-            model_name='character',
-            name='life_events',
+            model_name="character",
+            name="life_events",
         ),
         migrations.DeleteModel(
-            name='Ally',
+            name="Ally",
         ),
         migrations.DeleteModel(
-            name='Enemy',
+            name="Enemy",
         ),
         migrations.DeleteModel(
-            name='FamilyStatus',
+            name="FamilyStatus",
         ),
         migrations.DeleteModel(
-            name='FateEvent',
+            name="FateEvent",
         ),
         migrations.DeleteModel(
-            name='LifeEvent',
+            name="LifeEvent",
         ),
         migrations.DeleteModel(
-            name='MostInfluencialFriend',
+            name="MostInfluencialFriend",
         ),
         migrations.DeleteModel(
-            name='OtherCharacterMixin',
+            name="OtherCharacterMixin",
         ),
         migrations.DeleteModel(
-            name='Romance',
+            name="Romance",
         ),
         migrations.DeleteModel(
-            name='Sibling',
+            name="Sibling",
         ),
     ]

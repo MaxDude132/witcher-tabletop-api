@@ -1,8 +1,36 @@
 from django.contrib import admin
 from character.models.alchemy import AlchemicalItem
-from character.models.character import Character, Country, DefiningSkill, Impact, Profession, Race, RacePerk, RegionStanding, SocialStanding, LanguageOwnership
+from character.models.backstory import (
+    Ally,
+    Enemy,
+    FamilyStatus,
+    FateEvent,
+    LifeEvent,
+    MostInfluencialFriend,
+    Romance,
+    Sibling,
+)
+from character.models.character import (
+    Character,
+    Country,
+    DefiningSkill,
+    Impact,
+    Profession,
+    Race,
+    RacePerk,
+    RegionStanding,
+    SocialStanding,
+    LanguageOwnership,
+)
 from character.models.equipment import Ammunition, Armor, Effect, Gear, ToolKit, Weapon
-from character.models.skills import Skill, SkillOwnership, Statistic, StatisticOwnership, SkillTreeItem, SkillTreeItemOwnership
+from character.models.skills import (
+    Skill,
+    SkillOwnership,
+    Statistic,
+    StatisticOwnership,
+    SkillTreeItem,
+    SkillTreeItemOwnership,
+)
 from character.models.utils import DiceRollInformation
 
 
@@ -122,6 +150,46 @@ class ArmorAdmin(admin.ModelAdmin):
 # utils
 @admin.register(DiceRollInformation)
 class DiceRollInformationAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(FateEvent)
+class FateEventAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(FamilyStatus)
+class FamilyStatusAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(LifeEvent)
+class LifeEventAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(MostInfluencialFriend)
+class MostInfluencialFriendAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Sibling)
+class SiblingAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Ally)
+class AllyAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Enemy)
+class EnemyAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Romance)
+class RomanceAdmin(admin.ModelAdmin):
     pass
 
 
