@@ -44,6 +44,9 @@ class SkillTreeBranch(models.Model):
     def __str__(self) -> str:
         return self.label
 
+    class Meta:
+        verbose_name_plural = 'skill tree branches'
+
 
 class SkillTreeItem(models.Model):
     profession = models.ForeignKey("Profession", on_delete=models.CASCADE)
