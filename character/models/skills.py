@@ -40,6 +40,9 @@ class SkillOwnership(models.Model):
 
 class SkillTreeBranch(models.Model):
     label = models.CharField(max_length=50)
+    
+    def __str__(self) -> str:
+        return self.label
 
 
 class SkillTreeItem(models.Model):
