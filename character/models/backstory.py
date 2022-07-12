@@ -42,6 +42,9 @@ class FamilyStatus(models.Model):
     def __str__(self) -> str:
         return self.description[:50]
 
+    class Meta:
+        verbose_name_plural = "family status"
+
 
 class LifeEvent(models.Model):
     category = models.CharField(max_length=50, choices=LifeEventCategoryChoice.choices)
@@ -95,6 +98,9 @@ class Ally(OtherCharacterMixin):
         "Character", on_delete=models.CASCADE, related_name="allies"
     )
 
+    class Meta:
+        verbose_name_plural = "allies"
+
 
 class Enemy(OtherCharacterMixin):
     position = models.CharField(max_length=50)
@@ -111,6 +117,9 @@ class Enemy(OtherCharacterMixin):
     player_character = models.ForeignKey(
         "Character", on_delete=models.CASCADE, related_name="enemies"
     )
+
+    class Meta:
+        verbose_name_plural = "enemies"
 
 
 class Romance(OtherCharacterMixin):
