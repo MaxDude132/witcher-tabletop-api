@@ -28,6 +28,7 @@ from character.models.skills import (
     SkillOwnership,
     Statistic,
     StatisticOwnership,
+    SkillTreeBranch,
     SkillTreeItem,
     SkillTreeItemOwnership,
 )
