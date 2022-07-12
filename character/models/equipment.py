@@ -40,7 +40,9 @@ class Effect(models.Model):
 class Gear(BaseEquipmentMixin):
     # Gear does not implement anything more
     # than the base class
-    pass
+
+    class Meta:
+        verbose_name_plural = 'gear'
 
 
 class ToolKit(BaseEquipmentMixin):
