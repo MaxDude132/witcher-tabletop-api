@@ -39,7 +39,7 @@ class SkillOwnership(models.Model):
 
 
 class SkillTreeItem(models.Model):
-    profession = models.ForeignKey("Race", on_delete=models.CASCADE)
+    profession = models.ForeignKey("Profession", on_delete=models.CASCADE)
     branch = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(3)]
     )
