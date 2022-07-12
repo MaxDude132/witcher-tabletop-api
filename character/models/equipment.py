@@ -10,7 +10,6 @@ from ..choices import (
     WeaponCategoryChoice,
     DamageTypeChoice,
     HandsRequiredChoice,
-    ArmorTypeChoice,
     ArmorCategoryChoice,
 )
 

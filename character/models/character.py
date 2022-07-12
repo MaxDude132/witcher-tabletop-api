@@ -1,10 +1,8 @@
-from pydoc import ModuleScanner
 from django.db import models
 
 from core.models import Player
 
 from .skills import (
-    SkillTreeItem,
     SkillTreeItemOwnership,
     Statistic,
     Skill,
