@@ -106,6 +106,11 @@ class SkillOwnershipAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(SkillTreeBranch)
+class SkillTreeBranchAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(SkillTreeItem)
 class SkillTreeItemAdmin(admin.ModelAdmin):
     pass
