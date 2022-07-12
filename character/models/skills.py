@@ -38,11 +38,13 @@ class SkillOwnership(models.Model):
         return f"<{self.skill}> - {self.value}"
 
 
+class SkillTreeBranch(models.Model):
+    label = models.CharField(max_length=50)
+
+
 class SkillTreeItem(models.Model):
     profession = models.ForeignKey("Profession", on_delete=models.CASCADE)
-    branch = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(3)]
-    )
+    branch = models.ForeignKey(SkillTreeBranch, on_delete=models.CASCADE)
     depth = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(3)])
     statistic = models.ForeignKey(Statistic, on_delete=models.CASCADE)
 
