@@ -102,7 +102,19 @@ class Armor(BaseEquipmentMixin):
     effects = models.ManyToManyField(EffectOwnership, blank=True)
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
-    reliability = models.IntegerField(null=True, blank=True)
+    enhancement_spots = models.IntegerField(default=0)
+    encombrance_value = models.IntegerField(default=0)
+
+    is_elder = models.BooleanField(default=False)
+
+
+class Shield(BaseEquipmentMixin):
+    category = models.CharField(max_length=50, choices=ArmorCategoryChoice.choices)
+    armor_type = models.CharField(max_length=50, choices=ArmorTypeChoice.choices, default=ArmorTypeChoice.LIGHT)
+    effects = models.ManyToManyField(EffectOwnership, blank=True)
+
+    availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
+    reliability = models.IntegerField()
     enhancement_spots = models.IntegerField(default=0)
     encombrance_value = models.IntegerField(default=0)
 
