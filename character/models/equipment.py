@@ -15,7 +15,7 @@ from ..choices import (
 
 
 class BaseEquipmentMixin(models.Model):
-    label = models.CharField(max_length=100)
+    label = models.CharField(max_length=100, unique=True)
     description = models.TextField(null=True)
     weight = models.FloatField()
     price = models.IntegerField(help_text=_("Price in Redanian crowns"))
@@ -28,7 +28,7 @@ class BaseEquipmentMixin(models.Model):
 
 
 class Effect(models.Model):
-    label = models.CharField(max_length=50)
+    label = models.CharField(max_length=50, unique=True)
     description = models.TextField()
     impacts = models.ManyToManyField("Impact", blank=True)
 
@@ -42,6 +42,9 @@ class EffectOwnership(models.Model):
 
     def __str__(self) -> str:
         return f"{self.effect}{'({})'.format(self.value) if self.value else ''}"
+
+    class Meta:
+        unique_together = ('effect', 'value')
 
 
 class Gear(BaseEquipmentMixin):
@@ -71,7 +74,7 @@ class Weapon(BaseEquipmentMixin):
     hands_required = models.IntegerField(choices=HandsRequiredChoice.choices)
     enhancement_spots = models.IntegerField(default=0)
 
-    range = models.ForeignKey(RangeInformation, null=True, on_delete=models.CASCADE)
+    range = models.ForeignKey(RangeInformation, null=True, blank=True, on_delete=models.CASCADE)
     effects = models.ManyToManyField(EffectOwnership, blank=True)
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
