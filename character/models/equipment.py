@@ -58,7 +58,9 @@ class ToolKit(BaseEquipmentMixin):
 class Weapon(BaseEquipmentMixin):
     category = models.CharField(max_length=50, choices=WeaponCategoryChoice.choices)
     damage = models.ForeignKey(DiceRollInformation, on_delete=models.DO_NOTHING)
-    damage_type = models.CharField(max_length=1, choices=DamageTypeChoice.choices)
+    damage_type = ArrayField(
+        models.CharField(max_length=50, choices=DamageTypeChoice.choices)
+    )
     accuracy = models.IntegerField()
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
@@ -75,7 +77,9 @@ class Weapon(BaseEquipmentMixin):
 
 class Ammunition(BaseEquipmentMixin):
     base_quantity = models.IntegerField()
-    damage_type = models.CharField(max_length=1, choices=DamageTypeChoice.choices)
+    damage_type = ArrayField(
+        models.CharField(max_length=50, choices=DamageTypeChoice.choices)
+    )
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     reliability = models.IntegerField()
     effects = models.ManyToManyField(EffectOwnership, blank=True)
