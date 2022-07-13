@@ -63,6 +63,7 @@ class Gear(BaseEquipmentMixin):
 class ToolKit(BaseEquipmentMixin):
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
     impacts = models.ManyToManyField("Impact", blank=True)
+    effects = models.ManyToManyField(EffectOwnership, blank=True)
 
 
 class Weapon(BaseEquipmentMixin):
