@@ -11,3 +11,4 @@ class DiceRollInformation(models.Model):
 
     class Meta:
         unique_together = ('number_of_dice', 'number_of_sides', 'modifier')
+        ordering = ('number_of_sides', 'number_of_dice', 'modifier')
