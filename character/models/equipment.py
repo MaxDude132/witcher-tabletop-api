@@ -68,7 +68,7 @@ class Weapon(BaseEquipmentMixin):
     hands_required = models.IntegerField(choices=HandsRequiredChoice.choices)
     enhancement_spots = models.IntegerField(default=0)
 
-    range = models.CharField(max_length=25)
+    range = models.CharField(max_length=25, null=True, blank=True)
     effects = models.ManyToManyField(EffectOwnership, blank=True)
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
