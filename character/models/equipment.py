@@ -36,6 +36,11 @@ class Effect(models.Model):
         return self.label
 
 
+class EffectOwnership(models.Model):
+    effet = models.ForeignKey(Effect, on_delete=models.CASCADE)
+    value = models.IntegerField(null=True, blank=True)
+
+
 class Gear(BaseEquipmentMixin):
     # Gear does not implement anything more
     # than the base class
@@ -62,7 +67,7 @@ class Weapon(BaseEquipmentMixin):
     enhancement_spots = models.IntegerField(default=0)
 
     range = models.CharField(max_length=25)
-    effects = models.ManyToManyField(Effect, blank=True)
+    effects = models.ManyToManyField(EffectOwnership, blank=True)
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
     is_elder = models.BooleanField(default=False)
@@ -73,7 +78,7 @@ class Ammunition(BaseEquipmentMixin):
     damage_type = models.CharField(max_length=1, choices=DamageTypeChoice.choices)
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     reliability = models.IntegerField()
-    effects = models.ManyToManyField(Effect, blank=True)
+    effects = models.ManyToManyField(EffectOwnership, blank=True)
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
     is_elder = models.BooleanField(default=False)
@@ -82,7 +87,7 @@ class Ammunition(BaseEquipmentMixin):
 class Armor(BaseEquipmentMixin):
     category = models.CharField(max_length=50, choices=ArmorCategoryChoice.choices)
     stopping_power = models.IntegerField()
-    effects = models.ManyToManyField(Effect, blank=True)
+    effects = models.ManyToManyField(EffectOwnership, blank=True)
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     reliability = models.IntegerField(null=True)
@@ -93,7 +98,7 @@ class Armor(BaseEquipmentMixin):
 
 
 class ArmorEnhancement(BaseEquipmentMixin):
-    effects = models.ManyToManyField(Effect, blank=True)
+    effects = models.ManyToManyField(EffectOwnership, blank=True)
     stopping_power_modifier = models.IntegerField()
     resistances = ArrayField(
         models.CharField(max_length=50, choices=DamageTypeChoice.choices)
