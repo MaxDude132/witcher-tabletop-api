@@ -11,6 +11,7 @@ from ..choices import (
     DamageTypeChoice,
     HandsRequiredChoice,
     ArmorCategoryChoice,
+    ArmorTypeChoice,
 )
 
 
@@ -96,6 +97,7 @@ class Ammunition(BaseEquipmentMixin):
 
 class Armor(BaseEquipmentMixin):
     category = models.CharField(max_length=50, choices=ArmorCategoryChoice.choices)
+    armor_type = models.CharField(max_length=50, choices=ArmorTypeChoice.choices, default=ArmorTypeChoice.LIGHT)
     stopping_power = models.IntegerField()
     effects = models.ManyToManyField(EffectOwnership, blank=True)
 
