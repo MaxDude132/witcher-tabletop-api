@@ -37,8 +37,11 @@ class Effect(models.Model):
 
 
 class EffectOwnership(models.Model):
-    effet = models.ForeignKey(Effect, on_delete=models.CASCADE)
+    effect = models.ForeignKey(Effect, on_delete=models.CASCADE)
     value = models.IntegerField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return f"{self.effect}{'({})'.format(self.value) if self.value else ''}"
 
 
 class Gear(BaseEquipmentMixin):
