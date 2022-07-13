@@ -32,7 +32,7 @@ from character.models.skills import (
     SkillTreeItem,
     SkillTreeItemOwnership,
 )
-from character.models.utils import DiceRollInformation
+from character.models.utils import DiceRollInformation, RangeInformation
 
 
 # character
@@ -165,6 +165,12 @@ class DiceRollInformationAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(RangeInformation)
+class RangeInformationAdmin(admin.ModelAdmin):
+    pass
+
+
+# backstory
 @admin.register(FateEvent)
 class FateEventAdmin(admin.ModelAdmin):
     pass
