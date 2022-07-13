@@ -17,3 +17,7 @@ class DiceRollInformation(models.Model):
 class RangeInformation(models.Model):
     body_multiplier = models.IntegerField(default=0)
     definitive_value = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ('body_multiplier', 'definitive_value')
+        ordering = ('body_multiplier', 'definitive_value')
