@@ -54,6 +54,7 @@ class EffectOwnership(models.Model):
 
 
 class Gear(BaseEquipmentMixin):
+    weight = models.FloatField(null=True, blank=True)
     base_quantity = models.IntegerField(null=True, blank=True)
     gear_category = models.CharField(max_length=50, choices=GearCategoryChoice.choices)
 
