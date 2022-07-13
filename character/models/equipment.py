@@ -136,7 +136,7 @@ class ArmorEnhancement(BaseEquipmentMixin):
     effects = models.ManyToManyField(EffectOwnership, blank=True)
     stopping_power_modifier = models.IntegerField()
     resistances = ArrayField(
-        models.CharField(max_length=50, choices=DamageTypeChoice.choices)
+        models.CharField(max_length=50, choices=DamageTypeChoice.choices), null=True, blank=True
     )
 
     def __str__(self) -> str:
