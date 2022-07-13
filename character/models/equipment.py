@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import gettext_lazy as _
 
-from .utils import DiceRollInformation
+from .utils import DiceRollInformation, RangeInformation
 
 from ..choices import (
     ConcealmentChoice,
@@ -68,7 +68,7 @@ class Weapon(BaseEquipmentMixin):
     hands_required = models.IntegerField(choices=HandsRequiredChoice.choices)
     enhancement_spots = models.IntegerField(default=0)
 
-    range = models.CharField(max_length=25, null=True, blank=True)
+    range = models.ForeignKey(RangeInformation, null=True, on_delete=models.CASCADE)
     effects = models.ManyToManyField(EffectOwnership, blank=True)
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
