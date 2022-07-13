@@ -22,7 +22,7 @@ from character.models.character import (
     SocialStanding,
     LanguageOwnership,
 )
-from character.models.equipment import Ammunition, Armor, Effect, Gear, ToolKit, Weapon
+from character.models.equipment import Ammunition, Armor, Effect, EffectOwnership, Gear, ToolKit, Weapon
 from character.models.skills import (
     Skill,
     SkillOwnership,
@@ -125,6 +125,12 @@ class SkillTreeItemOwnershipAdmin(admin.ModelAdmin):
 # equipment
 @admin.register(Effect)
 class EffectAdmin(admin.ModelAdmin):
+    pass
+
+
+# equipment
+@admin.register(EffectOwnership)
+class EffectOwnershipAdmin(admin.ModelAdmin):
     pass
 
 
