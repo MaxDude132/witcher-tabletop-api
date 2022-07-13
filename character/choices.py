@@ -55,6 +55,15 @@ class WhoWasWrongedChoice(models.TextChoices):
 
 
 # Equipment
+class GearCategoryChoice(models.TextChoices):
+    GENERAL_GEAR = "general_gear", _('General Gear')
+    CONTAINERS = "containers", _('Containers')
+    FOOD_AND_DRINKS = "food_and_drinks", _('Food & Drinks')
+    CLOTHING = 'clothing', _('Clothing')
+    SERVICES = 'services', _('Services')
+    LODGING = 'lodging', _('Lodging')
+
+
 class ConcealmentChoice(models.TextChoices):
     TINY = "T", _("Tiny")
     SMALL = "S", _("Small")

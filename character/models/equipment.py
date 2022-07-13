@@ -7,6 +7,7 @@ from .utils import DiceRollInformation, RangeInformation
 from ..choices import (
     ConcealmentChoice,
     AvailabilityChoice,
+    GearCategoryChoice,
     WeaponCategoryChoice,
     DamageTypeChoice,
     HandsRequiredChoice,
@@ -54,6 +55,7 @@ class EffectOwnership(models.Model):
 
 class Gear(BaseEquipmentMixin):
     base_quantity = models.IntegerField(null=True, blank=True)
+    gear_category = models.CharField(max_length=50, choices=GearCategoryChoice.choices)
 
     class Meta:
         verbose_name_plural = 'gear'
