@@ -30,7 +30,7 @@ class BaseEquipmentMixin(models.Model):
 class Effect(models.Model):
     label = models.CharField(max_length=50)
     description = models.TextField()
-    impacts = models.ManyToManyField("Impact")
+    impacts = models.ManyToManyField("Impact", blank=True)
 
     def __str__(self) -> str:
         return self.label
