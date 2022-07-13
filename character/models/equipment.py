@@ -53,8 +53,7 @@ class EffectOwnership(models.Model):
 
 
 class Gear(BaseEquipmentMixin):
-    # Gear does not implement anything more
-    # than the base class
+    base_quantity = models.IntegerField(null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'gear'
