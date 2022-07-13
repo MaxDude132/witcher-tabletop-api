@@ -36,6 +36,9 @@ class Effect(models.Model):
     def __str__(self) -> str:
         return self.label
 
+    class Meta:
+        ordering = ('label',)
+
 
 class EffectOwnership(models.Model):
     effect = models.ForeignKey(Effect, on_delete=models.CASCADE)
@@ -46,6 +49,7 @@ class EffectOwnership(models.Model):
 
     class Meta:
         unique_together = ('effect', 'value')
+        ordering = ('effect', 'value')
 
 
 class Gear(BaseEquipmentMixin):
@@ -107,9 +111,11 @@ class Armor(BaseEquipmentMixin):
 
     is_elder = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name_plural = 'armor'
+
 
 class Shield(BaseEquipmentMixin):
-    category = models.CharField(max_length=50, choices=ArmorCategoryChoice.choices)
     armor_type = models.CharField(max_length=50, choices=ArmorTypeChoice.choices, default=ArmorTypeChoice.LIGHT)
     effects = models.ManyToManyField(EffectOwnership, blank=True)
 
@@ -122,8 +128,16 @@ class Shield(BaseEquipmentMixin):
 
 
 class ArmorEnhancement(BaseEquipmentMixin):
+    label = models.CharField(max_length=100, unique=True)
+    weight = models.FloatField()
+    price = models.IntegerField(help_text=_("Price in Redanian crowns"))
+
+    availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     effects = models.ManyToManyField(EffectOwnership, blank=True)
     stopping_power_modifier = models.IntegerField()
     resistances = ArrayField(
         models.CharField(max_length=50, choices=DamageTypeChoice.choices)
     )
+
+    def __str__(self) -> str:
+        return self.label

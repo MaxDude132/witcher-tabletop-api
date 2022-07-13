@@ -62,7 +62,7 @@ class ConcealmentChoice(models.TextChoices):
     CANNOT_HIDE = "N", _("Cannot hide")
 
 
-class AvailabilityChoice(models.TextChoices):
+class  AvailabilityChoice(models.TextChoices):
     EVERYWHERE = "E", _("Everywhere")
     COMMON = "C", _("Common")
     POOR = "P", _("Poor")
@@ -97,7 +97,6 @@ class ArmorCategoryChoice(models.TextChoices):
     HEAD_ARMOR = "head_armor", _("Head Armor")
     TORSO_ARMOR = "torso_armor", _("Torso Armor")
     LEG_ARMOR = "leg_armor", _("Leg Armor")
-    SHIELDS = "shields", _("Shields")
 
 
 class ArmorTypeChoice(models.TextChoices):

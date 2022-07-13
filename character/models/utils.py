@@ -19,7 +19,7 @@ class RangeInformation(models.Model):
     definitive_value = models.IntegerField(default=0)
 
     def __str__(self) -> str:
-        return f"{'BODYx{}'.format(self.body_multiplier) if self.body_multiplier else ''}{' + ' if self.body_multiplier and self.definitive_value else ''}{str(self.definitive_value) if self.definitive_value else ''}"
+        return f"{'BODYx{}m'.format(self.body_multiplier) if self.body_multiplier else ''}{' + ' if self.body_multiplier and self.definitive_value else ''}{'{}m'.format(str(self.definitive_value)) if self.definitive_value else ''}"
 
     class Meta:
         unique_together = ('body_multiplier', 'definitive_value')
