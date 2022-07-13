@@ -100,7 +100,7 @@ class Armor(BaseEquipmentMixin):
     effects = models.ManyToManyField(EffectOwnership, blank=True)
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
-    reliability = models.IntegerField(null=True)
+    reliability = models.IntegerField(null=True, blank=True)
     enhancement_spots = models.IntegerField(default=0)
     encombrance_value = models.IntegerField(default=0)
 
