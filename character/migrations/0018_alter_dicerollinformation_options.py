@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0017_alter_dicerollinformation_modifier_and_more'),
+        ("character", "0017_alter_dicerollinformation_modifier_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='dicerollinformation',
-            options={'ordering': ('number_of_sides', 'number_of_dice', 'modifier')},
+            name="dicerollinformation",
+            options={"ordering": ("number_of_sides", "number_of_dice", "modifier")},
         ),
     ]

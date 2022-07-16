@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0027_alter_armorenhancement_resistances'),
+        ("character", "0027_alter_armorenhancement_resistances"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='toolkit',
-            name='availablility',
+            model_name="toolkit",
+            name="availablility",
         ),
         migrations.AlterField(
-            model_name='toolkit',
-            name='impacts',
-            field=models.ManyToManyField(blank=True, to='character.impact'),
+            model_name="toolkit",
+            name="impacts",
+            field=models.ManyToManyField(blank=True, to="character.impact"),
         ),
     ]

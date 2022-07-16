@@ -38,7 +38,7 @@ class Effect(models.Model):
         return self.label
 
     class Meta:
-        ordering = ('label',)
+        ordering = ("label",)
 
 
 class EffectOwnership(models.Model):
@@ -49,8 +49,8 @@ class EffectOwnership(models.Model):
         return f"{self.effect}{'({})'.format(self.value) if self.value else ''}"
 
     class Meta:
-        unique_together = ('effect', 'value')
-        ordering = ('effect', 'value')
+        unique_together = ("effect", "value")
+        ordering = ("effect", "value")
 
 
 class Gear(BaseEquipmentMixin):
@@ -59,13 +59,22 @@ class Gear(BaseEquipmentMixin):
     gear_category = models.CharField(max_length=50, choices=GearCategoryChoice.choices)
 
     class Meta:
-        verbose_name_plural = 'gear'
+        verbose_name_plural = "gear"
+
+
+class GearOwnership(models.Model):
+    gear = models.ForeignKey(Gear, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
 
 
 class ToolKit(BaseEquipmentMixin):
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
     impacts = models.ManyToManyField("Impact", blank=True)
     effects = models.ManyToManyField(EffectOwnership, blank=True)
+
+
+class ToolKitOwnership(models.Model):
+    tool_kit = models.ForeignKey(ToolKit, on_delete=models.CASCADE)
 
 
 class Weapon(BaseEquipmentMixin):
@@ -81,11 +90,18 @@ class Weapon(BaseEquipmentMixin):
     hands_required = models.IntegerField(choices=HandsRequiredChoice.choices)
     enhancement_spots = models.IntegerField(default=0)
 
-    range = models.ForeignKey(RangeInformation, null=True, blank=True, on_delete=models.CASCADE)
+    range = models.ForeignKey(
+        RangeInformation, null=True, blank=True, on_delete=models.CASCADE
+    )
     effects = models.ManyToManyField(EffectOwnership, blank=True)
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
     is_elder = models.BooleanField(default=False)
+
+
+class WeaponOwnership(models.Model):
+    weapon = models.ForeignKey(Weapon, on_delete=models.CASCADE)
+    runes = None
 
 
 class Ammunition(BaseEquipmentMixin):
@@ -101,9 +117,16 @@ class Ammunition(BaseEquipmentMixin):
     is_elder = models.BooleanField(default=False)
 
 
+class AmmunitionOwnership(models.Model):
+    ammunition = models.ForeignKey(Ammunition, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+
+
 class Armor(BaseEquipmentMixin):
     category = models.CharField(max_length=50, choices=ArmorCategoryChoice.choices)
-    armor_type = models.CharField(max_length=50, choices=ArmorTypeChoice.choices, default=ArmorTypeChoice.LIGHT)
+    armor_type = models.CharField(
+        max_length=50, choices=ArmorTypeChoice.choices, default=ArmorTypeChoice.LIGHT
+    )
     stopping_power = models.IntegerField()
     effects = models.ManyToManyField(EffectOwnership, blank=True)
 
@@ -114,11 +137,13 @@ class Armor(BaseEquipmentMixin):
     is_elder = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name_plural = 'armor'
+        verbose_name_plural = "armor"
 
 
 class Shield(BaseEquipmentMixin):
-    armor_type = models.CharField(max_length=50, choices=ArmorTypeChoice.choices, default=ArmorTypeChoice.LIGHT)
+    armor_type = models.CharField(
+        max_length=50, choices=ArmorTypeChoice.choices, default=ArmorTypeChoice.LIGHT
+    )
     effects = models.ManyToManyField(EffectOwnership, blank=True)
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
@@ -138,8 +163,20 @@ class ArmorEnhancement(BaseEquipmentMixin):
     effects = models.ManyToManyField(EffectOwnership, blank=True)
     stopping_power_modifier = models.IntegerField()
     resistances = ArrayField(
-        models.CharField(max_length=50, choices=DamageTypeChoice.choices), null=True, blank=True
+        models.CharField(max_length=50, choices=DamageTypeChoice.choices),
+        null=True,
+        blank=True,
     )
 
     def __str__(self) -> str:
         return self.label
+
+
+class ArmorOwnership(models.Model):
+    armor = models.ForeignKey(Armor, on_delete=models.CASCADE)
+    enhancements = models.ManyToManyField(ArmorEnhancement, blank=True)
+
+
+class ShieldOwnership(models.Model):
+    shield = models.ForeignKey(Shield, on_delete=models.CASCADE)
+    enhancements = models.ManyToManyField(ArmorEnhancement, blank=True)

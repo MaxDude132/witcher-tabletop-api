@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0022_alter_alchemicalitem_label_alter_ammunition_label_and_more'),
+        (
+            "character",
+            "0022_alter_alchemicalitem_label_alter_ammunition_label_and_more",
+        ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='armor',
-            name='reliability',
+            model_name="armor",
+            name="reliability",
             field=models.IntegerField(blank=True, null=True),
         ),
     ]

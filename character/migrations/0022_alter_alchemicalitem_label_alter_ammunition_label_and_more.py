@@ -7,57 +7,62 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0021_rename_effet_effectownership_effect'),
+        ("character", "0021_rename_effet_effectownership_effect"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='alchemicalitem',
-            name='label',
+            model_name="alchemicalitem",
+            name="label",
             field=models.CharField(max_length=100, unique=True),
         ),
         migrations.AlterField(
-            model_name='ammunition',
-            name='label',
+            model_name="ammunition",
+            name="label",
             field=models.CharField(max_length=100, unique=True),
         ),
         migrations.AlterField(
-            model_name='armor',
-            name='label',
+            model_name="armor",
+            name="label",
             field=models.CharField(max_length=100, unique=True),
         ),
         migrations.AlterField(
-            model_name='armorenhancement',
-            name='label',
+            model_name="armorenhancement",
+            name="label",
             field=models.CharField(max_length=100, unique=True),
         ),
         migrations.AlterField(
-            model_name='effect',
-            name='label',
+            model_name="effect",
+            name="label",
             field=models.CharField(max_length=50, unique=True),
         ),
         migrations.AlterField(
-            model_name='gear',
-            name='label',
+            model_name="gear",
+            name="label",
             field=models.CharField(max_length=100, unique=True),
         ),
         migrations.AlterField(
-            model_name='toolkit',
-            name='label',
+            model_name="toolkit",
+            name="label",
             field=models.CharField(max_length=100, unique=True),
         ),
         migrations.AlterField(
-            model_name='weapon',
-            name='label',
+            model_name="weapon",
+            name="label",
             field=models.CharField(max_length=100, unique=True),
         ),
         migrations.AlterField(
-            model_name='weapon',
-            name='range',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='character.rangeinformation'),
+            model_name="weapon",
+            name="range",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="character.rangeinformation",
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='effectownership',
-            unique_together={('effect', 'value')},
+            name="effectownership",
+            unique_together={("effect", "value")},
         ),
     ]

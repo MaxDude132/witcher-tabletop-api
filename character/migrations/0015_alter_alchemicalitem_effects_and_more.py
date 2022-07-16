@@ -7,23 +7,45 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0014_alter_ally_options_alter_enemy_options_and_more'),
+        ("character", "0014_alter_ally_options_alter_enemy_options_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='alchemicalitem',
-            name='effects',
-            field=models.ManyToManyField(blank=True, to='character.effectownership'),
+            model_name="alchemicalitem",
+            name="effects",
+            field=models.ManyToManyField(blank=True, to="character.effectownership"),
         ),
         migrations.AlterField(
-            model_name='ammunition',
-            name='damage_type',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('S', 'Slashing'), ('P', 'Piercing'), ('B', 'Bludgeoning'), ('E', 'Elemental')], max_length=50), size=None),
+            model_name="ammunition",
+            name="damage_type",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("S", "Slashing"),
+                        ("P", "Piercing"),
+                        ("B", "Bludgeoning"),
+                        ("E", "Elemental"),
+                    ],
+                    max_length=50,
+                ),
+                size=None,
+            ),
         ),
         migrations.AlterField(
-            model_name='weapon',
-            name='damage_type',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('S', 'Slashing'), ('P', 'Piercing'), ('B', 'Bludgeoning'), ('E', 'Elemental')], max_length=50), size=None),
+            model_name="weapon",
+            name="damage_type",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("S", "Slashing"),
+                        ("P", "Piercing"),
+                        ("B", "Bludgeoning"),
+                        ("E", "Elemental"),
+                    ],
+                    max_length=50,
+                ),
+                size=None,
+            ),
         ),
     ]

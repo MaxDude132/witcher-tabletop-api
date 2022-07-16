@@ -9,7 +9,16 @@ from .skills import (
     SkillOwnership,
     StatisticOwnership,
 )
-from .equipment import Ammunition, Gear, ToolKit, Weapon, Armor
+from .equipment import (
+    Ammunition,
+    ArmorOwnership,
+    Gear,
+    ShieldOwnership,
+    ToolKit,
+    Weapon,
+    Armor,
+    WeaponOwnership,
+)
 from .backstory import FamilyStatus, FateEvent, LifeEvent
 from ..choices import RegionChoice, SocialStandingChoice
 
@@ -27,7 +36,6 @@ class Country(models.Model):
 
 
 class Impact(models.Model):
-    label = models.CharField(max_length=50)
     statistics = models.ManyToManyField(
         StatisticOwnership, related_name="impacts", blank=True
     )
@@ -35,7 +43,8 @@ class Impact(models.Model):
     stopping_power = models.IntegerField(blank=True, null=True)
 
     def __str__(self) -> str:
-        return self.label
+        base = self.statistics + self.skills + [self.stopping_power]
+        return ", ".join([item for item in base if item])
 
 
 class RacePerk(models.Model):
@@ -145,11 +154,18 @@ class Character(models.Model):
     # Equipement
     gear = models.ManyToManyField(Gear, related_name="characters", blank=True)
     tool_kits = models.ManyToManyField(ToolKit, related_name="characters", blank=True)
-    weapons = models.ManyToManyField(Weapon, related_name="characters", blank=True)
+    weapons = models.ManyToManyField(
+        WeaponOwnership, related_name="characters", blank=True
+    )
     ammunition = models.ManyToManyField(
         Ammunition, related_name="characters", blank=True
     )
-    armor = models.ManyToManyField(Armor, related_name="characters", blank=True)
+    armor = models.ManyToManyField(
+        ArmorOwnership, related_name="characters", blank=True
+    )
+    armor = models.ManyToManyField(
+        ShieldOwnership, related_name="characters", blank=True
+    )
 
     # Backstory
     fate_event = models.ForeignKey(FateEvent, on_delete=models.CASCADE, null=True)

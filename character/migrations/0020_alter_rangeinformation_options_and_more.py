@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0019_rangeinformation_alter_weapon_range'),
+        ("character", "0019_rangeinformation_alter_weapon_range"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='rangeinformation',
-            options={'ordering': ('body_multiplier', 'definitive_value')},
+            name="rangeinformation",
+            options={"ordering": ("body_multiplier", "definitive_value")},
         ),
         migrations.AlterUniqueTogether(
-            name='rangeinformation',
-            unique_together={('body_multiplier', 'definitive_value')},
+            name="rangeinformation",
+            unique_together={("body_multiplier", "definitive_value")},
         ),
     ]

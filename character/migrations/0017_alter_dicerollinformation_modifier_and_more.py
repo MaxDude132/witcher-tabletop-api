@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0016_alter_weapon_range'),
+        ("character", "0016_alter_weapon_range"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='dicerollinformation',
-            name='modifier',
+            model_name="dicerollinformation",
+            name="modifier",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterUniqueTogether(
-            name='dicerollinformation',
-            unique_together={('number_of_dice', 'number_of_sides', 'modifier')},
+            name="dicerollinformation",
+            unique_together={("number_of_dice", "number_of_sides", "modifier")},
         ),
     ]

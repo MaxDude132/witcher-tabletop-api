@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0031_gear_gear_category'),
+        ("character", "0031_gear_gear_category"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='gear',
-            name='weight',
+            model_name="gear",
+            name="weight",
             field=models.FloatField(blank=True, null=True),
         ),
     ]

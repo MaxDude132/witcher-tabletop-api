@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0028_remove_toolkit_availablility_alter_toolkit_impacts'),
+        ("character", "0028_remove_toolkit_availablility_alter_toolkit_impacts"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='toolkit',
-            name='effects',
-            field=models.ManyToManyField(blank=True, to='character.effectownership'),
+            model_name="toolkit",
+            name="effects",
+            field=models.ManyToManyField(blank=True, to="character.effectownership"),
         ),
     ]

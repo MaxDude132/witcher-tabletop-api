@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0015_alter_alchemicalitem_effects_and_more'),
+        ("character", "0015_alter_alchemicalitem_effects_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='weapon',
-            name='range',
+            model_name="weapon",
+            name="range",
             field=models.CharField(blank=True, max_length=25, null=True),
         ),
     ]

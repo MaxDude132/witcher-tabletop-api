@@ -40,12 +40,12 @@ class SkillOwnership(models.Model):
 
 class SkillTreeBranch(models.Model):
     label = models.CharField(max_length=50)
-    
+
     def __str__(self) -> str:
         return self.label
 
     class Meta:
-        verbose_name_plural = 'skill tree branches'
+        verbose_name_plural = "skill tree branches"
 
 
 class SkillTreeItem(models.Model):

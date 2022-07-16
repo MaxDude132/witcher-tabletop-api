@@ -6,35 +6,51 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0025_remove_armor_reliability_shield'),
+        ("character", "0025_remove_armor_reliability_shield"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='armor',
-            options={'verbose_name_plural': 'armor'},
+            name="armor",
+            options={"verbose_name_plural": "armor"},
         ),
         migrations.AlterModelOptions(
-            name='effect',
-            options={'ordering': ('label',)},
+            name="effect",
+            options={"ordering": ("label",)},
         ),
         migrations.AlterModelOptions(
-            name='effectownership',
-            options={'ordering': ('effect', 'value')},
+            name="effectownership",
+            options={"ordering": ("effect", "value")},
         ),
         migrations.RemoveField(
-            model_name='shield',
-            name='category',
+            model_name="shield",
+            name="category",
         ),
         migrations.AddField(
-            model_name='armorenhancement',
-            name='availablility',
-            field=models.CharField(choices=[('E', 'Everywhere'), ('C', 'Common'), ('P', 'Poor'), ('R', 'Rare')], default='E', max_length=1),
+            model_name="armorenhancement",
+            name="availablility",
+            field=models.CharField(
+                choices=[
+                    ("E", "Everywhere"),
+                    ("C", "Common"),
+                    ("P", "Poor"),
+                    ("R", "Rare"),
+                ],
+                default="E",
+                max_length=1,
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='armor',
-            name='category',
-            field=models.CharField(choices=[('head_armor', 'Head Armor'), ('torso_armor', 'Torso Armor'), ('leg_armor', 'Leg Armor')], max_length=50),
+            model_name="armor",
+            name="category",
+            field=models.CharField(
+                choices=[
+                    ("head_armor", "Head Armor"),
+                    ("torso_armor", "Torso Armor"),
+                    ("leg_armor", "Leg Armor"),
+                ],
+                max_length=50,
+            ),
         ),
     ]

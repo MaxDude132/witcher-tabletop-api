@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0023_alter_armor_reliability'),
+        ("character", "0023_alter_armor_reliability"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='armor',
-            name='armor_type',
-            field=models.CharField(choices=[('light', 'Light'), ('medium', 'Medium'), ('heavy', 'Heavy')], default='light', max_length=50),
+            model_name="armor",
+            name="armor_type",
+            field=models.CharField(
+                choices=[("light", "Light"), ("medium", "Medium"), ("heavy", "Heavy")],
+                default="light",
+                max_length=50,
+            ),
         ),
     ]

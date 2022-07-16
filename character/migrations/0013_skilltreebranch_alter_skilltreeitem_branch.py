@@ -7,20 +7,31 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0012_alter_skilltreeitem_profession'),
+        ("character", "0012_alter_skilltreeitem_profession"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SkillTreeBranch',
+            name="SkillTreeBranch",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("label", models.CharField(max_length=50)),
             ],
         ),
         migrations.AlterField(
-            model_name='skilltreeitem',
-            name='branch',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.skilltreebranch'),
+            model_name="skilltreeitem",
+            name="branch",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="character.skilltreebranch",
+            ),
         ),
     ]

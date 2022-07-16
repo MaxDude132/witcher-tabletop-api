@@ -22,7 +22,23 @@ from character.models.character import (
     SocialStanding,
     LanguageOwnership,
 )
-from character.models.equipment import Ammunition, Armor, ArmorEnhancement, Effect, EffectOwnership, Gear, Shield, ToolKit, Weapon
+from character.models.equipment import (
+    Ammunition,
+    AmmunitionOwnership,
+    Armor,
+    ArmorEnhancement,
+    ArmorOwnership,
+    Effect,
+    EffectOwnership,
+    Gear,
+    GearOwnership,
+    Shield,
+    ShieldOwnership,
+    ToolKit,
+    ToolKitOwnership,
+    Weapon,
+    WeaponOwnership,
+)
 from character.models.skills import (
     Skill,
     SkillOwnership,
@@ -139,8 +155,18 @@ class GearAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(GearOwnership)
+class GearOwnershipAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(ToolKit)
 class ToolKitAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ToolKitOwnership)
+class ToolKitOwnershipAdmin(admin.ModelAdmin):
     pass
 
 
@@ -149,13 +175,28 @@ class WeaponAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(WeaponOwnership)
+class WeaponOwnershipAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Ammunition)
 class AmmunitionAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(AmmunitionOwnership)
+class AmmunitionOwnershipAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Armor)
 class ArmorAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ArmorOwnership)
+class ArmorOwnershipAdmin(admin.ModelAdmin):
     pass
 
 
@@ -166,6 +207,11 @@ class ArmorEnhancementAdmin(admin.ModelAdmin):
 
 @admin.register(Shield)
 class ShieldAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ShieldOwnership)
+class ShieldOwnershipAdmin(admin.ModelAdmin):
     pass
 
 
