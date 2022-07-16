@@ -40,7 +40,7 @@ DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ["witcher-tabletop-api.herokuapp.com"]
 
-CORS_ALLOWED_ORIGINS = ["localhost:3000"]
+CORS_ALLOWED_ORIGINS = ["https://localhost:3000"]
 
 
 # Application definition
