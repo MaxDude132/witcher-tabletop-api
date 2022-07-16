@@ -94,29 +94,18 @@ WSGI_APPLICATION = "witcher_tabletop_api.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd25g6n99kj5aum',
-#         'USER': 'imdllmkwqoogya',
-#         'PASSWORD': '8c9cad7efd34c2bd9d6e30817ea03def7a80d555ad81f8fd0d6f63aa075e28f2',
-#         'HOST': 'ec2-52-20-166-21.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
-
 DATABASES = {}
-DATABASES["default"] = dj_database_url.config(conn_max_age=600)
-
-
-# 'default': {
-#     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#     'NAME': 'witcher-tabletop',
-#     'USER': 'postgres',
-#     'PASSWORD': 'admin',
-#     'HOST': '127.0.0.1',
-#     'PORT': '5432',
-# }
+if os.environ.get("DEV_ENV", False):
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'witcher-tabletop',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+else:
+    DATABASES["default"] = dj_database_url.config(conn_max_age=600)
 
 
 # Password validation
