@@ -10,47 +10,54 @@ class StatisticSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Statistic
         fields = (
-            'url',
-            'label',
-            'abbreviated_label',
-            'description',
+            "url",
+            "id",
+            "label",
+            "abbreviated_label",
+            "description",
         )
 
 
 class StatisticOwnershipSerializer(serializers.HyperlinkedModelSerializer):
     statistic = StatisticSerializer()
+
     class Meta:
         model = StatisticOwnership
         fields = (
-            'url',
-            'statistic',
-            'value',
-            'condition',
+            "url",
+            "id",
+            "statistic",
+            "value",
+            "condition",
         )
 
 
 class SkillSerializer(serializers.HyperlinkedModelSerializer):
     statistic = StatisticSerializer()
+
     class Meta:
         model = Skill
         fields = (
-            'url',
-            'label',
-            'description',
-            'statistic',
-            'costs_double',
+            "url",
+            "id",
+            "label",
+            "description",
+            "statistic",
+            "costs_double",
         )
 
 
 class SkillOwnershipSerializer(serializers.HyperlinkedModelSerializer):
     skill = SkillSerializer()
+
     class Meta:
         model = SkillOwnership
         fields = (
-            'url',
-            'skill',
-            'value',
-            'condition',
+            "url",
+            "id",
+            "skill",
+            "value",
+            "condition",
         )
 
 
@@ -61,16 +68,17 @@ class ImpactSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Impact
         fields = (
-            'url',
-            'statistics',
-            'skills',
-            'stopping_power',
-            'gear',
-            'tool_kits',
-            'weapon',
-            'ammunition',
-            'armor',
-            'shield',
+            "url",
+            "id",
+            "statistics",
+            "skills",
+            "stopping_power",
+            "gear",
+            "tool_kits",
+            "weapon",
+            "ammunition",
+            "armor",
+            "shield",
         )
 
 
@@ -80,22 +88,25 @@ class RacePerkSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = RacePerk
         fields = (
-            'url',
-            'label',
-            'description',
-            'impacts',
+            "url",
+            "id",
+            "label",
+            "description",
+            "impacts",
         )
 
 
 class SocialStandingSerializer(serializers.HyperlinkedModelSerializer):
     impacts = ImpactSerializer(many=True)
+
     class Meta:
         model = SocialStanding
         fields = (
-            'url',
-            'label',
-            'description',
-            'impacts',
+            "url",
+            "id",
+            "label",
+            "description",
+            "impacts",
         )
 
 
@@ -105,9 +116,10 @@ class RegionStandingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = RegionStanding
         fields = (
-            'url',
-            'region',
-            'social_standing',
+            "url",
+            "id",
+            "region",
+            "social_standing",
         )
 
 
@@ -119,8 +131,9 @@ class RaceSerializer(serializers.HyperlinkedModelSerializer):
         model = Race
         fields = (
             "url",
+            "id",
             "label",
-            'description',
-            'region_standings',
-            'perks',
+            "description",
+            "region_standings",
+            "perks",
         )

@@ -3,8 +3,16 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from character.models.skills import StatisticOwnership
 
-from character.tests.factories.character_factories import ImpactFactory, RaceFactory, RacePerkFactory, RegionStandingFactory
-from character.tests.factories.skill_factories import StatisticOwnershipFactory, SkillOwnershipFactory
+from character.tests.factories.character_factories import (
+    ImpactFactory,
+    RaceFactory,
+    RacePerkFactory,
+    RegionStandingFactory,
+)
+from character.tests.factories.skill_factories import (
+    StatisticOwnershipFactory,
+    SkillOwnershipFactory,
+)
 
 # Create your tests here.
 class RaceViewSetTextCase(APITestCase):
@@ -12,7 +20,6 @@ class RaceViewSetTextCase(APITestCase):
         impact = ImpactFactory()
         impact.statistics.add(StatisticOwnershipFactory())
         impact.skills.add(SkillOwnershipFactory())
-
 
         perk = RacePerkFactory()
         perk.impacts.add(impact)
@@ -22,10 +29,11 @@ class RaceViewSetTextCase(APITestCase):
 
         RaceFactory(perks=[perk])
 
-        url = reverse('race-list')
+        url = reverse("race-list")
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
-        self.assertIn(reverse('race-detail', kwargs={'pk': race.pk}), response.data[0]['url'])
-        
+        self.assertIn(
+            reverse("race-detail", kwargs={"pk": race.pk}), response.data[0]["url"]
+        )

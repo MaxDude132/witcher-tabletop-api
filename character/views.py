@@ -4,7 +4,17 @@ from character.models.character import Impact, RacePerk, RegionStanding, SocialS
 from character.models.skills import Skill, SkillOwnership, Statistic, StatisticOwnership
 
 from .models import Race
-from .serializers import ImpactSerializer, RacePerkSerializer, RaceSerializer, RegionStandingSerializer, SkillOwnershipSerializer, SkillSerializer, SocialStandingSerializer, StatisticOwnershipSerializer, StatisticSerializer
+from .serializers import (
+    ImpactSerializer,
+    RacePerkSerializer,
+    RaceSerializer,
+    RegionStandingSerializer,
+    SkillOwnershipSerializer,
+    SkillSerializer,
+    SocialStandingSerializer,
+    StatisticOwnershipSerializer,
+    StatisticSerializer,
+)
 
 
 # Create your views here.
@@ -12,7 +22,7 @@ class RaceViewSet(ReadOnlyModelViewSet):
     queryset = Race.objects.all()
     serializer_class = RaceSerializer
 
-    
+
 class RegionStandingViewSet(ReadOnlyModelViewSet):
     queryset = RegionStanding.objects.all()
     serializer_class = RegionStandingSerializer

@@ -96,13 +96,13 @@ WSGI_APPLICATION = "witcher_tabletop_api.wsgi.application"
 
 DATABASES = {}
 if os.environ.get("DEV_ENV", False):
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'witcher-tabletop',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+    DATABASES["default"] = {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "witcher-tabletop",
+        "USER": "postgres",
+        "PASSWORD": "admin",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 else:
     DATABASES["default"] = dj_database_url.config(conn_max_age=600)

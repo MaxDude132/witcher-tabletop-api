@@ -14,23 +14,23 @@ class RacePerkFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = RacePerk
 
-    label = factory.Faker('word')
-    description = factory.Faker('text')
+    label = factory.Faker("word")
+    description = factory.Faker("text")
 
 
 class SocialStandingFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = SocialStanding
 
-    label = factory.Faker('word')
-    description = factory.Faker('text')
+    label = factory.Faker("word")
+    description = factory.Faker("text")
 
 
 class RegionStandingFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = RegionStanding
 
-    region = factory.Faker('word')
+    region = factory.Faker("word")
     social_standing = factory.SubFactory(SocialStandingFactory)
 
 
@@ -38,8 +38,8 @@ class RaceFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Race
 
-    label = factory.Faker('name')
-    description = factory.Faker('text')
+    label = factory.Faker("name")
+    description = factory.Faker("text")
 
     @factory.post_generation
     def perks(self, create, extracted, **kwargs):

@@ -2,7 +2,17 @@ from django.urls import include, path
 
 from rest_framework import routers
 
-from .views import ImpactViewSet, RacePerkViewSet, RaceViewSet, RegionStandingViewSet, SkillOwnershipViewSet, SkillViewSet, SocialStandingViewSet, StatisticOwnershipViewSet, StatisticViewSet
+from .views import (
+    ImpactViewSet,
+    RacePerkViewSet,
+    RaceViewSet,
+    RegionStandingViewSet,
+    SkillOwnershipViewSet,
+    SkillViewSet,
+    SocialStandingViewSet,
+    StatisticOwnershipViewSet,
+    StatisticViewSet,
+)
 
 
 router = routers.SimpleRouter()

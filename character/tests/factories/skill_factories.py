@@ -10,9 +10,9 @@ class StastisticFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Statistic
 
-    label = factory.Faker('word')
-    abbreviated_label = factory.Faker('prefix')
-    description = factory.Faker('text')
+    label = factory.Faker("word")
+    abbreviated_label = factory.Faker("prefix")
+    description = factory.Faker("text")
 
 
 class StatisticOwnershipFactory(factory.django.DjangoModelFactory):
@@ -27,11 +27,11 @@ class SkillFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Skill
 
-    label = factory.Faker('word')
-    description = factory.Faker('text')
+    label = factory.Faker("word")
+    description = factory.Faker("text")
 
     statistic = factory.SubFactory(StastisticFactory)
-    costs_double = factory.Faker('pybool')
+    costs_double = factory.Faker("pybool")
 
 
 class SkillOwnershipFactory(factory.django.DjangoModelFactory):
