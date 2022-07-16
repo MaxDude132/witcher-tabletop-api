@@ -5,3 +5,4 @@ python-dotenv
 whitenoise
 Pillow
 django-cors-headers
+django-rest-framework
