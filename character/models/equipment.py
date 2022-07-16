@@ -20,7 +20,7 @@ class BaseEquipmentMixin(models.Model):
     label = models.CharField(max_length=100, unique=True)
     description = models.TextField(null=True)
     weight = models.FloatField()
-    price = models.IntegerField(help_text=_("Price in Redanian crowns"))
+    price = models.PositiveIntegerField(help_text=_("Price in Redanian crowns"))
 
     class Meta:
         abstract = True
@@ -55,7 +55,7 @@ class EffectOwnership(models.Model):
 
 class Gear(BaseEquipmentMixin):
     weight = models.FloatField(null=True, blank=True)
-    base_quantity = models.IntegerField(null=True, blank=True)
+    base_quantity = models.PositiveIntegerField(null=True, blank=True)
     gear_category = models.CharField(max_length=50, choices=GearCategoryChoice.choices)
 
     class Meta:
@@ -64,7 +64,7 @@ class Gear(BaseEquipmentMixin):
 
 class GearOwnership(models.Model):
     gear = models.ForeignKey(Gear, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField()
 
 
 class ToolKit(BaseEquipmentMixin):
@@ -86,9 +86,9 @@ class Weapon(BaseEquipmentMixin):
     accuracy = models.IntegerField()
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
-    reliability = models.IntegerField()
-    hands_required = models.IntegerField(choices=HandsRequiredChoice.choices)
-    enhancement_spots = models.IntegerField(default=0)
+    reliability = models.PositiveIntegerField()
+    hands_required = models.PositiveIntegerField(choices=HandsRequiredChoice.choices)
+    enhancement_spots = models.PositiveIntegerField(default=0)
 
     range = models.ForeignKey(
         RangeInformation, null=True, blank=True, on_delete=models.CASCADE
@@ -105,12 +105,12 @@ class WeaponOwnership(models.Model):
 
 
 class Ammunition(BaseEquipmentMixin):
-    base_quantity = models.IntegerField()
+    base_quantity = models.PositiveIntegerField()
     damage_type = ArrayField(
         models.CharField(max_length=50, choices=DamageTypeChoice.choices)
     )
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
-    reliability = models.IntegerField()
+    reliability = models.PositiveIntegerField()
     effects = models.ManyToManyField(EffectOwnership, blank=True)
     concealment = models.CharField(max_length=1, choices=ConcealmentChoice.choices)
 
@@ -119,7 +119,7 @@ class Ammunition(BaseEquipmentMixin):
 
 class AmmunitionOwnership(models.Model):
     ammunition = models.ForeignKey(Ammunition, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField()
 
 
 class Armor(BaseEquipmentMixin):
@@ -131,8 +131,8 @@ class Armor(BaseEquipmentMixin):
     effects = models.ManyToManyField(EffectOwnership, blank=True)
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
-    enhancement_spots = models.IntegerField(default=0)
-    encombrance_value = models.IntegerField(default=0)
+    enhancement_spots = models.PositiveIntegerField(default=0)
+    encombrance_value = models.PositiveIntegerField(default=0)
 
     is_elder = models.BooleanField(default=False)
 
@@ -147,9 +147,9 @@ class Shield(BaseEquipmentMixin):
     effects = models.ManyToManyField(EffectOwnership, blank=True)
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
-    reliability = models.IntegerField()
-    enhancement_spots = models.IntegerField(default=0)
-    encombrance_value = models.IntegerField(default=0)
+    reliability = models.PositiveIntegerField()
+    enhancement_spots = models.PositiveIntegerField(default=0)
+    encombrance_value = models.PositiveIntegerField(default=0)
 
     is_elder = models.BooleanField(default=False)
 
@@ -157,7 +157,7 @@ class Shield(BaseEquipmentMixin):
 class ArmorEnhancement(BaseEquipmentMixin):
     label = models.CharField(max_length=100, unique=True)
     weight = models.FloatField()
-    price = models.IntegerField(help_text=_("Price in Redanian crowns"))
+    price = models.PositiveIntegerField(help_text=_("Price in Redanian crowns"))
 
     availablility = models.CharField(max_length=1, choices=AvailabilityChoice.choices)
     effects = models.ManyToManyField(EffectOwnership, blank=True)

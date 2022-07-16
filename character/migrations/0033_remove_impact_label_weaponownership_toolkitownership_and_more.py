@@ -7,68 +7,161 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0032_alter_gear_weight'),
+        ("character", "0032_alter_gear_weight"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='impact',
-            name='label',
+            model_name="impact",
+            name="label",
         ),
         migrations.CreateModel(
-            name='WeaponOwnership',
+            name="WeaponOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('weapon', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.weapon')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "weapon",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.weapon",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ToolKitOwnership',
+            name="ToolKitOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tool_kit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.toolkit')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "tool_kit",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.toolkit",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ShieldOwnership',
+            name="ShieldOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('enhancements', models.ManyToManyField(blank=True, to='character.armorenhancement')),
-                ('shield', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.shield')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "enhancements",
+                    models.ManyToManyField(blank=True, to="character.armorenhancement"),
+                ),
+                (
+                    "shield",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.shield",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='GearOwnership',
+            name="GearOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField()),
-                ('gear', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.gear')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.IntegerField()),
+                (
+                    "gear",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="character.gear"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ArmorOwnership',
+            name="ArmorOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('armor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.armor')),
-                ('enhancements', models.ManyToManyField(blank=True, to='character.armorenhancement')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "armor",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.armor",
+                    ),
+                ),
+                (
+                    "enhancements",
+                    models.ManyToManyField(blank=True, to="character.armorenhancement"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='AmmunitionOwnership',
+            name="AmmunitionOwnership",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField()),
-                ('ammunition', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='character.ammunition')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.IntegerField()),
+                (
+                    "ammunition",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="character.ammunition",
+                    ),
+                ),
             ],
         ),
         migrations.AlterField(
-            model_name='character',
-            name='armor',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.shieldownership'),
+            model_name="character",
+            name="armor",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.shieldownership"
+            ),
         ),
         migrations.AlterField(
-            model_name='character',
-            name='weapons',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.weaponownership'),
+            model_name="character",
+            name="weapons",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.weaponownership"
+            ),
         ),
     ]

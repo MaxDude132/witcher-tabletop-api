@@ -14,7 +14,7 @@ from ..choices import (
 class OtherCharacterMixin(models.Model):
     name = models.CharField(max_length=100)
     sex = models.CharField(max_length=10, choices=SexChoice.choices)
-    age = models.IntegerField()
+    age = models.PositiveIntegerField()
 
     def __str__(self) -> str:
         return f"{self.name} - {self.sex} - {self.age} years old"
@@ -110,7 +110,7 @@ class Enemy(OtherCharacterMixin):
     )
     escalation = models.CharField(max_length=100)
     power_name = models.CharField(max_length=50)
-    power_value = models.IntegerField()
+    power_value = models.PositiveIntegerField()
     linked_character = models.OneToOneField(
         "Character", on_delete=models.CASCADE, null=True, related_name="is_enemy"
     )

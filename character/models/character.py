@@ -10,11 +10,12 @@ from .skills import (
     StatisticOwnership,
 )
 from .equipment import (
-    Ammunition,
+    AmmunitionOwnership,
     ArmorOwnership,
     Gear,
+    GearOwnership,
     ShieldOwnership,
-    ToolKit,
+    ToolKitOwnership,
     Weapon,
     Armor,
     WeaponOwnership,
@@ -42,9 +43,27 @@ class Impact(models.Model):
     skills = models.ManyToManyField(SkillOwnership, related_name="impacts", blank=True)
     stopping_power = models.IntegerField(blank=True, null=True)
 
+    gear = models.ManyToManyField(GearOwnership, blank=True)
+    tool_kits = models.ManyToManyField(ToolKitOwnership, blank=True)
+
+    weapon = models.ManyToManyField(WeaponOwnership, blank=True)
+    ammunition = models.ManyToManyField(AmmunitionOwnership, blank=True)
+    armor = models.ManyToManyField(ArmorOwnership, blank=True)
+    shield = models.ManyToManyField(ShieldOwnership, blank=True)
+
     def __str__(self) -> str:
-        base = self.statistics + self.skills + [self.stopping_power]
-        return ", ".join([item for item in base if item])
+        base = (
+            f"Statistics: {self.statistics}",
+            f'{", ".join(value for value in self.skills)}',
+            f"{self.stopping_power}",
+            f'{", ".join(value for value in self.gear)}',
+            f'{", ".join(value for value in self.tool_kits)}',
+            f'{", ".join(value for value in self.weapon)}',
+            f'{", ".join(value for value in self.ammunition)}',
+            f'{", ".join(value for value in self.armor)}',
+            f'{", ".join(value for value in self.shield)}',
+        )
+        return " - ".join([item for item in base if item])
 
 
 class RacePerk(models.Model):
@@ -106,17 +125,16 @@ class Profession(models.Model):
 
     defining_skill = models.OneToOneField(DefiningSkill, on_delete=models.CASCADE)
 
-    # TODO: Move starting logic to listeners
-    starting_vigor = models.IntegerField()
+    starting_vigor = models.PositiveIntegerField()
     starting_skills = models.ManyToManyField(Skill, blank=True)
     starting_gear = models.ManyToManyField(Gear, blank=True)
     starting_weapons = models.ManyToManyField(Weapon, blank=True)
     starting_armor = models.ManyToManyField(Armor, blank=True)
 
-    starting_novice_spells = models.IntegerField()
-    starting_novice_invocations = models.IntegerField()
-    starting_novice_rituals = models.IntegerField()
-    starting_low_danger_hexes = models.IntegerField()
+    starting_novice_spells = models.PositiveIntegerField()
+    starting_novice_invocations = models.PositiveIntegerField()
+    starting_novice_rituals = models.PositiveIntegerField()
+    starting_low_danger_hexes = models.PositiveIntegerField()
 
     region_standings = models.ManyToManyField(RegionStanding, blank=True)
 
@@ -150,15 +168,18 @@ class Character(models.Model):
         SkillTreeItemOwnership, related_name="characters", blank=True
     )
     languages = models.ManyToManyField("LanguageOwnership", related_name="characters")
+    improvement_points = models.PositiveIntegerField()
 
     # Equipement
-    gear = models.ManyToManyField(Gear, related_name="characters", blank=True)
-    tool_kits = models.ManyToManyField(ToolKit, related_name="characters", blank=True)
+    gear = models.ManyToManyField(GearOwnership, related_name="characters", blank=True)
+    tool_kits = models.ManyToManyField(
+        ToolKitOwnership, related_name="characters", blank=True
+    )
     weapons = models.ManyToManyField(
         WeaponOwnership, related_name="characters", blank=True
     )
     ammunition = models.ManyToManyField(
-        Ammunition, related_name="characters", blank=True
+        AmmunitionOwnership, related_name="characters", blank=True
     )
     armor = models.ManyToManyField(
         ArmorOwnership, related_name="characters", blank=True

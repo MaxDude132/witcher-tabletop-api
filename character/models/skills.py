@@ -15,6 +15,8 @@ class StatisticOwnership(models.Model):
     statistic = models.ForeignKey(Statistic, on_delete=models.CASCADE)
     value = models.IntegerField()
 
+    condition = models.CharField(max_length=100, null=True, blank=True)
+
     def __str__(self) -> str:
         return f"<{self.statistic}> - {self.value}"
 
@@ -34,6 +36,8 @@ class SkillOwnership(models.Model):
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
     value = models.IntegerField()
 
+    condition = models.CharField(max_length=100, null=True, blank=True)
+
     def __str__(self) -> str:
         return f"<{self.skill}> - {self.value}"
 
@@ -51,7 +55,9 @@ class SkillTreeBranch(models.Model):
 class SkillTreeItem(models.Model):
     profession = models.ForeignKey("Profession", on_delete=models.CASCADE)
     branch = models.ForeignKey(SkillTreeBranch, on_delete=models.CASCADE)
-    depth = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(3)])
+    depth = models.PositiveIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(3)]
+    )
     statistic = models.ForeignKey(Statistic, on_delete=models.CASCADE)
 
     label = models.CharField(max_length=50)
@@ -64,7 +70,7 @@ class SkillTreeItem(models.Model):
 
 class SkillTreeItemOwnership(models.Model):
     skill_tree_item = models.ForeignKey(SkillTreeItem, on_delete=models.CASCADE)
-    value = models.IntegerField()
+    value = models.PositiveIntegerField()
 
     def __str__(self) -> str:
         return f"<{self.character}> - <{self.skill_tree_item}> - {self.value}"
