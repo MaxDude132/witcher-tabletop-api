@@ -7,4 +7,4 @@ from .serializers import RaceSerializer
 # Create your views here.
 class RaceViewSet(ReadOnlyModelViewSet):
     queryset = Race.objects.all()
-    serializer = RaceSerializer
+    serializer_class = RaceSerializer
