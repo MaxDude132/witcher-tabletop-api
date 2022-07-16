@@ -54,14 +54,14 @@ class Impact(models.Model):
     def __str__(self) -> str:
         base = (
             f"{self.stopping_power}",
-            f"Statistics: {', '.join(value.__str__ for value in self.statistics.all())}",
-            f'Skills: {", ".join(value.__str__ for value in self.skills.all())}',
-            f'Gear: {", ".join(value.__str__ for value in self.gear.all())}',
-            f'Tool kits: {", ".join(value.__str__ for value in self.tool_kits.all())}',
-            f'Weapons: {", ".join(value.__str__ for value in self.weapon.all())}',
-            f'Ammunition: {", ".join(value.__str__ for value in self.ammunition.all())}',
-            f'Armor: {", ".join(value.__str__ for value in self.armor.all())}',
-            f'Shields: {", ".join(value.__str__ for value in self.shield.all())}',
+            f"Statistics: {', '.join(str(value) for value in self.statistics.all())}",
+            f'Skills: {", ".join(str(value) for value in self.skills.all())}',
+            f'Gear: {", ".join(str(value) for value in self.gear.all())}',
+            f'Tool kits: {", ".join(str(value) for value in self.tool_kits.all())}',
+            f'Weapons: {", ".join(str(value) for value in self.weapon.all())}',
+            f'Ammunition: {", ".join(str(value) for value in self.ammunition.all())}',
+            f'Armor: {", ".join(str(value) for value in self.armor.all())}',
+            f'Shields: {", ".join(str(value) for value in self.shield.all())}',
         )
         return " - ".join([item for item in base if item])
 
