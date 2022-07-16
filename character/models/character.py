@@ -53,15 +53,15 @@ class Impact(models.Model):
 
     def __str__(self) -> str:
         base = (
-            f"{self.stopping_power}",
-            f"Statistics: {', '.join(str(value) for value in self.statistics.all())}",
-            f'Skills: {", ".join(str(value) for value in self.skills.all())}',
-            f'Gear: {", ".join(str(value) for value in self.gear.all())}',
-            f'Tool kits: {", ".join(str(value) for value in self.tool_kits.all())}',
-            f'Weapons: {", ".join(str(value) for value in self.weapon.all())}',
-            f'Ammunition: {", ".join(str(value) for value in self.ammunition.all())}',
-            f'Armor: {", ".join(str(value) for value in self.armor.all())}',
-            f'Shields: {", ".join(str(value) for value in self.shield.all())}',
+            f"Stopping power: {self.stopping_power}" if self.stopping_power else '',
+            f"Statistics: {', '.join(str(value) for value in self.statistics.all())}" if self.statistics.exists() else '',
+            f'Skills: {", ".join(str(value) for value in self.skills.all())}' if self.skills.exists() else "",
+            f'Gear: {", ".join(str(value) for value in self.gear.all())}' if self.gear.exists() else "",
+            f'Tool kits: {", ".join(str(value) for value in self.tool_kits.all())}' if self.tool_kits.exists() else "",
+            f'Weapons: {", ".join(str(value) for value in self.weapon.all())}' if self.weapon.exists() else "",
+            f'Ammunition: {", ".join(str(value) for value in self.ammunition.all())}' if self.ammunition.exists() else "",
+            f'Armor: {", ".join(str(value) for value in self.armor.all())}' if self.armor.exists() else "",
+            f'Shields: {", ".join(str(value) for value in self.shield.all())}' if self.shield.exists() else "",
         )
         return " - ".join([item for item in base if item])
 
