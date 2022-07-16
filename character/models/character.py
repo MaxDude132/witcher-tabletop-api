@@ -20,7 +20,16 @@ from .equipment import (
     Armor,
     WeaponOwnership,
 )
-from .backstory import Ally, Enemy, FamilyStatus, FateEvent, LifeEvent, MostInfluencialFriend, Romance, Sibling
+from .backstory import (
+    Ally,
+    Enemy,
+    FamilyStatus,
+    FateEvent,
+    LifeEvent,
+    MostInfluencialFriend,
+    Romance,
+    Sibling,
+)
 from ..choices import RegionChoice, SocialStandingChoice
 
 
@@ -53,15 +62,31 @@ class Impact(models.Model):
 
     def __str__(self) -> str:
         base = (
-            f"Stopping power: {self.stopping_power}" if self.stopping_power else '',
-            f"Statistics: {', '.join(str(value) for value in self.statistics.all())}" if self.statistics.exists() else '',
-            f'Skills: {", ".join(str(value) for value in self.skills.all())}' if self.skills.exists() else "",
-            f'Gear: {", ".join(str(value) for value in self.gear.all())}' if self.gear.exists() else "",
-            f'Tool kits: {", ".join(str(value) for value in self.tool_kits.all())}' if self.tool_kits.exists() else "",
-            f'Weapons: {", ".join(str(value) for value in self.weapon.all())}' if self.weapon.exists() else "",
-            f'Ammunition: {", ".join(str(value) for value in self.ammunition.all())}' if self.ammunition.exists() else "",
-            f'Armor: {", ".join(str(value) for value in self.armor.all())}' if self.armor.exists() else "",
-            f'Shields: {", ".join(str(value) for value in self.shield.all())}' if self.shield.exists() else "",
+            f"Stopping power: {self.stopping_power}" if self.stopping_power else "",
+            f"Statistics: {', '.join(str(value) for value in self.statistics.all())}"
+            if self.statistics.exists()
+            else "",
+            f'Skills: {", ".join(str(value) for value in self.skills.all())}'
+            if self.skills.exists()
+            else "",
+            f'Gear: {", ".join(str(value) for value in self.gear.all())}'
+            if self.gear.exists()
+            else "",
+            f'Tool kits: {", ".join(str(value) for value in self.tool_kits.all())}'
+            if self.tool_kits.exists()
+            else "",
+            f'Weapons: {", ".join(str(value) for value in self.weapon.all())}'
+            if self.weapon.exists()
+            else "",
+            f'Ammunition: {", ".join(str(value) for value in self.ammunition.all())}'
+            if self.ammunition.exists()
+            else "",
+            f'Armor: {", ".join(str(value) for value in self.armor.all())}'
+            if self.armor.exists()
+            else "",
+            f'Shields: {", ".join(str(value) for value in self.shield.all())}'
+            if self.shield.exists()
+            else "",
         )
         return " - ".join([item for item in base if item])
 
@@ -159,7 +184,9 @@ class Character(models.Model):
 
     race = models.ForeignKey(Race, on_delete=models.CASCADE)
     profession = models.ForeignKey(Profession, on_delete=models.CASCADE)
-    region_standings = models.ManyToManyField(RegionStanding, related_name="characters", blank=True)
+    region_standings = models.ManyToManyField(
+        RegionStanding, related_name="characters", blank=True
+    )
 
     # Stats and Skills
     statistics = models.ManyToManyField(StatisticOwnership, related_name="characters")
@@ -191,13 +218,16 @@ class Character(models.Model):
     # Backstory
     fate_event = models.ForeignKey(FateEvent, on_delete=models.CASCADE, null=True)
     family_status = models.ForeignKey(FamilyStatus, on_delete=models.CASCADE, null=True)
-    life_events = models.ManyToManyField(LifeEvent, related_name="characters", blank=True)
-    most_influencial_friend = models.OneToOneField(MostInfluencialFriend, on_delete=models.SET_NULL, null=True)
+    life_events = models.ManyToManyField(
+        LifeEvent, related_name="characters", blank=True
+    )
+    most_influencial_friend = models.OneToOneField(
+        MostInfluencialFriend, on_delete=models.SET_NULL, null=True
+    )
     siblings = models.ManyToManyField(Sibling, related_name="characters", blank=True)
-    allies = models.ManyToManyField(Ally, related_name="characters", blank=True)    
+    allies = models.ManyToManyField(Ally, related_name="characters", blank=True)
     enemies = models.ManyToManyField(Enemy, related_name="characters", blank=True)
     romances = models.ManyToManyField(Romance, related_name="characters", blank=True)
-
 
     # Personal Style
     clothing = models.CharField(max_length=50, blank=True)

@@ -40,8 +40,7 @@ DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ["witcher-tabletop-api.herokuapp.com"]
 
-CORS_ALLOWED_ORIGINS = [
-]
+CORS_ALLOWED_ORIGINS = ["localhost:3000"]
 
 
 # Application definition
@@ -53,7 +52,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'corsheaders',
+    "rest_framework",
+    "corsheaders",
     "core",
     "character",
 ]
@@ -162,5 +162,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "core.Player"
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
+}
 
 django_heroku.settings(locals())
