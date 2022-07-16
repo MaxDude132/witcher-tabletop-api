@@ -18,7 +18,7 @@ class StatisticOwnership(models.Model):
     condition = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"<{self.statistic}> - {self.value}"
+        return f"<{self.statistic}> {'+' if self.value > 0 else '-'}{self.value}"
 
 
 class Skill(models.Model):
@@ -39,7 +39,7 @@ class SkillOwnership(models.Model):
     condition = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"<{self.skill}> - {self.value}"
+        return f"<{self.skill}> {'+' if self.value >= 0 else '-'}{self.value}"
 
 
 class SkillTreeBranch(models.Model):
@@ -65,7 +65,7 @@ class SkillTreeItem(models.Model):
     impacts = models.ManyToManyField("Impact", blank=True)
 
     def __str__(self) -> str:
-        return f"{self.label} - {self.profession}"
+        return f"{self.label} {'+' if self.value >= 0 else '-'}{self.profession}"
 
 
 class SkillTreeItemOwnership(models.Model):

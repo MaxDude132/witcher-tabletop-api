@@ -26,6 +26,7 @@ class FateEvent(models.Model):
         max_length=50, choices=FateEventRegionTypeChoice.choices
     )
     description = models.TextField()
+    roll = models.PositiveSmallIntegerField(null=True, blank=True)
 
     def __str__(self) -> str:
         return self.description[:50]
@@ -37,6 +38,9 @@ class FamilyStatus(models.Model):
     )
     status_title = models.CharField(max_length=50)
     description = models.TextField()
+
+    starting_gear = models.CharField(max_length=50)
+    roll = models.PositiveSmallIntegerField(null=True, blank=True)
     impacts = models.ManyToManyField("Impact", blank=True)
 
     def __str__(self) -> str:
@@ -50,6 +54,7 @@ class LifeEvent(models.Model):
     category = models.CharField(max_length=50, choices=LifeEventCategoryChoice.choices)
     label = models.CharField(max_length=50)
     description = models.TextField()
+    roll = models.PositiveSmallIntegerField(null=True, blank=True)
     impacts = models.ManyToManyField("Impact", blank=True)
 
     def __str__(self) -> str:
@@ -62,15 +67,15 @@ class MostInfluencialFriend(OtherCharacterMixin):
     )
     status_title = models.CharField(max_length=50)
     description = models.TextField()
+
+    starting_gear = models.CharField(max_length=50)
+    roll = models.PositiveSmallIntegerField(null=True, blank=True)
     impacts = models.ManyToManyField("Impact", blank=True)
     linked_character = models.OneToOneField(
         "Character",
         on_delete=models.CASCADE,
         null=True,
         related_name="is_most_influencial_friend",
-    )
-    player_character = models.OneToOneField(
-        "Character", on_delete=models.CASCADE, related_name="most_influencial_friend"
     )
 
 
@@ -81,9 +86,6 @@ class Sibling(OtherCharacterMixin):
     linked_character = models.OneToOneField(
         "Character", on_delete=models.CASCADE, null=True, related_name="is_sibling"
     )
-    player_character = models.ForeignKey(
-        "Character", on_delete=models.CASCADE, related_name="siblings"
-    )
 
 
 class Ally(OtherCharacterMixin):
@@ -93,9 +95,6 @@ class Ally(OtherCharacterMixin):
     region = models.CharField(max_length=50, choices=AllyRegionChoice.choices)
     linked_character = models.OneToOneField(
         "Character", on_delete=models.CASCADE, null=True, related_name="is_ally"
-    )
-    player_character = models.ForeignKey(
-        "Character", on_delete=models.CASCADE, related_name="allies"
     )
 
     class Meta:
@@ -114,9 +113,6 @@ class Enemy(OtherCharacterMixin):
     linked_character = models.OneToOneField(
         "Character", on_delete=models.CASCADE, null=True, related_name="is_enemy"
     )
-    player_character = models.ForeignKey(
-        "Character", on_delete=models.CASCADE, related_name="enemies"
-    )
 
     class Meta:
         verbose_name_plural = "enemies"
@@ -127,7 +123,4 @@ class Romance(OtherCharacterMixin):
     description = models.TextField()
     linked_character = models.OneToOneField(
         "Character", on_delete=models.CASCADE, null=True, related_name="is_romance"
-    )
-    player_character = models.ForeignKey(
-        "Character", on_delete=models.CASCADE, related_name="romances"
     )
