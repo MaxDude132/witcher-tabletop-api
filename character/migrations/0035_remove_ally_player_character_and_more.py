@@ -7,93 +7,109 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character', '0034_character_improvement_points_impact_ammunition_and_more'),
+        ("character", "0034_character_improvement_points_impact_ammunition_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='ally',
-            name='player_character',
+            model_name="ally",
+            name="player_character",
         ),
         migrations.RemoveField(
-            model_name='enemy',
-            name='player_character',
+            model_name="enemy",
+            name="player_character",
         ),
         migrations.RemoveField(
-            model_name='mostinfluencialfriend',
-            name='player_character',
+            model_name="mostinfluencialfriend",
+            name="player_character",
         ),
         migrations.RemoveField(
-            model_name='romance',
-            name='player_character',
+            model_name="romance",
+            name="player_character",
         ),
         migrations.RemoveField(
-            model_name='sibling',
-            name='player_character',
+            model_name="sibling",
+            name="player_character",
         ),
         migrations.AddField(
-            model_name='character',
-            name='allies',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.ally'),
+            model_name="character",
+            name="allies",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.ally"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='enemies',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.enemy'),
+            model_name="character",
+            name="enemies",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.enemy"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='most_influencial_friend',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.SET_NULL, to='character.mostinfluencialfriend'),
+            model_name="character",
+            name="most_influencial_friend",
+            field=models.OneToOneField(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="character.mostinfluencialfriend",
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='romances',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.romance'),
+            model_name="character",
+            name="romances",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.romance"
+            ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='siblings',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.sibling'),
+            model_name="character",
+            name="siblings",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.sibling"
+            ),
         ),
         migrations.AddField(
-            model_name='familystatus',
-            name='roll',
+            model_name="familystatus",
+            name="roll",
             field=models.PositiveSmallIntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='familystatus',
-            name='starting_gear',
+            model_name="familystatus",
+            name="starting_gear",
             field=models.CharField(blank=True, max_length=50, null=True),
         ),
         migrations.AddField(
-            model_name='fateevent',
-            name='roll',
+            model_name="fateevent",
+            name="roll",
             field=models.PositiveSmallIntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='lifeevent',
-            name='roll',
+            model_name="lifeevent",
+            name="roll",
             field=models.PositiveSmallIntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='mostinfluencialfriend',
-            name='roll',
+            model_name="mostinfluencialfriend",
+            name="roll",
             field=models.PositiveSmallIntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='mostinfluencialfriend',
-            name='starting_gear',
+            model_name="mostinfluencialfriend",
+            name="starting_gear",
             field=models.CharField(blank=True, max_length=50, null=True),
         ),
         migrations.AlterField(
-            model_name='character',
-            name='life_events',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.lifeevent'),
+            model_name="character",
+            name="life_events",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.lifeevent"
+            ),
         ),
         migrations.AlterField(
-            model_name='character',
-            name='region_standings',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.regionstanding'),
+            model_name="character",
+            name="region_standings",
+            field=models.ManyToManyField(
+                blank=True, related_name="characters", to="character.regionstanding"
+            ),
         ),
     ]

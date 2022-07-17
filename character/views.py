@@ -1,4 +1,14 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from character.models.backstory import (
+    Ally,
+    Enemy,
+    FamilyStatus,
+    FateEvent,
+    LifeEvent,
+    MostInfluencialFriend,
+    Romance,
+    Sibling,
+)
 
 from character.models.character import Impact, RacePerk, RegionStanding, SocialStanding
 from character.models.equipment import (
@@ -23,6 +33,7 @@ from character.models.utils import DiceRollInformation, RangeInformation
 
 from .models import Race
 from .serializers import (
+    AllySerializer,
     AmmunitionOwnsershipSerializer,
     AmmunitionSerializer,
     ArmorEnhancementSerializer,
@@ -31,15 +42,22 @@ from .serializers import (
     DiceRollInformationSerializer,
     EffectSerializer,
     EffectOwnershipSerializer,
+    EnemySerializer,
+    FamilyStatusSerializer,
+    FateEventSerializer,
     GearOwnershipSerializer,
     GearSerializer,
     ImpactSerializer,
+    LifeEventSerializer,
+    MostInfluencialFriendSerializer,
     RacePerkSerializer,
     RaceSerializer,
     RangeInformationSerializer,
     RegionStandingSerializer,
+    RomanceSerializer,
     ShieldOwnershipSerializer,
     ShieldSerializer,
+    SiblingSerializer,
     SkillOwnershipSerializer,
     SkillSerializer,
     SocialStandingSerializer,
@@ -180,3 +198,43 @@ class RegionStandingViewSet(ReadOnlyModelViewSet):
 class RaceViewSet(ReadOnlyModelViewSet):
     queryset = Race.objects.all()
     serializer_class = RaceSerializer
+
+
+class FateEventViewSet(ReadOnlyModelViewSet):
+    queryset = FateEvent.objects.all()
+    serializer_class = FateEventSerializer
+
+
+class FamilyStatusViewSet(ReadOnlyModelViewSet):
+    queryset = FamilyStatus.objects.all()
+    serializer_class = FamilyStatusSerializer
+
+
+class LifeEventViewSet(ReadOnlyModelViewSet):
+    queryset = LifeEvent.objects.all()
+    serializer_class = LifeEventSerializer
+
+
+class MostInfluencialFriendViewSet(ModelViewSet):
+    queryset = MostInfluencialFriend.objects.all()
+    serializer_class = MostInfluencialFriendSerializer
+
+
+class SiblingViewSet(ModelViewSet):
+    queryset = Sibling.objects.all()
+    serializer_class = SiblingSerializer
+
+
+class AllyViewSet(ModelViewSet):
+    queryset = Ally.objects.all()
+    serializer_class = AllySerializer
+
+
+class EnemyViewSet(ModelViewSet):
+    queryset = Enemy.objects.all()
+    serializer_class = EnemySerializer
+
+
+class RomanceViewSet(ModelViewSet):
+    queryset = Romance.objects.all()
+    serializer_class = RomanceSerializer

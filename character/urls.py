@@ -3,6 +3,7 @@ from django.urls import include, path
 from rest_framework import routers
 
 from .views import (
+    AllyViewSet,
     AmmunitionOwnershipViewSet,
     AmmunitionViewSet,
     ArmorEnhancementViewSet,
@@ -11,15 +12,22 @@ from .views import (
     DiceRollInformationViewSet,
     EffectOwnershipViewSet,
     EffectViewSet,
+    EnemyViewSet,
+    FamilyStatusViewSet,
+    FateEventViewSet,
     GearOwnsershipViewSet,
     GearViewSet,
     ImpactViewSet,
+    LifeEventViewSet,
+    MostInfluencialFriendViewSet,
     RacePerkViewSet,
     RaceViewSet,
     RangeInformationViewSet,
     RegionStandingViewSet,
+    RomanceViewSet,
     ShieldOwnershipViewSet,
     ShieldViewSet,
+    SiblingViewSet,
     SkillOwnershipViewSet,
     SkillViewSet,
     SocialStandingViewSet,
@@ -67,5 +75,16 @@ router.register("races", RaceViewSet)
 router.register("social-standings", SocialStandingViewSet)
 router.register("region-standings", RegionStandingViewSet)
 router.register("race-perks", RacePerkViewSet)
+
+# backstory
+router.register("fate-events", FateEventViewSet)
+router.register("family-statuses", FamilyStatusViewSet)
+router.register("life-events", LifeEventViewSet)
+router.register("most-influencial-friends", MostInfluencialFriendViewSet)
+router.register("siblings", SiblingViewSet)
+router.register("allies", AllyViewSet)
+router.register("enemies", EnemyViewSet)
+router.register("romances", RomanceViewSet)
+
 
 urlpatterns = router.urls

@@ -1,5 +1,15 @@
 from rest_framework import serializers
 from character.choices import GearCategoryChoice
+from character.models.backstory import (
+    Ally,
+    Enemy,
+    FamilyStatus,
+    FateEvent,
+    LifeEvent,
+    MostInfluencialFriend,
+    Romance,
+    Sibling,
+)
 
 from character.models.character import Impact, RacePerk, RegionStanding, SocialStanding
 from character.models.equipment import (
@@ -425,4 +435,130 @@ class RaceSerializer(serializers.HyperlinkedModelSerializer):
             "description",
             "region_standings",
             "perks",
+        )
+
+
+class FateEventSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = FateEvent
+        fields = (
+            "url",
+            "id",
+            "category",
+            "region_type",
+            "description",
+            "roll",
+        )
+
+
+class FamilyStatusSerializer(serializers.HyperlinkedModelSerializer):
+    impacts = ImpactSerializer(many=True)
+
+    class Meta:
+        model = FamilyStatus
+        fields = (
+            "url",
+            "id",
+            "region_type",
+            "status_title",
+            "description",
+            "starting_gear",
+            "roll",
+            "impacts",
+        )
+
+
+class LifeEventSerializer(serializers.HyperlinkedModelSerializer):
+    impacts = ImpactSerializer(many=True)
+
+    class Meta:
+        model = LifeEvent
+        fields = (
+            "url",
+            "id",
+            "category",
+            "label",
+            "description",
+            "roll",
+            "impacts",
+        )
+
+
+class MostInfluencialFriendSerializer(serializers.HyperlinkedModelSerializer):
+    impacts = ImpactSerializer(many=True)
+    # TODO: Add linked_character
+
+    class Meta:
+        model = MostInfluencialFriend
+        fields = (
+            "url",
+            "id",
+            "region_type",
+            "status_title",
+            "description",
+            "starting_gear",
+            "roll",
+            "impacts",
+            "linked_character",
+        )
+
+
+class SiblingSerializer(serializers.HyperlinkedModelSerializer):
+    # TODO: Add linked_character
+
+    class Meta:
+        model = Sibling
+        fields = (
+            "url",
+            "id",
+            "relationship_status",
+            "personality",
+            "life_status",
+            "linked_character",
+        )
+
+
+class AllySerializer(serializers.HyperlinkedModelSerializer):
+    # TODO: Add linked_character
+
+    class Meta:
+        model = Ally
+        fields = (
+            "url",
+            "id",
+            "position",
+            "how_you_met",
+            "closeness",
+            "region",
+            "linked_character",
+        )
+
+
+class EnemySerializer(serializers.HyperlinkedModelSerializer):
+    # TODO: Add linked_character
+
+    class Meta:
+        model = Enemy
+        fields = (
+            "url",
+            "id",
+            "position",
+            "cause",
+            "who_was_wronged",
+            "escalation",
+            "power_name",
+            "power_value",
+            "linked_character",
+        )
+
+
+class RomanceSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Romance
+        fields = (
+            "url",
+            "id",
+            "romance_type",
+            "description",
+            "linked_character",
         )
