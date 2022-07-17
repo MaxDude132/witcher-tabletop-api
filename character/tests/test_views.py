@@ -15,7 +15,7 @@ from character.tests.factories.skill_factories import (
 )
 
 # Create your tests here.
-class RaceViewSetTextCase(APITestCase):
+class RaceViewSetTestCase(APITestCase):
     def test_list(self):
         impact = ImpactFactory()
         impact.statistics.add(StatisticOwnershipFactory())
