@@ -33,13 +33,19 @@ from .views import (
 
 
 router = routers.SimpleRouter()
+
+# utils
 router.register("dice-roll-informations", DiceRollInformationViewSet)
 router.register("range-informations", RangeInformationViewSet)
+
+# skills
 router.register("statistic-ownserships", StatisticOwnershipViewSet)
 router.register("statistics", StatisticViewSet)
 router.register("skill-ownserships", SkillOwnershipViewSet)
 router.register("skills", SkillViewSet)
 router.register("impacts", ImpactViewSet)
+
+# equipment
 router.register("effects", EffectViewSet)
 router.register("effect-ownerships", EffectOwnershipViewSet)
 router.register("gear", GearViewSet)
@@ -55,6 +61,8 @@ router.register("armor", ArmorViewSet)
 router.register("armor-ownserships", ArmorOwnershipViewSet)
 router.register("shields", ShieldViewSet)
 router.register("shield-ownerships", ShieldOwnershipViewSet)
+
+# character
 router.register("races", RaceViewSet)
 router.register("social-standings", SocialStandingViewSet)
 router.register("region-standings", RegionStandingViewSet)

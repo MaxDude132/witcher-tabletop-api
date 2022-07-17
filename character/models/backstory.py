@@ -39,7 +39,7 @@ class FamilyStatus(models.Model):
     status_title = models.CharField(max_length=50)
     description = models.TextField()
 
-    starting_gear = models.CharField(max_length=50)
+    starting_gear = models.CharField(max_length=50, null=True, blank=True)
     roll = models.PositiveSmallIntegerField(null=True, blank=True)
     impacts = models.ManyToManyField("Impact", blank=True)
 
@@ -68,7 +68,7 @@ class MostInfluencialFriend(OtherCharacterMixin):
     status_title = models.CharField(max_length=50)
     description = models.TextField()
 
-    starting_gear = models.CharField(max_length=50)
+    starting_gear = models.CharField(max_length=50, null=True, blank=True)
     roll = models.PositiveSmallIntegerField(null=True, blank=True)
     impacts = models.ManyToManyField("Impact", blank=True)
     linked_character = models.OneToOneField(
