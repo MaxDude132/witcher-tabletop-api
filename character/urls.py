@@ -9,6 +9,9 @@ from .views import (
     ArmorEnhancementViewSet,
     ArmorOwnershipViewSet,
     ArmorViewSet,
+    CharacterViewSet,
+    CountryViewSet,
+    DefiningSkillViewSet,
     DiceRollInformationViewSet,
     EffectOwnershipViewSet,
     EffectViewSet,
@@ -18,8 +21,11 @@ from .views import (
     GearOwnsershipViewSet,
     GearViewSet,
     ImpactViewSet,
+    LanguageOwnershipViewSet,
+    LanguageViewSet,
     LifeEventViewSet,
     MostInfluencialFriendViewSet,
+    ProfessionViewSet,
     RacePerkViewSet,
     RaceViewSet,
     RangeInformationViewSet,
@@ -51,7 +57,6 @@ router.register("statistic-ownserships", StatisticOwnershipViewSet)
 router.register("statistics", StatisticViewSet)
 router.register("skill-ownserships", SkillOwnershipViewSet)
 router.register("skills", SkillViewSet)
-router.register("impacts", ImpactViewSet)
 
 # equipment
 router.register("effects", EffectViewSet)
@@ -70,12 +75,6 @@ router.register("armor-ownserships", ArmorOwnershipViewSet)
 router.register("shields", ShieldViewSet)
 router.register("shield-ownerships", ShieldOwnershipViewSet)
 
-# character
-router.register("races", RaceViewSet)
-router.register("social-standings", SocialStandingViewSet)
-router.register("region-standings", RegionStandingViewSet)
-router.register("race-perks", RacePerkViewSet)
-
 # backstory
 router.register("fate-events", FateEventViewSet)
 router.register("family-statuses", FamilyStatusViewSet)
@@ -85,6 +84,19 @@ router.register("siblings", SiblingViewSet)
 router.register("allies", AllyViewSet)
 router.register("enemies", EnemyViewSet)
 router.register("romances", RomanceViewSet)
+
+# character
+router.register("countries", CountryViewSet)
+router.register("impacts", ImpactViewSet)
+router.register("race-perks", RacePerkViewSet)
+router.register("social-standings", SocialStandingViewSet)
+router.register("region-standings", RegionStandingViewSet)
+router.register("races", RaceViewSet)
+router.register("defining-skills", DefiningSkillViewSet)
+router.register("professions", ProfessionViewSet)
+router.register("languages", LanguageViewSet)
+router.register("language-ownerships", LanguageOwnershipViewSet)
+router.register("characters", CharacterViewSet)
 
 
 urlpatterns = router.urls

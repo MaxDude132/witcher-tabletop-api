@@ -211,7 +211,7 @@ class Character(models.Model):
     armor = models.ManyToManyField(
         ArmorOwnership, related_name="characters", blank=True
     )
-    armor = models.ManyToManyField(
+    shield = models.ManyToManyField(
         ShieldOwnership, related_name="characters", blank=True
     )
 

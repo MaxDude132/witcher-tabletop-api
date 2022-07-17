@@ -11,7 +11,7 @@ from character.models.backstory import (
     Sibling,
 )
 
-from character.models.character import Impact, RacePerk, RegionStanding, SocialStanding
+from character.models.character import Character, Country, DefiningSkill, Impact, Language, LanguageOwnership, Profession, RacePerk, RegionStanding, SocialStanding
 from character.models.equipment import (
     Ammunition,
     AmmunitionOwnership,
@@ -29,8 +29,9 @@ from character.models.equipment import (
     Weapon,
     WeaponOwnership,
 )
-from character.models.skills import Skill, SkillOwnership, Statistic, StatisticOwnership
+from character.models.skills import Skill, SkillOwnership, SkillTreeBranch, SkillTreeItem, SkillTreeItemOwnership, Statistic, StatisticOwnership
 from character.models.utils import DiceRollInformation, RangeInformation
+from core.serializers import PlayerSerializer
 
 from .models import Race
 
@@ -264,11 +265,6 @@ class WeaponOwnsershipSerializer(serializers.HyperlinkedModelSerializer):
             "weapon",
             "rune",
         )
-
-
-"""
-shield
-"""
 
 
 class AmmunitionSerializer(serializers.HyperlinkedModelSerializer):
@@ -553,6 +549,8 @@ class EnemySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class RomanceSerializer(serializers.HyperlinkedModelSerializer):
+    # TODO: Add linked_character
+
     class Meta:
         model = Romance
         fields = (
@@ -561,4 +559,196 @@ class RomanceSerializer(serializers.HyperlinkedModelSerializer):
             "romance_type",
             "description",
             "linked_character",
+        )
+
+
+class CountrySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Country
+        fields = (
+            'url',
+            'id',
+            'label',
+            'region',
+        )
+
+
+class DefiningSkillSerializer(serializers.HyperlinkedModelSerializer):
+    statistic = StatisticSerializer()
+
+    class Meta:
+        model = DefiningSkill
+        fields = (
+            'url',
+            'id',
+            'label',
+            'description',
+            'statistic',
+        )
+
+
+class ProfessionSerializer(serializers.HyperlinkedModelSerializer):
+    starting_skills = SkillSerializer(many=True)
+    starting_gear = GearSerializer(many=True)
+    starting_weapons = WeaponSerializer(many=True)
+    starting_armor = ArmorSerializer(many=True)
+    region_standings = RegionStandingSerializer(many=True)
+
+    class Meta:
+        model = Profession
+        fields = (
+            'url',
+            'id',
+            'label',
+            'description',
+            'defining_skill',
+            'starting_vigor',
+            'starting_skills',
+            'starting_gear',
+            'starting_weapons',
+            'starting_armor',
+            'starting_novice_spells',
+            'starting_novice_invocations',
+            'starting_novice_rituals',
+            'starting_low_danger_hexes',
+            'region_standings',
+        )
+
+
+class LanguageSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Language
+        fields = (
+            'url',
+            'id',
+            'label',
+            'description',
+        )
+
+
+class LanguageOwnershipSerializer(serializers.HyperlinkedModelSerializer):
+    language = LanguageSerializer()
+
+    class Meta:
+        model = LanguageOwnership
+        fields = (
+            'url',
+            'id',
+            'language',
+            'value',
+        )
+
+
+"""
+SkillTreeBranch
+SkillTreeItem
+SkillTreeItemOwnership
+"""
+
+
+class SkilltreeBranchserializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = SkillTreeBranch
+        fields = (
+            'url',
+            'id',
+            'label',
+        )
+        
+
+class SkillTreeItemSerializer(serializers.HyperlinkedModelSerializer):
+    profession = ProfessionSerializer()
+    statistic = StatisticSerializer()
+    impacts = ImpactSerializer(many=True)
+
+    class Meta:
+        model = SkillTreeItem
+        fields = (
+            'url',
+            'id',
+            'profession',
+            'branch',
+            'depth',
+            'statistic',
+            'label',
+            'description',
+            'impacts',
+        )
+
+
+class SkillTreeItemOwnershipSerializer(serializers.HyperlinkedModelSerializer):
+    skill_tree_item = SkillTreeItemSerializer()
+
+    class Meta:
+        model = SkillTreeItemOwnership
+        fields = (
+            'url',
+            'id',
+            'skill_tree_item',
+            'value',
+        )
+
+
+class CharacterSerializer(serializers.HyperlinkedModelSerializer):
+    player = PlayerSerializer()
+    country = CountrySerializer()
+    race = RaceSerializer()
+    profession = ProfessionSerializer()
+    fate_event = FateEventSerializer(many=True)
+    family_status = FamilyStatusSerializer(many=True)
+    region_standings = RegionStandingSerializer(many=True)
+    statistics = StatisticOwnershipSerializer(many=True)
+    skills = SkillOwnershipSerializer(many=True)
+    skill_tree_items = SkillTreeItemOwnershipSerializer(many=True)
+    languages = LanguageOwnershipSerializer(many=True)
+    gear = GearOwnershipSerializer(many=True)
+    tool_kits = ToolKitOwnershipSerializer(many=True)
+    weapons = WeaponOwnsershipSerializer(many=True)
+    ammunition = AmmunitionOwnsershipSerializer(many=True)
+    armor = ArmorOwnershipSerializer(many=True)
+    shield = ShieldOwnershipSerializer(many=True)
+    life_events = LifeEventSerializer(many=True)
+    siblings = SiblingSerializer(many=True)
+    allies = AllySerializer(many=True)
+    enemies = EnemySerializer(many=True)
+    romances = RomanceSerializer(many=True)
+
+    class Meta:
+        model = Character
+        fields = (
+            'url',
+            'id',
+            'player',
+            'name',
+            'country',
+            'city',
+            'race',
+            'profession',
+            'region_standings',
+            'statistics',
+            'skills',
+            'skill_tree_items',
+            'languages',
+            'improvement_points',
+            'gear',
+            'tool_kits',
+            'weapons',
+            'ammunition',
+            'armor',
+            'shield',
+            'fate_event',
+            'family_status',
+            'life_events',
+            'most_influencial_friend',
+            'siblings',
+            'allies',
+            'enemies',
+            'romances',
+            'clothing',
+            'personality',
+            'hair_style',
+            'affectations',
+            'values_person',
+            'value',
+            'feelings_on_people',
         )

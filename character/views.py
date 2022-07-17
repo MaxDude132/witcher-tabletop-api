@@ -10,7 +10,7 @@ from character.models.backstory import (
     Sibling,
 )
 
-from character.models.character import Impact, RacePerk, RegionStanding, SocialStanding
+from character.models.character import Character, Country, DefiningSkill, Impact, Language, LanguageOwnership, Profession, RacePerk, RegionStanding, SocialStanding
 from character.models.equipment import (
     Ammunition,
     AmmunitionOwnership,
@@ -39,6 +39,9 @@ from .serializers import (
     ArmorEnhancementSerializer,
     ArmorOwnershipSerializer,
     ArmorSerializer,
+    CharacterSerializer,
+    CountrySerializer,
+    DefiningSkillSerializer,
     DiceRollInformationSerializer,
     EffectSerializer,
     EffectOwnershipSerializer,
@@ -48,8 +51,11 @@ from .serializers import (
     GearOwnershipSerializer,
     GearSerializer,
     ImpactSerializer,
+    LanguageOwnershipSerializer,
+    LanguageSerializer,
     LifeEventSerializer,
     MostInfluencialFriendSerializer,
+    ProfessionSerializer,
     RacePerkSerializer,
     RaceSerializer,
     RangeInformationSerializer,
@@ -238,3 +244,47 @@ class EnemyViewSet(ModelViewSet):
 class RomanceViewSet(ModelViewSet):
     queryset = Romance.objects.all()
     serializer_class = RomanceSerializer
+
+
+"""
+Country
+Impact
+RacePerk
+SocialStanding
+RegionStanding
+Race
+DefiningSkill
+Profession
+Language
+Character
+LanguageOwnership
+"""
+
+class CountryViewSet(ReadOnlyModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+
+
+class DefiningSkillViewSet(ReadOnlyModelViewSet):
+    queryset = DefiningSkill.objects.all()
+    serializer_class = DefiningSkillSerializer
+
+
+class ProfessionViewSet(ReadOnlyModelViewSet):
+    queryset = Profession.objects.all()
+    serializer_class = ProfessionSerializer
+
+
+class LanguageViewSet(ReadOnlyModelViewSet):
+    queryset = Language.objects.all()
+    serializer_class = LanguageSerializer
+
+
+class LanguageOwnershipViewSet(ModelViewSet):
+    queryset = LanguageOwnership.objects.all()
+    serializer_class = LanguageOwnershipSerializer
+
+
+class CharacterViewSet(ModelViewSet):
+    queryset = Character.objects.all()
+    serializer_class = CharacterSerializer
