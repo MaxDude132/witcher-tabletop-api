@@ -28,7 +28,7 @@ from character.models.equipment import (
     Weapon,
     WeaponOwnership,
 )
-from character.models.skills import Skill, SkillOwnership, Statistic, StatisticOwnership
+from character.models.skills import Skill, SkillOwnership, SkillTreeBranch, SkillTreeItem, SkillTreeItemOwnership, Statistic, StatisticOwnership
 from character.models.utils import DiceRollInformation, RangeInformation
 
 from .models import Race
@@ -66,6 +66,9 @@ from .serializers import (
     SiblingSerializer,
     SkillOwnershipSerializer,
     SkillSerializer,
+    SkillTreeItemOwnershipSerializer,
+    SkillTreeItemSerializer,
+    SkilltreeBranchSerializer,
     SocialStandingSerializer,
     StatisticOwnershipSerializer,
     StatisticSerializer,
@@ -86,14 +89,19 @@ class RangeInformationViewSet(ReadOnlyModelViewSet):
     serializer_class = RangeInformationSerializer
 
 
+class StatisticViewSet(ReadOnlyModelViewSet):
+    queryset = Statistic.objects.all()
+    serializer_class = StatisticSerializer
+
+
 class StatisticOwnershipViewSet(ModelViewSet):
     queryset = StatisticOwnership.objects.all()
     serializer_class = StatisticOwnershipSerializer
 
 
-class StatisticViewSet(ReadOnlyModelViewSet):
-    queryset = Statistic.objects.all()
-    serializer_class = StatisticSerializer
+class SkillViewSet(ReadOnlyModelViewSet):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
 
 
 class SkillOwnershipViewSet(ModelViewSet):
@@ -101,9 +109,19 @@ class SkillOwnershipViewSet(ModelViewSet):
     serializer_class = SkillOwnershipSerializer
 
 
-class SkillViewSet(ReadOnlyModelViewSet):
-    queryset = Skill.objects.all()
-    serializer_class = SkillSerializer
+class SkillTreeBranchViewSet(ReadOnlyModelViewSet):
+    queryset = SkillTreeBranch.objects.all()
+    serializer_class = SkilltreeBranchSerializer
+
+
+class SkillTreeItemViewSet(ReadOnlyModelViewSet):
+    queryset = SkillTreeItem.objects.all()
+    serializer_class = SkillTreeItemSerializer
+
+
+class SkillTreeItemOwershipViewSet(ModelViewSet):
+    queryset = SkillTreeItemOwnership.objects.all()
+    serializer_class = SkillTreeItemOwnershipSerializer
 
 
 class ImpactViewSet(ReadOnlyModelViewSet):

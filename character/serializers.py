@@ -639,14 +639,7 @@ class LanguageOwnershipSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-"""
-SkillTreeBranch
-SkillTreeItem
-SkillTreeItemOwnership
-"""
-
-
-class SkilltreeBranchserializer(serializers.HyperlinkedModelSerializer):
+class SkilltreeBranchSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SkillTreeBranch
         fields = (

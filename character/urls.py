@@ -1,5 +1,3 @@
-from django.urls import include, path
-
 from rest_framework import routers
 
 from .views import (
@@ -35,6 +33,9 @@ from .views import (
     ShieldViewSet,
     SiblingViewSet,
     SkillOwnershipViewSet,
+    SkillTreeBranchViewSet,
+    SkillTreeItemOwershipViewSet,
+    SkillTreeItemViewSet,
     SkillViewSet,
     SocialStandingViewSet,
     StatisticOwnershipViewSet,
@@ -53,25 +54,28 @@ router.register("dice-roll-informations", DiceRollInformationViewSet)
 router.register("range-informations", RangeInformationViewSet)
 
 # skills
-router.register("statistic-ownserships", StatisticOwnershipViewSet)
 router.register("statistics", StatisticViewSet)
-router.register("skill-ownserships", SkillOwnershipViewSet)
+router.register("statistic-ownerships", StatisticOwnershipViewSet)
 router.register("skills", SkillViewSet)
+router.register("skill-ownerships", SkillOwnershipViewSet)
+router.register("skill-tree-branches", SkillTreeBranchViewSet)
+router.register("skill-tree-items", SkillTreeItemViewSet)
+router.register("skill-tree=item-ownerships", SkillTreeItemOwershipViewSet)
 
 # equipment
 router.register("effects", EffectViewSet)
 router.register("effect-ownerships", EffectOwnershipViewSet)
 router.register("gear", GearViewSet)
-router.register("gear-ownserships", GearOwnsershipViewSet)
+router.register("gear-ownerships", GearOwnsershipViewSet)
 router.register("tool-kits", ToolKitViewSet)
 router.register("tool-kit-ownerships", ToolKitOwnershipViewSet)
 router.register("weapons", WeaponViewSet)
-router.register("weapon-ownserships", WeaponOwnershipViewSet)
+router.register("weapon-ownerships", WeaponOwnershipViewSet)
 router.register("ammunition", AmmunitionViewSet)
-router.register("ammunition-ownserships", AmmunitionOwnershipViewSet)
+router.register("ammunition-ownerships", AmmunitionOwnershipViewSet)
 router.register("armor-enhancements", ArmorEnhancementViewSet)
 router.register("armor", ArmorViewSet)
-router.register("armor-ownserships", ArmorOwnershipViewSet)
+router.register("armor-ownerships", ArmorOwnershipViewSet)
 router.register("shields", ShieldViewSet)
 router.register("shield-ownerships", ShieldOwnershipViewSet)
 
