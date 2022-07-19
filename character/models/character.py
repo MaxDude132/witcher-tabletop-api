@@ -197,8 +197,8 @@ class Character(models.Model):
     )
 
     # Stats and Skills
-    statistics = models.ManyToManyField(StatisticOwnership, related_name="characters")
-    skills = models.ManyToManyField(SkillOwnership, related_name="characters")
+    statistics = models.ManyToManyField(StatisticOwnership, related_name="characters", blank=True)
+    skills = models.ManyToManyField(SkillOwnership, related_name="characters", blank=True)
     skill_tree_items = models.ManyToManyField(
         SkillTreeItemOwnership, related_name="characters", blank=True
     )
