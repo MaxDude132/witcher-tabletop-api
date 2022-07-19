@@ -20,6 +20,7 @@ from character.models.character import (
     RacePerk,
     RegionStanding,
     SocialStanding,
+    Language,
     LanguageOwnership,
 )
 from character.models.equipment import (
@@ -94,6 +95,11 @@ class DefiningSkillAdmin(admin.ModelAdmin):
 
 @admin.register(Profession)
 class ProfessionAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Language)
+class LanguageAdmin(admin.ModelAdmin):
     pass
 
 

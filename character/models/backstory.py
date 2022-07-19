@@ -74,7 +74,7 @@ class MostInfluencialFriend(OtherCharacterMixin):
     linked_character = models.OneToOneField(
         "Character",
         on_delete=models.CASCADE,
-        null=True,
+        null=True, blank=True,
         related_name="is_most_influencial_friend",
     )
 
@@ -84,7 +84,7 @@ class Sibling(OtherCharacterMixin):
     personality = models.CharField(max_length=50)
     life_status = models.CharField(max_length=50)
     linked_character = models.OneToOneField(
-        "Character", on_delete=models.CASCADE, null=True, related_name="is_sibling"
+        "Character", on_delete=models.CASCADE, null=True, blank=True, related_name="is_sibling"
     )
 
 
@@ -94,7 +94,7 @@ class Ally(OtherCharacterMixin):
     closeness = models.CharField(max_length=50)
     region = models.CharField(max_length=50, choices=AllyRegionChoice.choices)
     linked_character = models.OneToOneField(
-        "Character", on_delete=models.CASCADE, null=True, related_name="is_ally"
+        "Character", on_delete=models.CASCADE, null=True, blank=True, related_name="is_ally"
     )
 
     class Meta:
@@ -111,7 +111,7 @@ class Enemy(OtherCharacterMixin):
     power_name = models.CharField(max_length=50)
     power_value = models.PositiveIntegerField()
     linked_character = models.OneToOneField(
-        "Character", on_delete=models.CASCADE, null=True, related_name="is_enemy"
+        "Character", on_delete=models.CASCADE, null=True, blank=True, related_name="is_enemy"
     )
 
     class Meta:
@@ -122,5 +122,5 @@ class Romance(OtherCharacterMixin):
     romance_type = models.CharField(max_length=50)
     description = models.TextField()
     linked_character = models.OneToOneField(
-        "Character", on_delete=models.CASCADE, null=True, related_name="is_romance"
+        "Character", on_delete=models.CASCADE, null=True, blank=True, related_name="is_romance"
     )
