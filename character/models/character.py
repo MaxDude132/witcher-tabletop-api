@@ -175,6 +175,14 @@ class Language(models.Model):
         return self.label
 
 
+class LanguageOwnership(models.Model):
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    value = models.IntegerField()
+
+    def __str__(self) -> str:
+        return f"<{self.language} {self.value}>"
+
+
 class Character(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
 
@@ -194,7 +202,7 @@ class Character(models.Model):
     skill_tree_items = models.ManyToManyField(
         SkillTreeItemOwnership, related_name="characters", blank=True
     )
-    languages = models.ManyToManyField("LanguageOwnership", related_name="characters")
+    languages = models.ManyToManyField(LanguageOwnership, related_name="characters", blank=True)
     improvement_points = models.PositiveIntegerField()
 
     # Equipement
@@ -242,11 +250,3 @@ class Character(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} - {self.player}"
-
-
-class LanguageOwnership(models.Model):
-    language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    value = models.IntegerField()
-
-    def __str__(self) -> str:
-        return f"<{self.language}> <{self.value}>"
