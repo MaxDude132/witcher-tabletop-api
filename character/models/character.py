@@ -249,4 +249,4 @@ class LanguageOwnership(models.Model):
     value = models.IntegerField()
 
     def __str__(self) -> str:
-        return f"<{self.character}> - <{self.language}>"
+        return f"<{self.language}> <{self.value}>"
