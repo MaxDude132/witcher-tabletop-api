@@ -203,7 +203,7 @@ class Character(models.Model):
         SkillTreeItemOwnership, related_name="characters", blank=True
     )
     languages = models.ManyToManyField(LanguageOwnership, related_name="characters", blank=True)
-    improvement_points = models.PositiveIntegerField()
+    improvement_points = models.PositiveIntegerField(default=0)
 
     # Equipement
     gear = models.ManyToManyField(GearOwnership, related_name="characters", blank=True)
@@ -224,13 +224,13 @@ class Character(models.Model):
     )
 
     # Backstory
-    fate_event = models.ForeignKey(FateEvent, on_delete=models.CASCADE, null=True)
-    family_status = models.ForeignKey(FamilyStatus, on_delete=models.CASCADE, null=True)
+    fate_event = models.ForeignKey(FateEvent, on_delete=models.CASCADE, null=True, blank=True)
+    family_status = models.ForeignKey(FamilyStatus, on_delete=models.CASCADE, null=True, blank=True)
     life_events = models.ManyToManyField(
         LifeEvent, related_name="characters", blank=True
     )
     most_influencial_friend = models.OneToOneField(
-        MostInfluencialFriend, on_delete=models.SET_NULL, null=True
+        MostInfluencialFriend, on_delete=models.SET_NULL, null=True, blank=True
     )
     siblings = models.ManyToManyField(Sibling, related_name="characters", blank=True)
     allies = models.ManyToManyField(Ally, related_name="characters", blank=True)
@@ -238,15 +238,15 @@ class Character(models.Model):
     romances = models.ManyToManyField(Romance, related_name="characters", blank=True)
 
     # Personal Style
-    clothing = models.CharField(max_length=50, blank=True)
-    personality = models.CharField(max_length=50, blank=True)
-    hair_style = models.CharField(max_length=50, blank=True)
-    affectations = models.CharField(max_length=50, blank=True)
+    clothing = models.CharField(max_length=50, null=True, blank=True)
+    personality = models.CharField(max_length=50, null=True, blank=True)
+    hair_style = models.CharField(max_length=50, null=True, blank=True)
+    affectations = models.CharField(max_length=50, null=True, blank=True)
 
     # Personal Values
-    values_person = models.CharField(max_length=50, blank=True)
-    value = models.CharField(max_length=50, blank=True)
-    feelings_on_people = models.CharField(max_length=100, blank=True)
+    values_person = models.CharField(max_length=50, null=True, blank=True)
+    value = models.CharField(max_length=50, null=True, blank=True)
+    feelings_on_people = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.name} - {self.player}"

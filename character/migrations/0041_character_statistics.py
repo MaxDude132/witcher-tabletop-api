@@ -10,9 +10,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='character',
-            name='statistics',
-            field=models.ManyToManyField(blank=True, related_name='characters', to='character.statisticownership'),
-        ),
     ]
