@@ -317,5 +317,5 @@ class CharacterViewSet(ModelViewSet):
 
     @action(detail=False)
     def creation_options(self, request):
-        serializer = self.get_serializer()
+        serializer = self.get_serializer(self.get_queryset())
         return Response(serializer.data)

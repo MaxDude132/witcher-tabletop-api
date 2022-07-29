@@ -1,6 +1,7 @@
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
+from character.models.character import Race
 from character.models.skills import StatisticOwnership
 
 from character.tests.factories.character_factories import (
@@ -59,4 +60,7 @@ class CharacterViewSetTestCase(APITestCase):
         url = reverse("character-creation-options")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, [race.label, race2.label])
+        self.assertEqual(response.data, {
+                'races': [race.label for race in Race.objects.all()]
+            }
+        )
