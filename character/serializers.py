@@ -745,3 +745,10 @@ class CharacterSerializer(serializers.HyperlinkedModelSerializer):
             'value',
             'feelings_on_people',
         )
+
+
+class CharacterCreationOptionsSerializer(serializers.Serializer):
+    races = serializers.SerializerMethodField()
+
+    def get_races(self, obj):
+        return [race.label for race in Race.objects.all()]

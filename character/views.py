@@ -1,4 +1,6 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from character.models.backstory import (
     Ally,
     Enemy,
@@ -39,6 +41,7 @@ from .serializers import (
     ArmorEnhancementSerializer,
     ArmorOwnershipSerializer,
     ArmorSerializer,
+    CharacterCreationOptionsSerializer,
     CharacterSerializer,
     CountrySerializer,
     DefiningSkillSerializer,
@@ -305,4 +308,14 @@ class LanguageOwnershipViewSet(ModelViewSet):
 
 class CharacterViewSet(ModelViewSet):
     queryset = Character.objects.all()
-    serializer_class = CharacterSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'creation_options':
+            return CharacterCreationOptionsSerializer
+
+        return CharacterSerializer
+
+    @action(detail=False)
+    def creation_options(self, request):
+        serializer = self.get_serializer()
+        return Response(serializer.data)
