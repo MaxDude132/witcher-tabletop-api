@@ -754,6 +754,11 @@ class RaceMinimalSerializer(RaceSerializer):
 
 
 class CountryMinimalSerializer(CountrySerializer):
+    region = serializers.SerializerMethodField()
+
+    def get_region(self, obj):
+        return obj.get_region_display()
+
     class Meta:
         model = Country
         fields = ('id', 'label', 'region')
