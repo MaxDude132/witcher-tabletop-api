@@ -753,6 +753,12 @@ class RaceMinimalSerializer(RaceSerializer):
         fields = ('id', 'label')
 
 
+class ProfessionMinimalSerializer(ProfessionSerializer):
+    class Meta:
+        model = Profession
+        fields = ('id', 'label')
+
+
 class CountryMinimalSerializer(CountrySerializer):
     region = serializers.SerializerMethodField()
 
@@ -769,6 +775,11 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
 
     def get_races(self, obj):
         return RaceMinimalSerializer(Race.objects.all(), many=True).data
+
+    professions = serializers.SerializerMethodField()
+
+    def get_professions(self, obj):
+        return ProfessionMinimalSerializer(Profession.objects.all(), many=True).data
 
     countries = serializers.SerializerMethodField()
 

@@ -61,4 +61,5 @@ class CharacterViewSetTestCase(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('races', response.data)
+        self.assertIn('professions', response.data)
         self.assertIn('countries', response.data)
