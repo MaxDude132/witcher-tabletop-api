@@ -60,7 +60,5 @@ class CharacterViewSetTestCase(APITestCase):
         url = reverse("character-creation-options")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, {
-                'races': [race.label for race in Race.objects.all()]
-            }
-        )
+        self.assertIn('races', response.data)
+        self.assertIn('countries', response.data)

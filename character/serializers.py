@@ -760,5 +760,12 @@ class CountryMinimalSerializer(CountrySerializer):
 
 
 class CharacterCreationOptionsSerializer(serializers.Serializer):
-    races = RaceMinimalSerializer(many=True)
-    countries = CountryMinimalSerializer(many=True)
+    races = serializers.SerializerMethodField()
+
+    def get_races(self, obj):
+        return RaceMinimalSerializer(Race.objects.all(), many=True).data
+
+    countries = serializers.SerializerMethodField()
+
+    def get_countries(self, obj):
+        return CountryMinimalSerializer(Country.objects.all(), many=True).data
