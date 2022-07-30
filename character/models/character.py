@@ -40,6 +40,7 @@ class Country(models.Model):
     class Meta:
         verbose_name_plural = "countries"
         unique_together = ("label", "region")
+        ordering = ('region', 'label')
 
     def __str__(self) -> str:
         return self.label

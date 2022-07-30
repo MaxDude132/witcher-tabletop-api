@@ -54,8 +54,8 @@ class CharacterViewSetTestCase(APITestCase):
         self.assertEqual(len(response.data), 1)
 
     def test_creation_options(self):
-        race = RaceFactory()
-        race2 = RaceFactory()
+        RaceFactory()
+        RaceFactory()
 
         url = reverse("character-creation-options")
         response = self.client.get(url)

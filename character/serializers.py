@@ -747,8 +747,18 @@ class CharacterSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class CharacterCreationOptionsSerializer(serializers.Serializer):
-    races = serializers.SerializerMethodField()
+class RaceMinimalSerializer(RaceSerializer):
+    class Meta:
+        model = Race
+        fields = ('id', 'label')
 
-    def get_races(self, obj):
-        return [race.label for race in Race.objects.all()]
+
+class CountryMinimalSerializer(CountrySerializer):
+    class Meta:
+        model = Country
+        fields = ('id', 'label', 'region')
+
+
+class CharacterCreationOptionsSerializer(serializers.Serializer):
+    races = RaceMinimalSerializer(many=True)
+    countries = CountryMinimalSerializer(many=True)
