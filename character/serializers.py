@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db.models import Q
 from character.choices import GearCategoryChoice
 from character.models.backstory import (
     Ally,
@@ -850,7 +851,7 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
     statistics = serializers.SerializerMethodField()
 
     def get_statistics(self, obj):
-        return StatisticMinimalSerializer(Statistic.objects.all(), many=True).data
+        return StatisticMinimalSerializer(Statistic.objects.filter(~Q(skill=None)), many=True).data
 
     skills = serializers.SerializerMethodField()
 
