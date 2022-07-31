@@ -859,6 +859,6 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
 
         for statistic in Statistic.objects.all():
             if Skill.objects.filter(statistic=statistic).exists():
-                out[statistic.pk] = SkillMinimalSerializer(Skill.objects.filter(statistic=statistic)).data
+                out[statistic.pk] = SkillMinimalSerializer(Skill.objects.filter(statistic=statistic), many=True).data
         
         return out
