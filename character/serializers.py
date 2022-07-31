@@ -802,14 +802,12 @@ class StatisticMinimalSerializer(StatisticSerializer):
 
 
 class SkillMinimalSerializer(SkillSerializer):
-    statistic = StatisticMinimalSerializer()
     class Meta:
         model = Skill
         fields = (
             "id",
             "label",
             "description",
-            "statistic",
             "costs_double",
         )
 
@@ -857,4 +855,9 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
     skills = serializers.SerializerMethodField()
 
     def get_skills(self, obj):
-        return SkillMinimalSerializer(Skill.objects.all(), many=True).data
+        out = {}
+
+        for statistic in Statistic.objects.all()[:9]:
+            out[statistic.pk] = SkillMinimalSerializer(Skill.objects.filter(statistic=statistic)).data
+        
+        return out
