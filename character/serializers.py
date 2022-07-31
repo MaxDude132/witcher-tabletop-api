@@ -770,6 +770,16 @@ class CountryMinimalSerializer(CountrySerializer):
         fields = ('id', 'label', 'region')
 
 
+class FateEventMinimalSerializer(FateEventSerializer):
+    class Meta:
+        model = FateEvent
+        fields = (
+            "id",
+            "description",
+            "roll",
+        )
+
+
 class CharacterCreationOptionsSerializer(serializers.Serializer):
     races = serializers.SerializerMethodField()
 
