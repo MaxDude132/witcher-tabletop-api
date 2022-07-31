@@ -790,6 +790,29 @@ class FamilyStatusMinimalSerializer(FamilyStatusSerializer):
         )
 
 
+class StatisticMinimalSerializer(StatisticSerializer):
+    class Meta:
+        model = Statistic
+        fields = (
+            "id",
+            "label",
+            "abbreviated_label",
+            "description",
+        )
+
+
+class SkillMinimalSerializer(SkillSerializer):
+    class Meta:
+        model = Skill
+        fields = (
+            "id",
+            "label",
+            "description",
+            "statistic",
+            "costs_double",
+        )
+
+
 class CharacterCreationOptionsSerializer(serializers.Serializer):
     races = serializers.SerializerMethodField()
 
@@ -824,3 +847,13 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
             out['family_status'][region_type] = FamilyStatusMinimalSerializer(family_status, many=True).data
 
         return out
+
+    statistics = serializers.SerializerMethodField()
+
+    def get_statistics(self, obj):
+        return StatisticMinimalSerializer(Statistic.objects.all(), many=True)
+
+    skills = serializers.SerializerMethodField()
+
+    def get_statistics(self, obj):
+        return StatisticMinimalSerializer(Skill.objects.all(), many=True)
