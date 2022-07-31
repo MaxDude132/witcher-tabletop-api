@@ -780,6 +780,16 @@ class FateEventMinimalSerializer(FateEventSerializer):
         )
 
 
+class FamilyStatusMinimalSerializer(FamilyStatusSerializer):
+    class Meta:
+        model = FateEvent
+        fields = (
+            "id",
+            "description",
+            "roll",
+        )
+
+
 class CharacterCreationOptionsSerializer(serializers.Serializer):
     races = serializers.SerializerMethodField()
 
@@ -807,5 +817,10 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
             for region_type in FateEvent.objects.all().distinct('region_type').values_list('region_type', flat=True):
                 fate_events = FateEvent.objects.filter(category=category, region_type=region_type)
                 out[category][region_type] = FateEventMinimalSerializer(fate_events, many=True).data
+
+        out['family_status'] = {}
+        for region_type in FamilyStatus.objects.all().distinct('region_type').values_list('region_type', flat=True):
+            family_status = FamilyStatus.objects.filter(region_type=region_type)
+            out[region_type] = FamilyStatusMinimalSerializer(family_status, many=True).data
 
         return out
