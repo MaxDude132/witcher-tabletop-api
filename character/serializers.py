@@ -802,6 +802,7 @@ class StatisticMinimalSerializer(StatisticSerializer):
 
 
 class SkillMinimalSerializer(SkillSerializer):
+    statistic = StatisticMinimalSerializer()
     class Meta:
         model = Skill
         fields = (
