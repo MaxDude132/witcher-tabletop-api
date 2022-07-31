@@ -794,8 +794,8 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
         for category in FateEvent.objects.all().distinct('category').values_list('category', flat=True):
             out[category] = {}
 
-            for region_status in FateEvent.objects.all().distinct('region_status').values_list('region_status', flat=True):
-                fate_events = FateEvent.objects.filter(category=category, region_status=region_status)
-                out[category][region_status] = [FateEventSerializer(fate_events, many=True)]
+            for region_type in FateEvent.objects.all().distinct('region_type').values_list('region_type', flat=True):
+                fate_events = FateEvent.objects.filter(category=category, region_type=region_type)
+                out[category][region_type] = [FateEventSerializer(fate_events, many=True)]
 
         return out
