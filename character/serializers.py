@@ -821,6 +821,6 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
         out['family_status'] = {}
         for region_type in FamilyStatus.objects.all().distinct('region_type').values_list('region_type', flat=True):
             family_status = FamilyStatus.objects.filter(region_type=region_type)
-            out[region_type] = FamilyStatusMinimalSerializer(family_status, many=True).data
+            out['family_status'][region_type] = FamilyStatusMinimalSerializer(family_status, many=True).data
 
         return out
