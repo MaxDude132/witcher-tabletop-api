@@ -851,9 +851,9 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
     statistics = serializers.SerializerMethodField()
 
     def get_statistics(self, obj):
-        return StatisticMinimalSerializer(Statistic.objects.all(), many=True)
+        return StatisticMinimalSerializer(Statistic.objects.all(), many=True).data
 
     skills = serializers.SerializerMethodField()
 
     def get_skills(self, obj):
-        return StatisticMinimalSerializer(Skill.objects.all(), many=True)
+        return StatisticMinimalSerializer(Skill.objects.all(), many=True).data
