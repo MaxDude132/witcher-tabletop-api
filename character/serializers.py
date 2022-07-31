@@ -785,3 +785,17 @@ class CharacterCreationOptionsSerializer(serializers.Serializer):
 
     def get_countries(self, obj):
         return CountryMinimalSerializer(Country.objects.all(), many=True).data
+
+    common_lifepaths = serializers.SerializerMethodField()
+
+    def get_common_lifepaths(self, obj):
+        out = {}
+
+        for category in FateEvent.objects.all().distinct('category').values_list('category', flat=True):
+            out[category] = {}
+
+            for region_status in FateEvent.objects.all().distinct('region_status').values_list('region_status', flat=True):
+                fate_events = FateEvent.objects.filter(category=category, region_status=region_status)
+                out[category][region_status] = [FateEventSerializer(fate_events, many=True)]
+
+        return out
